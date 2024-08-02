@@ -1,0 +1,59 @@
+.about {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .about-intro {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .about-intro h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .about-intro p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .about-content {
+    padding: 40px 20px;
+    background-color: #fff;
+    line-height: 1.6;
+  }
+  
+  .about-content p {
+    margin-bottom: 20px;
+  }
+  
+  .appointment {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin: 40px 20px;
+  }
+  
+  .appointment h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .appointment p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .therapist-near-you {
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

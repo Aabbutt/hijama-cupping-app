@@ -4,21 +4,43 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <header className="header">
-      <div className="logo">
-        <img src="/logo.png" alt="Hijama Cupping App" />
+    <header>
+      <div className="header-container">
+        <div className="logo">
+          <img src="/images/logo.png" alt="Hijama Clinic" />
+        </div>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li className="dropdown">
+              <span>Knowledge Base</span>
+              <ul className="dropdown-content">
+                <li><Link to="/knowledge-base/hijama-in-islam">Hijama in Islam</Link></li>
+                <li><Link to="/knowledge-base/hijama-modern-world">Hijama & Modern World</Link></li>
+                <li><Link to="/knowledge-base/hijama-history">Hijama History</Link></li>
+                <li><Link to="/knowledge-base/benefits-of-hijama">Benefits of Hijama</Link></li>
+                <li><Link to="/knowledge-base/hijama-sunnah-dates">Hijama Sunnah Dates</Link></li>
+                <li><Link to="/knowledge-base/sunnah-points">Sunnah Points</Link></li>
+                <li><Link to="/knowledge-base/hijama-course">Hijama Course</Link></li>
+              </ul>
+            </li>
+            <li className="dropdown">
+              <span>Products</span>
+              <ul className="dropdown-content">
+                <li><Link to="/products/hijama-cups">Hijama Cups</Link></li>
+                <li><Link to="/products/hijama-pumps">Hijama Pumps</Link></li>
+                <li><Link to="/products/hijama-kits">Hijama Kits</Link></li>
+                <li><Link to="/products/honey">Honey</Link></li>
+              </ul>
+            </li>
+            <li><Link to="/blog">Blog</Link></li>
+            <li><Link to="/videos">Videos</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/login">Login</Link></li>
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <ul>
-          <li><Link to="/">Main</Link></li>
-          <li><Link to="/services">Services</Link></li>
-          <li><Link to="/testimonials">Testimonials</Link></li>
-          <li><Link to="/about">About Us</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/login">Login</Link></li>
-          <li><button className="book-now">Book Now</button></li>
-        </ul>
-      </nav>
     </header>
   );
 };

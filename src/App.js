@@ -3,23 +3,38 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Services from './pages/Services';
-import Testimonials from './pages/Testimonials';
 import About from './pages/About';
+import KnowledgeBase from './pages/KnowledgeBase';
+import Products from './pages/Products';
+import Blog from './pages/Blog';
+import Videos from './pages/Videos';
 import Contact from './pages/Contact';
-import './App.css';
+import Login from './pages/Login';
+// Import your Knowledge Base and Product specific components
 
 function App() {
   return (
     <Router>
-      <div>
+      <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/about" element={<About />} />
+          <Route path="/knowledge-base/hijama-in-islam" element={<KnowledgeBase.HijamaInIslam />} />
+          <Route path="/knowledge-base/hijama-modern-world" element={<KnowledgeBase.HijamaModernWorld />} />
+          <Route path="/knowledge-base/hijama-history" element={<KnowledgeBase.HijamaHistory />} />
+          <Route path="/knowledge-base/benefits-of-hijama" element={<KnowledgeBase.BenefitsOfHijama />} />
+          <Route path="/knowledge-base/hijama-sunnah-dates" element={<KnowledgeBase.HijamaSunnahDates />} />
+          <Route path="/knowledge-base/sunnah-points" element={<KnowledgeBase.SunnahPoints />} />
+          <Route path="/knowledge-base/hijama-course" element={<KnowledgeBase.HijamaCourse />} />
+          <Route path="/products/hijama-cups" element={<Products.HijamaCups />} />
+          <Route path="/products/hijama-pumps" element={<Products.HijamaPumps />} />
+          <Route path="/products/hijama-kits" element={<Products.HijamaKits />} />
+          <Route path="/products/honey" element={<Products.Honey />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/videos" element={<Videos />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </div>

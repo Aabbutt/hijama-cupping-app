@@ -1,74 +1,102 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleReadMoreClick = () => {
+    navigate('/about');
+  };
+
   return (
     <div className="home">
-      <section className="intro">
-        <div className="intro-text">
-          <h1>Expert Hijama Treatment</h1>
-          <p>We follow a holistic approach to healthcare</p>
-          <p>Cupping (Hijama in Arabic) is an ancient, holistic method for the treatment of a variety of diseases</p>
-          <button className="book-appointment">Book Appointment</button>
+      <section className="welcome-section">
+        <div className="welcome-text">
+          <h1>WELCOME TO HIJAMA CLINIC</h1>
+          <p>ISO Certified Hijama Alternative Clinic</p>
+          <p>
+            UG Healing Center is one of the best and hygienic Hijama Clinics in Karachi, Pakistan which provide quality health care services and Certified Training for Hijama Cupping Therapy.
+          </p>
+          <h2>MODERN MEDICAL FACILITIES</h2>
+          <p>
+            UG Healing Center was established by <strong>Mohammad Usman Ghani</strong> from an early age he was very aware of the energies surrounding us and had that special touch to heal and to understand that we are more than just physical humans... Usman Ghani had a keen thirst of knowledge, he unconsciously knew deep in his heart the mission he had to accomplish...
+          </p>
+          <button className="read-more" onClick={handleReadMoreClick}>READ MORE</button>
         </div>
-        <img src="/images/treatment.jpg" alt="Hijama Treatment" />
-      </section>
-
-      <section className="services">
-        <h2>Services</h2>
-        <p>Hijama is a type of wet cupping that is frequently practiced in many Muslim countries...</p>
-        <div className="service-items">
-          <div className="service-item">
-            <img src="/images/dry-cupping.jpg" alt="Dry Cupping" />
-            <button>Book Appointment</button>
-          </div>
-          <div className="service-item">
-            <img src="/images/running-cupping.jpg" alt="Running Cupping" />
-            <button>Book Appointment</button>
-          </div>
-          <div className="service-item">
-            <img src="/images/bleeding-cupping.jpg" alt="Bleeding Cupping" />
-            <button>Book Appointment</button>
-          </div>
+        <div className="facebook-widget">
+          <h3>FACEBOOK</h3>
         </div>
       </section>
 
-      <section className="video">
-        <h2>Watch the video to see a practical example of how cupping is performed</h2>
-        <img src="/images/blood-cupping.jpg" alt="Blood Cupping Video" />
+      <section className="features">
+        <div className="feature">
+          <img src="/images/knowledge-base.png" alt="Knowledge Base" />
+          <h3>Knowledge Base</h3>
+          <p>The Backbone of our Clinic</p>
+        </div>
+        <div className="feature">
+          <img src="/images/blog.png" alt="Blogs" />
+          <h3>Blogs</h3>
+          <p>Call us or fill in a form</p>
+        </div>
+        <div className="feature">
+          <img src="/images/products.png" alt="Our Products" />
+          <h3>Our Products</h3>
+          <p>A list of all available</p>
+        </div>
+        <div className="feature">
+          <img src="/images/branches.png" alt="Our Branches" />
+          <h3>Our Branches</h3>
+          <p>All our staff by department</p>
+        </div>
       </section>
 
-      <section className="about">
-        <h2>About Us</h2>
-        <p>A dedicated service with the core mission to help...</p>
-        <button>Book an Appointment</button>
-        <button>About Us</button>
-        <img src="/images/about-us.jpg" alt="About Us" />
+      <section className="information">
+        <h2>Information on Hijama</h2>
+        <div className="info-grid">
+          <div className="info-item">
+            <img src="/images/hijama-in-islam.png" alt="Hijama in Islam" />
+            <h3>Hijama in Islam</h3>
+            <p>Wet Cupping (Hijama) is one of the remedies from the...</p>
+          </div>
+          <div className="info-item">
+            <img src="/images/modern-world.png" alt="Hijama & Modern World" />
+            <h3>Hijama & Modern World</h3>
+            <p>These days, people are looking to alternative therapies...</p>
+          </div>
+          <div className="info-item">
+            <img src="/images/benefits.png" alt="Benefits of Hijama" />
+            <h3>Benefits of Hijama</h3>
+            <p>The strengthening and stimulating effects of Hijama therapy...</p>
+          </div>
+          <div className="info-item">
+            <img src="/images/course.png" alt="Hijama Course" />
+            <h3>Hijama Course</h3>
+            <p>This course will be conducted based on a combination of...</p>
+          </div>
+        </div>
+        <button className="view-all">View All</button>
       </section>
 
-      <section className="testimonials">
-        <h2>Our Patients Say</h2>
-        <div className="testimonial-items">
-          <div className="testimonial-item">
-            <p>Neque porro quisquam est qui dolorem ipsum...</p>
-            <h3>Joshua Jones</h3>
-          </div>
-          <div className="testimonial-item">
-            <p>Neque porro quisquam est qui dolorem ipsum...</p>
-            <h3>Paula Mora</h3>
-          </div>
-          <div className="testimonial-item">
-            <p>Neque porro quisquam est qui dolorem ipsum...</p>
-            <h3>Rhonda</h3>
+      <section className="testimonial">
+        <h2>Testimonials</h2>
+        <div className="testimonial-content">
+          <video controls>
+            <source src="/videos/testimonial.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="testimonial-text">
+            <blockquote>Done with Hijama, Sunnah of our Badshah Hazrat Muhammad PBUH!!! MashaAllah feeling so relax, all Muslims should do this Sunnah. By Dr Usman Ghani</blockquote>
+            <cite>Agha Shiraz Bin Saeed</cite>
           </div>
         </div>
       </section>
 
-      <section className="contact">
-        <h2>Get in touch with your first booking</h2>
-        <input type="text" placeholder="Enter your name" />
-        <input type="email" placeholder="Enter your email" />
-        <button>Submit</button>
+      <section className="appointment">
+        <h2>Book an Appointment for Hijama</h2>
+        <p>Call Now +92-332-1366246 and book your schedule for Hijama</p>
+        <button className="therapist-near-you">Therapist Near You</button>
       </section>
     </div>
   );

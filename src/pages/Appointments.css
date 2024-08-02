@@ -1,0 +1,47 @@
+.appointments {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .appointments h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .appointments p {
+    font-size: 18px;
+    margin-bottom: 40px;
+  }
+  
+  .appointment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .appointment-form label {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .appointment-form input {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+  }
+  
+  .appointment-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .appointment-form button:hover {
+    background-color: #c9302c;
+  }
+  

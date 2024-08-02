@@ -1,10 +1,12 @@
 import React from 'react';
+import './Community.css';
 
 const Community = () => {
   return (
-    <div>
+    <div className="community">
       <h1>Community</h1>
-      <p>Forum for users and practitioners to interact and share experiences.</p>
+      <p>Join our community to share experiences and support each other.</p>
+      {/* Add more content here as needed */}
     </div>
   );
 };

@@ -1,41 +1,66 @@
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-  }
-  
-  .logo img {
-    height: 50px;
-  }
-  
-  nav ul {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li {
-    margin: 0 15px;
-  }
-  
-  nav ul li a, .book-now {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .book-now {
-    background-color: #007BFF;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .book-now:hover {
-    background-color: #0056b3;
-  }
-  
+header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  height: 50px;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+  margin-right: 20px;
+}
+
+nav ul li a, nav ul li span {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  padding: 10px 0;
+}
+
+nav ul li a:hover, nav ul li span:hover {
+  color: #d9534f;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  min-width: 200px;
+}
+
+.dropdown-content li {
+  margin: 0;
+}
+
+.dropdown-content li a {
+  padding: 10px;
+  display: block;
+  color: #333;
+}
+
+.dropdown-content li a:hover {
+  background-color: #f1f1f1;
+  color: #d9534f;
+}
