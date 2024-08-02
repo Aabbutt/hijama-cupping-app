@@ -1,0 +1,55 @@
+.home {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .intro {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .services, .video, .about, .testimonials, .contact {
+    margin: 40px 0;
+  }
+  
+  .services .service-items, .testimonials .testimonial-items {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .service-item, .testimonial-item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .service-item img, .testimonial-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .contact input {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .contact button {
+    display: block;
+    width: 50%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

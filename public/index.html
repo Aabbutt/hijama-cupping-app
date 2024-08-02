@@ -1,43 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hijama Cupping App</title>
+    <link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="%PUBLIC_URL%/logo.png" alt="Hijama Cupping App">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Main</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Testimonials</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><button class="book-now">Book Now</button></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="intro">
+            <div class="intro-text">
+                <h1>Expert Hijama Treatment</h1>
+                <p>We follow a holistic approach to healthcare</p>
+                <p>Cupping (Hijama in Arabic) is an ancient, holistic method for the treatment of a variety of diseases</p>
+                <button class="book-appointment">Book Appointment</button>
+            </div>
+            <img src="%PUBLIC_URL%/images/treatment.jpg" alt="Hijama Treatment">
+        </section>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+        <section class="services">
+            <h2>Services</h2>
+            <p>Hijama is a type of wet cupping that is frequently practiced in many Muslim countries...</p>
+            <div class="service-items">
+                <div class="service-item">
+                    <img src="%PUBLIC_URL%/images/dry-cupping.jpg" alt="Dry Cupping">
+                    <button>Book Appointment</button>
+                </div>
+                <div class="service-item">
+                    <img src="%PUBLIC_URL%/images/running-cupping.jpg" alt="Running Cupping">
+                    <button>Book Appointment</button>
+                </div>
+                <div class="service-item">
+                    <img src="%PUBLIC_URL%/images/bleeding-cupping.jpg" alt="Bleeding Cupping">
+                    <button>Book Appointment</button>
+                </div>
+            </div>
+        </section>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        <section class="video">
+            <h2>Watch the video to see a practical example of how cupping is performed</h2>
+            <img src="%PUBLIC_URL%/images/blood-cupping.jpg" alt="Blood Cupping Video">
+        </section>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        <section class="about">
+            <h2>About Us</h2>
+            <p>A dedicated service with the core mission to help...</p>
+            <button>Book an Appointment</button>
+            <button>About Us</button>
+            <img src="%PUBLIC_URL%/images/about-us.jpg" alt="About Us">
+        </section>
+
+        <section class="testimonials">
+            <h2>Our Patients Say</h2>
+            <div class="testimonial-items">
+                <div class="testimonial-item">
+                    <p>Neque porro quisquam est qui dolorem ipsum...</p>
+                    <h3>Joshua Jones</h3>
+                </div>
+                <div class="testimonial-item">
+                    <p>Neque porro quisquam est qui dolorem ipsum...</p>
+                    <h3>Paula Mora</h3>
+                </div>
+                <div class="testimonial-item">
+                    <p>Neque porro quisquam est qui dolorem ipsum...</p>
+                    <h3>Rhonda</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Get in touch with your first booking</h2>
+            <input type="text" placeholder="Enter your name">
+            <input type="email" placeholder="Enter your email">
+            <button>Submit</button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section company">
+                <h3>Company</h3>
+                <ul>
+                    <li>About</li>
+                    <li>FAQ</li>
+                    <li>Career</li>
+                </ul>
+            </div>
+            <div class="footer-section legal">
+                <h3>Legal</h3>
+                <ul>
+                    <li>Terms of Use</li>
+                    <li>Privacy</li>
+                    <li>Cookie</li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h3>Social</h3>
+                <ul>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>LinkedIn</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
 </html>
