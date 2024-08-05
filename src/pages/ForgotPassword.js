@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './ForgotPassword.css';
 
-const Login = () => {
+const ForgotPassword = () => {
   return (
     <div className="login-page">
       <div className="login-left">
-        <h1>Welcome Back</h1>
-        <p>Access your personalized health dashboard</p>
+        <h1>Reset Password</h1>
+        <p>Enter your phone number to reset your password</p>
         <ul>
-          <li>Track your health records</li>
-          <li>Book appointments with ease</li>
-          <li>Access health tips and resources</li>
+          <li>Securely manage your account</li>
+          <li>Regain access to your health dashboard</li>
+          <li>Contact support if you need further assistance</li>
         </ul>
       </div>
       <div className="login-right">
         <div className="login-container">
-          <h2>Login to Your Account</h2>
-          <p>Please enter your details to continue</p>
+          <h2>Forgot Password</h2>
+          <p>Please enter your phone number to reset your password</p>
           <form>
             <div className="form-group">
               <label htmlFor="phone-number">Phone Number</label>
@@ -26,15 +26,11 @@ const Login = () => {
                 <input type="text" id="phone-number" placeholder="301 2345678" />
               </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="name">Your Name</label>
-              <input type="text" id="name" placeholder="Enter your name" />
-            </div>
-            <button type="submit">Login</button>
+            <button type="submit">Reset Password</button>
           </form>
           <div className="additional-options">
+            <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <Link to="/forgot-password">Forgot Password?</Link>
           </div>
         </div>
       </div>
@@ -42,4 +38,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

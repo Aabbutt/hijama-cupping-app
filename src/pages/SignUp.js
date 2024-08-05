@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './SignUp.css';
 
-const Login = () => {
+const SignUp = () => {
   return (
     <div className="login-page">
       <div className="login-left">
-        <h1>Welcome Back</h1>
-        <p>Access your personalized health dashboard</p>
+        <h1>Join Us</h1>
+        <p>Create an account to access personalized health dashboard</p>
         <ul>
           <li>Track your health records</li>
           <li>Book appointments with ease</li>
@@ -16,8 +16,8 @@ const Login = () => {
       </div>
       <div className="login-right">
         <div className="login-container">
-          <h2>Login to Your Account</h2>
-          <p>Please enter your details to continue</p>
+          <h2>Sign Up</h2>
+          <p>Please enter your details to create an account</p>
           <form>
             <div className="form-group">
               <label htmlFor="phone-number">Phone Number</label>
@@ -30,10 +30,14 @@ const Login = () => {
               <label htmlFor="name">Your Name</label>
               <input type="text" id="name" placeholder="Enter your name" />
             </div>
-            <button type="submit">Login</button>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" placeholder="Enter your password" />
+            </div>
+            <button type="submit">Sign Up</button>
           </form>
           <div className="additional-options">
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/login">Login</Link>
             <Link to="/forgot-password">Forgot Password?</Link>
           </div>
         </div>
@@ -42,4 +46,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

@@ -25,27 +25,37 @@ const Home = () => {
           <button className="read-more" onClick={handleReadMoreClick}>READ MORE</button>
         </div>
         <div className="facebook-widget">
-          <h3>FACEBOOK</h3>
+          <iframe 
+            src="https://www.facebook.com/share/PWdGxF4JedgEqzes/?mibextid=qi2Omg"
+            width="300"
+            height="400"
+            style={{border: "none", overflow: "hidden"}}
+            scrolling="no"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowFullScreen
+            title="Facebook Page Profile"
+          ></iframe>
         </div>
       </section>
 
       <section className="features">
-        <div className="feature">
+        <div className="feature feature-square">
           <img src="/images/knowledge-base.png" alt="Knowledge Base" />
           <h3>Knowledge Base</h3>
           <p>The Backbone of our Clinic</p>
         </div>
-        <div className="feature">
+        <div className="feature feature-square">
           <img src="/images/blog.png" alt="Blogs" />
           <h3>Blogs</h3>
           <p>Call us or fill in a form</p>
         </div>
-        <div className="feature">
+        <div className="feature feature-square">
           <img src="/images/products.png" alt="Our Products" />
           <h3>Our Products</h3>
           <p>A list of all available</p>
         </div>
-        <div className="feature">
+        <div className="feature feature-square">
           <img src="/images/branches.png" alt="Our Branches" />
           <h3>Our Branches</h3>
           <p>All our staff by department</p>
@@ -55,22 +65,22 @@ const Home = () => {
       <section className="information">
         <h2>Information on Hijama</h2>
         <div className="info-grid">
-          <div className="info-item">
+          <div className="info-item info-square">
             <img src="/images/hijama-in-islam.png" alt="Hijama in Islam" />
             <h3>Hijama in Islam</h3>
             <p>Wet Cupping (Hijama) is one of the remedies from the...</p>
           </div>
-          <div className="info-item">
+          <div className="info-item info-square">
             <img src="/images/modern-world.png" alt="Hijama & Modern World" />
             <h3>Hijama & Modern World</h3>
             <p>These days, people are looking to alternative therapies...</p>
           </div>
-          <div className="info-item">
+          <div className="info-item info-square">
             <img src="/images/benefits.png" alt="Benefits of Hijama" />
             <h3>Benefits of Hijama</h3>
             <p>The strengthening and stimulating effects of Hijama therapy...</p>
           </div>
-          <div className="info-item">
+          <div className="info-item info-square">
             <img src="/images/course.png" alt="Hijama Course" />
             <h3>Hijama Course</h3>
             <p>This course will be conducted based on a combination of...</p>
@@ -96,7 +106,7 @@ const Home = () => {
       <section className="appointment">
         <h2>Book an Appointment for Hijama</h2>
         <p>Call Now +92-332-1366246 and book your schedule for Hijama</p>
-        <button className="therapist-near-you">Therapist Near You</button>
+        <button className="therapist-near-you">Book an Appointment Here</button>
       </section>
     </div>
   );

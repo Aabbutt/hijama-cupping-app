@@ -6,11 +6,12 @@ import Home from './pages/Home';
 import About from './pages/About';
 import KnowledgeBase from './pages/KnowledgeBase';
 import Products from './pages/Products';
-import Blog from './pages/Blog';
-import Videos from './pages/Videos';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
-// Import your Knowledge Base and Product specific components
+import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
+import TherapistNearYou from './pages/TherapistNearYou';
+import './App.css';
 
 function App() {
   return (
@@ -31,10 +32,11 @@ function App() {
           <Route path="/products/hijama-pumps" element={<Products.HijamaPumps />} />
           <Route path="/products/hijama-kits" element={<Products.HijamaKits />} />
           <Route path="/products/honey" element={<Products.Honey />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/videos" element={<Videos />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/therapist-near-you" element={<TherapistNearYou />} />
         </Routes>
         <Footer />
       </div>

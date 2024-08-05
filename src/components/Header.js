@@ -10,7 +10,7 @@ const Header = () => {
           <img src="/images/logo.png" alt="Hijama Clinic" />
         </div>
         <nav>
-          <ul>
+          <ul className="other-content">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li className="dropdown">
@@ -34,12 +34,13 @@ const Header = () => {
                 <li><Link to="/products/honey">Honey</Link></li>
               </ul>
             </li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/videos">Videos</Link></li>
             <li><Link to="/contact">Contact</Link></li>
             <li><Link to="/login">Login</Link></li>
           </ul>
         </nav>
+        <div className="search-container">
+          <input type="text" placeholder="Search" />
+        </div>
       </div>
     </header>
   );
