@@ -3,22 +3,32 @@
   font-family: 'Roboto', sans-serif;
   color: #333;
   background-color: #f4f7f6;
-  padding: 0px;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  animation: background-slide 10s ease-in-out infinite;
+}
+
+@keyframes background-slide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Welcome section */
 .welcome-section {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 0;
+  padding: 40px 20px;
   background: linear-gradient(to right, #e0eafc, #f4f7f6);
-  animation: background-slide 10s ease-in-out infinite;
+  animation: slide-in-down 1s ease-out;
 }
 
 .welcome-text {
   flex: 1;
   padding-right: 20px;
+  min-width: 300px;
 }
 
 .welcome-text h1 {
@@ -65,6 +75,8 @@
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   max-width: 350px;
+  animation: slide-in-right 1s ease-out;
+  min-width: 300px;
 }
 
 .facebook-widget h3 {
@@ -76,19 +88,21 @@
 /* Features section */
 .features {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  padding: 40px 0;
+  padding: 40px 20px;
   background-color: #ffffff;
 }
 
 .feature {
-  flex: 1;
+  flex: 1 1 calc(45% - 20px); /* Adjusted for smaller and lovely look */
   text-align: center;
   padding: 20px;
-  margin: 0 10px;
+  margin: 10px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
+  animation: fade-in-up 1s ease-out;
 }
 
 .feature-square {
@@ -96,29 +110,44 @@
 }
 
 .feature:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .feature img {
-  max-width: 100px;
+  max-width: 80px; /* Adjusted for smaller look */
   margin-bottom: 20px;
+  transition: transform 0.3s;
+}
+
+.feature:hover img {
+  transform: scale(1.1);
 }
 
 .feature h3 {
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: #2c3e50;
   margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.feature:hover h3 {
+  color: #1abc9c;
 }
 
 .feature p {
-  font-size: 1em;
+  font-size: 0.9em;
   color: #555;
+  transition: color 0.3s;
+}
+
+.feature:hover p {
+  color: #1abc9c;
 }
 
 /* Information section */
 .information {
-  padding: 40px 0;
+  padding: 40px 20px;
 }
 
 .information h2 {
@@ -135,13 +164,13 @@
 }
 
 .info-item {
-  flex: 1;
-  min-width: 200px;
+  flex: 1 1 calc(45% - 20px); /* Adjusted for smaller and lovely look */
   text-align: center;
   padding: 20px;
   margin: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
+  animation: fade-in-up 1s ease-out;
 }
 
 .info-square {
@@ -149,24 +178,39 @@
 }
 
 .info-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .info-item img {
-  max-width: 100px;
+  max-width: 80px; /* Adjusted for smaller look */
   margin-bottom: 20px;
+  transition: transform 0.3s;
+}
+
+.info-item:hover img {
+  transform: rotate(10deg);
 }
 
 .info-item h3 {
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: #2c3e50;
   margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.info-item:hover h3 {
+  color: #1abc9c;
 }
 
 .info-item p {
-  font-size: 1em;
+  font-size: 0.9em;
   color: #555;
+  transition: color 0.3s;
+}
+
+.info-item:hover p {
+  color: #1abc9c;
 }
 
 .view-all {
@@ -190,7 +234,7 @@
 
 /* Testimonial section */
 .testimonial {
-  padding: 40px 0;
+  padding: 40px 20px;
   background-color: #ffffff;
 }
 
@@ -203,53 +247,99 @@
 
 .testimonial-content {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  animation: fade-in 1s ease-out;
 }
 
 .testimonial-content video {
-  max-width: 400px;
+  max-width: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  flex: 1 1 45%;
 }
 
 .testimonial-text {
-  flex: 1;
-  margin-left: 40px;
+  flex: 1 1 45%;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .testimonial-text blockquote {
   font-size: 1.2em;
   color: #555;
   margin-bottom: 20px;
+  transition: color 0.3s;
 }
 
 .testimonial-text cite {
   font-size: 1em;
   color: #2c3e50;
   font-weight: 600;
+  transition: color 0.3s;
 }
 
-/* Appointment section */
-.appointment {
-  padding: 40px 0;
-  text-align: center;
-  background: linear-gradient(to right, #e0eafc, #f4f7f6);
+.testimonial-text blockquote:hover {
+  color: #1abc9c;
 }
 
-.appointment h2 {
+.testimonial-text cite:hover {
+  color: #16a085;
+}
+
+/* Reviews section */
+.reviews {
+  padding: 40px 20px;
+  background-color: #ffffff;
+}
+
+.reviews h2 {
   font-size: 2em;
   color: #2c3e50;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
-.appointment p {
-  font-size: 1.2em;
-  color: #555;
-  margin-bottom: 20px;
+.reviews-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.appointment .therapist-near-you {
+.review-form {
+  flex: 1 1 45%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review-form:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.review-form textarea,
+.review-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1em;
+}
+
+.review-form button {
   padding: 10px 20px;
   background-color: #1abc9c;
   color: white;
@@ -261,15 +351,114 @@
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.appointment .therapist-near-you:hover {
+.review-form button:hover {
   background-color: #16a085;
   transform: translateY(-2px);
 }
 
-@keyframes background-slide {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.review-form button:active {
+  transform: translateY(2px);
+}
+
+.submitted-reviews {
+  flex: 1 1 45%;
+  text-align: center;
+}
+
+.review-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review-card img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.review-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.review-card h3 {
+  font-size: 1.2em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.review-card p {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.stars {
+  color: #f39c12;
+  font-size: 1.2em;
+}
+
+.next-review {
+  padding: 10px 20px;
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.next-review:hover {
+  background-color: #16a085;
+  transform: translateY(-2px);
+}
+
+.next-review:active {
+  transform: translateY(2px);
+}
+
+@keyframes slide-in-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Additional functionalities and professional touches */
@@ -318,18 +507,22 @@
   transition: color 0.3s ease-in-out;
 }
 
-.appointment h2:hover {
-  color: #16a085;
-  transition: color 0.3s ease-in-out;
-}
+@media (max-width: 768px) {
+  .welcome-section, .features, .information, .testimonial, .reviews {
+    flex-direction: column;
+    align-items: center;
+  }
 
-.appointment p:hover {
-  color: #1abc9c;
-  transition: color 0.3s ease-in-out;
-}
+  .welcome-text, .facebook-widget, .feature, .info-item, .testimonial-content video, .testimonial-text, .reviews-container {
+    flex: none;
+    width: 100%;
+  }
 
-.appointment .therapist-near-you:hover {
-  background-color: #138d75;
-  transform: translateY(-2px) scale(1.05);
-  transition: background-color 0.3s, transform 0.3s ease-in-out;
+  .testimonial-content video, .testimonial-text, .review-form, .submitted-reviews {
+    margin-top: 20px;
+  }
+
+  .testimonial-text {
+    margin-left: 0;
+  }
 }

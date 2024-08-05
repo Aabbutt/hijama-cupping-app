@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import TherapistNearYou from './pages/TherapistNearYou';
+import Appointment from './pages/Appointment'; // Import the new Appointment component
 import './App.css';
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/therapist-near-you" element={<TherapistNearYou />} />
+          <Route path="/appointment" element={<Appointment />} /> {/* Add the new route for Appointment */}
         </Routes>
         <Footer />
       </div>
