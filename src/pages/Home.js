@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
@@ -149,6 +150,12 @@ const Home = () => {
         </div>
       </section>
 
+      <div className="appointment">
+        <h2>Book an Appointment for Hijama</h2>
+        <p>Call Now +92-332-1366246 and book your schedule for Hijama</p>
+        <Link to="/therapist-near-you" className="therapist-near-you">Therapist Near You</Link>
+      </div>
+
       {/* Review Section */}
       <section className="review-section">
         <h2 className="review-title">Google Reviews</h2>
@@ -177,7 +184,6 @@ const Home = () => {
         </a>
         <p className="google-review-count">Based on 206 Google Reviews</p>
       </section>
-
     </div>
   );
 };

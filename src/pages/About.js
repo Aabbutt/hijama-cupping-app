@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './About.css';
 
 const About = () => {
@@ -22,11 +23,7 @@ const About = () => {
           <p>We are committed to assured quality health service to our patients and compliance to requirements through continual improvement in our Quality Management System.</p>
         </div>
       </div>
-      <div className="appointment">
-        <h2>Book an Appointment for Hijama</h2>
-        <p>Call Now +92-332-1366246 and book your schedule for Hijama</p>
-        <button className="therapist-near-you">Therapist Near You</button>
-      </div>
+     
     </div>
   );
 };

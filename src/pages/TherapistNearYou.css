@@ -1,158 +1,123 @@
-/* Container for the entire page */
-.therapist-near-you {
+/* General settings for the page */
+.therapist-near-you-page {
+    display: flex;
+    justify-content: space-between;
     padding: 20px;
     font-family: Arial, sans-serif;
     color: #333;
-}
-
-/* Header styling */
-header {
-    background-color: #00A9BD; /* Teal Blue */
-    color: white;
-    padding: 20px;
-    text-align: center;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-/* Navigation styling */
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    margin: 20px 0;
-}
-
-nav ul li {
-    background-color: #00A9BD; /* Teal Blue */
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin: 0 5px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-nav ul li:hover {
-    background-color: #ffff; /* Slightly darker Teal for hover */
-}
-
-/* Search bar styling */
-.location-search {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.location-search input {
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-}
-
-.location-search button {
-    padding: 10px;
-    background-color: #00A9BD; /* Teal Blue */
-    color: white;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.location-search button:hover {
-    background-color: #008D99; /* Slightly darker Teal for hover */
-}
-
-/* Map and clinic list container styling */
-.map-container {
+  }
+  
+  /* Map and location search styling */
+  .map-container {
+    width: 60%;
+  }
+  
+  .location-search {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
-}
-
-.map-title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    text-align: center;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 20px;
     width: 100%;
-}
-
-#map iframe {
+  }
+  
+  .location-search input {
+    flex: 1; /* Take up remaining space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px; /* Space between input and buttons */
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+  }
+  
+  .button-group button {
+    padding: 10px 20px;
+    background-color: #0aabc6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-group button:hover {
+    background-color: #0899ac;
+  }
+  
+  .map iframe {
     width: 100%;
     height: 500px;
     border: 0;
-    border-radius: 5px;
-}
-
-/* Clinic list styling */
-.clinic-list {
+    border-radius: 10px;
+  }
+  
+  /* Therapist list styling */
+  .therapist-list {
     width: 35%;
     max-height: 500px;
     overflow-y: auto;
-    padding-left: 15px;
-}
-
-.clinic-item {
-    background-color: #00A9BD; /* Teal Blue */
-    color: white;
+    background-color: #f7f9fc;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .therapist-item {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .therapist-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .therapist-item h3 {
+    font-size: 1.5em;
+    color: #0aabc6;
     margin-bottom: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.clinic-item:hover, .clinic-item.active {
-    background-color: #008D99; /* Slightly darker Teal for hover */
-}
-
-.clinic-item h3 {
-    margin-top: 0;
-    font-size: 1.2em;
-}
-
-.clinic-item p {
+  }
+  
+  .therapist-item p {
+    font-size: 1em;
+    color: #444;
     margin: 5px 0;
-}
-
-.clinic-item a {
+  }
+  
+  .directions-button {
+    padding: 10px 20px;
+    background-color: #0aabc6;
     color: white;
-    text-decoration: underline;
-    transition: color 0.3s ease;
-}
-
-.clinic-item a:hover {
-    color: #FFD700; /* Gold color for hover */
-}
-
-/* Media queries for responsiveness */
-@media (max-width: 768px) {
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .directions-button:hover {
+    background-color: #0899ac;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    .therapist-near-you-page {
+      flex-direction: column;
+    }
+  
     .map-container {
-        flex-direction: column;
-        align-items: center;
+      width: 100%;
+      margin-bottom: 20px;
     }
-
-    .clinic-list {
-        width: 100%;
-        margin-top: 20px;
-        padding: 0;
+  
+    .therapist-list {
+      width: 100%;
     }
-
-    .location-search input {
-        width: 70%;
-    }
-}
-
-@media (max-width: 480px) {
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin: 5px 0;
-    }
-}
+  }
+  

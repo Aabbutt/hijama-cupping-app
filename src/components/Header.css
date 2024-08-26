@@ -87,11 +87,6 @@ header {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: background-color var(--transition-speed) ease-in-out;
 }
-
-header:hover {
-  background-color: var(--accent-color); /* White on hover */
-}
-
 .header-container {
   display: flex;
   align-items: center;
