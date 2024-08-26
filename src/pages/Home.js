@@ -1,93 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [reviews, setReviews] = useState([
-    {
-      name: "Irfan Muddassir",
-      profileImage: "profile1.jpg",
-      reviewText: "It is really good initiative to connect with healthcare professionals. If you feel a need for help then helpline is there to take care of it. Overall very good experience.",
-      rating: 4,
-    },
-    {
-      name: "Umair Ali",
-      profileImage: "profile2.jpg",
-      reviewText: "I got late on my appointment, but after 10 minutes, the doctor called me and prescribed medicines, which is far better than appointing physically and waiting!",
-      rating: 4,
-    },
-    {
-      name: "Misbah Khan",
-      profileImage: "profile3.jpg",
-      reviewText: "My first appointment today. It was a very smooth experience and the skin specialist was very helpful and professional. The facility is also very good.",
-      rating: 5,
-    },
-    {
-      name: "Sara Ahmed",
-      profileImage: "profile4.jpg",
-      reviewText: "The service at UG Healing Center is top-notch. The staff is very cooperative, and the doctors are highly knowledgeable.",
-      rating: 5,
-    },
-    {
-      name: "Faisal Raza",
-      profileImage: "profile5.jpg",
-      reviewText: "Excellent service. The appointment was quick and the doctor addressed all my concerns. Highly recommended!",
-      rating: 5,
-    },
-    {
-      name: "Ayesha Khan",
-      profileImage: "profile6.jpg",
-      reviewText: "I had a wonderful experience at UG Healing Center. The staff is very friendly and the environment is very welcoming.",
-      rating: 5,
-    },
-    {
-      name: "Hamza Ali",
-      profileImage: "profile7.jpg",
-      reviewText: "Very satisfied with the service. The doctors are very professional and the staff is very helpful.",
-      rating: 4,
-    },
-    {
-      name: "Nida Baloch",
-      profileImage: "profile8.jpg",
-      reviewText: "The best healthcare center I have visited so far. The staff is very courteous and the doctors are very attentive.",
-      rating: 5,
-    },
-    {
-      name: "Ahmed Zubair",
-      profileImage: "profile9.jpg",
-      reviewText: "Great service and very professional staff. The doctors are very knowledgeable and the appointments are always on time.",
-      rating: 5,
-    },
-    {
-      name: "Rabia Noor",
-      profileImage: "profile10.jpg",
-      reviewText: "I am very happy with the service. The doctors are very caring and the staff is very efficient.",
-      rating: 5,
-    }
-  ]);
-  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
 
   const handleReadMoreClick = () => {
     navigate('/about');
   };
 
-  const handleReviewSubmit = (event) => {
-    event.preventDefault();
-    const reviewText = event.target.review.value;
-    const rating = event.target.rating.value;
-    const newReview = { name: "Anonymous", profileImage: "profile_default.jpg", reviewText, rating };
-    setReviews([...reviews, newReview]);
-    event.target.reset();
+  // FAQ state and toggle function
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggleFaq = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-    }, 5000); // Change review every 5 seconds
+  const faqItems = [
+    {
+      question: 'How Much Does Hijama Cost in Islamabad?',
+      answer: 'Hijama Cost Range: In Islamabad, the cost of Hijama therapy ranges between PKR 300 to 500 per cup. The price may vary based on the clinic, the expertise of the practitioner, and the specific type of Hijama treatment being administered.',
+    },
+    {
+      question: 'Where is the Centre Located in Rawalpindi?',
+      answer: 'Certainly, our centre is conveniently located in the heart of Saddar, Rawalpindi. Please contact us directly for the exact address and directions.',
+    },
+    // ... (additional FAQs)
+  ];
 
-    return () => clearInterval(interval);
-  }, [reviews.length]);
+  const reviews = [
+    {
+      name: "Peter Esser",
+      reviewText: "I was very impressed by Dr Pavel Zwolak. His knowledge of the various treatment methods is extraordinary.",
+      profileImage: "doctor.png"  // Update with the correct image path
+    },
+    // You can add more reviews if needed
+  ];
 
   return (
     <div className="home">
@@ -168,6 +116,24 @@ const Home = () => {
         </div>
         <button className="view-all">View All</button>
       </section>
+      
+      {/* FAQ Section */}
+      <section className="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div className="faq-container">
+          {faqItems.map((item, index) => (
+            <div
+              className={`faq ${activeIndex === index ? 'active' : ''}`}
+              key={index}
+            >
+              <h3 className="faq-title" onClick={() => toggleFaq(index)}>
+                {item.question}
+              </h3>
+              <p className="faq-text">{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="testimonial">
         <h2>Testimonials</h2>
@@ -183,40 +149,35 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="reviews">
-        <h2>Reviews</h2>
-        <div className="reviews-container">
-          <form className="review-form" onSubmit={handleReviewSubmit}>
-            <label htmlFor="review">Your Review:</label>
-            <textarea id="review" name="review" required></textarea>
-            
-            <label htmlFor="rating">Rating:</label>
-            <select id="rating" name="rating" required>
-              <option value="5">5 - Excellent</option>
-              <option value="4">4 - Very Good</option>
-              <option value="3">3 - Good</option>
-              <option value="2">2 - Fair</option>
-              <option value="1">1 - Poor</option>
-            </select>
-            
-            <button type="submit">Submit Review</button>
-          </form>
-
-          {reviews.length > 0 && (
-            <div className="submitted-reviews">
-              <div className="review-card">
-                <img src={reviews[currentReviewIndex].profileImage} alt={reviews[currentReviewIndex].name} />
-                <h3>{reviews[currentReviewIndex].name}</h3>
-                <p>{reviews[currentReviewIndex].reviewText}</p>
-                <div className="stars">
-                  {'★'.repeat(reviews[currentReviewIndex].rating)}
-                  {'☆'.repeat(5 - reviews[currentReviewIndex].rating)}
-                </div>
-              </div>
-            </div>
-          )}
+      {/* Review Section */}
+      <section className="review-section">
+        <h2 className="review-title">Google Reviews</h2>
+        <p className="review-subtitle">Hear What Our Customers Have to Say - Testimonials</p>
+        <p className="review-description">
+          Our customers are at the heart of everything we do, and we are committed to providing them with one of the best possible care and service, and that's why platforms like <span className="highlight">UpTopics publish us in top</span>.
+        </p>
+        <div className="review-content">
+          <div className="review-image">
+            <img src={reviews[0].profileImage} alt={reviews[0].name} />
+          </div>
+          <div className="review-text">
+            <blockquote>
+              <p>{reviews[0].reviewText}</p>
+            </blockquote>
+            <p className="review-author">{reviews[0].name}</p>
+          </div>
         </div>
+        <a 
+          href="https://www.google.com/search?q=hijama+center+shaheenabad+gujranwala&rlz=1C1CHBD_enPK1106PK1106&oq=hijama+center+shaheenabad+gujranwala&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigAdIBCjE0Mzg5ajBqMTWoAgiwAgE&sourceid=chrome&ie=UTF-8#lrd=0x391f29097d0dfc3f:0xb96ce5d67b080359,1,,,," 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="google-review-button"
+        >
+          All Google Reviews
+        </a>
+        <p className="google-review-count">Based on 206 Google Reviews</p>
       </section>
+
     </div>
   );
 };

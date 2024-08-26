@@ -7,7 +7,7 @@
 
 /* Header styling */
 header {
-    background-color: #d9534f;
+    background-color: #00A9BD; /* Teal Blue */
     color: white;
     padding: 20px;
     text-align: center;
@@ -25,7 +25,7 @@ nav ul {
 }
 
 nav ul li {
-    background-color: #d9534f;
+    background-color: #00A9BD; /* Teal Blue */
     color: white;
     padding: 10px 20px;
     cursor: pointer;
@@ -35,7 +35,7 @@ nav ul li {
 }
 
 nav ul li:hover {
-    background-color: #c9302c;
+    background-color: #ffff; /* Slightly darker Teal for hover */
 }
 
 /* Search bar styling */
@@ -55,7 +55,7 @@ nav ul li:hover {
 
 .location-search button {
     padding: 10px;
-    background-color: #d9534f;
+    background-color: #00A9BD; /* Teal Blue */
     color: white;
     border: none;
     border-radius: 0 5px 5px 0;
@@ -64,7 +64,7 @@ nav ul li:hover {
 }
 
 .location-search button:hover {
-    background-color: #c9302c;
+    background-color: #008D99; /* Slightly darker Teal for hover */
 }
 
 /* Map and clinic list container styling */
@@ -97,7 +97,7 @@ nav ul li:hover {
 }
 
 .clinic-item {
-    background-color: #d9534f;
+    background-color: #00A9BD; /* Teal Blue */
     color: white;
     padding: 20px;
     margin-bottom: 10px;
@@ -107,7 +107,7 @@ nav ul li:hover {
 }
 
 .clinic-item:hover, .clinic-item.active {
-    background-color: #c9302c;
+    background-color: #008D99; /* Slightly darker Teal for hover */
 }
 
 .clinic-item h3 {
@@ -126,7 +126,7 @@ nav ul li:hover {
 }
 
 .clinic-item a:hover {
-    color: #ffd700;
+    color: #FFD700; /* Gold color for hover */
 }
 
 /* Media queries for responsiveness */
