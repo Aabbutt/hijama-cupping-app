@@ -13,16 +13,22 @@ import ForgotPassword from './pages/ForgotPassword';
 import TherapistNearYou from './pages/TherapistNearYou';
 import Appointment from './pages/Appointment';
 import JoinAsPractitioner from './pages/JoinAsPractitioner';
-import Personalization from './components/Personalization'; // Import the AI Personalization component
-import { FaRobot } from 'react-icons/fa'; // Importing a robot icon from react-icons
-import './App.css'; // Import CSS for styling the button and modal
+import Personalization from './components/Personalization'; // AI Personalization Component
+import SmartBooking from './components/SmartBooking'; // Smart Booking Component
+import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Icons for buttons
+import './App.css'; // Import CSS for styling buttons and modals
 
 function App() {
-  const [showPersonalization, setShowPersonalization] = useState(false); // To toggle modal
+  const [showPersonalization, setShowPersonalization] = useState(false); // Toggle AI modal
+  const [showSmartBooking, setShowSmartBooking] = useState(false); // Toggle Smart Booking modal
 
-  // Toggle function for showing or hiding the AI personalization modal
+  // Toggle functions
   const togglePersonalization = () => {
     setShowPersonalization(!showPersonalization);
+  };
+
+  const toggleSmartBooking = () => {
+    setShowSmartBooking(!showSmartBooking);
   };
 
   return (
@@ -53,17 +59,32 @@ function App() {
         </Routes>
         <Footer />
 
-        {/* Floating AI access button */}
+        {/* Floating AI-Powered Personalization Button */}
         <button className="ai-button" onClick={togglePersonalization} aria-label="AI-Powered Therapy">
-          <FaRobot size={20} /> {/* Using a robot icon for the button */}
+          <FaRobot size={20} />
         </button>
 
-        {/* Modal Pop-up for Personalization */}
+        {/* Floating Smart Booking Button */}
+        <button className="booking-button" onClick={toggleSmartBooking} aria-label="Smart Booking System">
+          <FaCalendarAlt size={20} />
+        </button>
+
+        {/* Modal for AI-Powered Personalization */}
         {showPersonalization && (
           <div className="modal" onClick={togglePersonalization}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <span className="close-button" onClick={togglePersonalization}>&times;</span>
               <Personalization />
+            </div>
+          </div>
+        )}
+
+        {/* Modal for Smart Booking System */}
+        {showSmartBooking && (
+          <div className="modal" onClick={toggleSmartBooking}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <span className="close-button" onClick={toggleSmartBooking}>&times;</span>
+              <SmartBooking />
             </div>
           </div>
         )}
