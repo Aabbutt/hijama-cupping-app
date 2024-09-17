@@ -1,0 +1,87 @@
+/* src/admin/ManageUsers.css */
+
+.manage-users {
+    padding: 20px;
+    background-color: var(--admin-main-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .manage-users.dark {
+    background-color: #34495e;
+    color: #ecf0f1;
+  }
+  
+  .manage-users h2 {
+    margin-bottom: 20px;
+    color: #2980b9;
+  }
+  
+  .manage-users.dark h2 {
+    color: #1abc9c;
+  }
+  
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .users-table th,
+  .users-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .users-table th {
+    background-color: #f4f7fc;
+    color: #34495e;
+  }
+  
+  .manage-users.dark .users-table th {
+    background-color: #3c5978;
+    color: #ecf0f1;
+  }
+  
+  .users-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .manage-users.dark .users-table tr:nth-child(even) {
+    background-color: #2c3e50;
+  }
+  
+  .users-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .manage-users.dark .users-table tr:hover {
+    background-color: #1abc9c;
+    color: #ffffff;
+  }
+  
+  .delete-btn {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .inactive {
+    background-color: #ffe6e6;
+    color: #a94442;
+  }
+  
+  .manage-users.dark .inactive {
+    background-color: #c0392b;
+    color: #ffffff;
+  }
+  

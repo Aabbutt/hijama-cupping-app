@@ -1,0 +1,29 @@
+/* src/admin/Breadcrumb.css */
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .breadcrumb a {
+    color: #2980b9;
+    text-decoration: none;
+    margin-right: 5px;
+    transition: color 0.3s ease;
+  }
+  
+  .breadcrumb a:hover {
+    color: #1abc9c;
+  }
+  
+  .breadcrumb span {
+    margin-right: 5px;
+  }
+  
+  .breadcrumb::after {
+    content: '';
+    flex: 1;
+  }
+  

@@ -1,0 +1,25 @@
+.user-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;  /* Make the main content grow and fill available space */
+    padding: 20px;  /* Adjust padding as necessary */
+    background-color: #f7f7f7;  /* Example background color for content */
+  }
+  
+  header {
+    background-color: #00A9BD;  /* Adjust to your desired color */
+    padding: 20px;
+    color: white;
+  }
+  
+  footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  

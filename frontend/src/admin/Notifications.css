@@ -1,0 +1,60 @@
+/* src/admin/Notifications.css */
+
+.notifications-panel {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notifications-panel.dark {
+    background-color: #34495e;
+    color: #ecf0f1;
+  }
+  
+  .notifications-panel h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #2980b9;
+  }
+  
+  .notifications-panel.dark h2 {
+    color: #1abc9c;
+  }
+  
+  .notifications-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .notifications-panel li {
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .notifications-panel li:last-child {
+    border-bottom: none;
+  }
+  
+  .notifications-panel li.unread {
+    background-color: #e8f4fd;
+    font-weight: bold;
+  }
+  
+  .notifications-panel li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .notifications-panel.dark li.unread {
+    background-color: #3c5978;
+  }
+  
+  .notifications-panel.dark li:hover {
+    background-color: #2c3e50;
+  }
+  

@@ -1,0 +1,159 @@
+/* Root Variables */
+:root {
+    --admin-bg-color: #f4f7fc;
+    --admin-primary-color: #4C9AFF;
+    --admin-text-color: #333;
+    --admin-accent-color: #fff;
+    --admin-footer-bg: #1f2b3a;
+    --admin-hover-color: #1d72f3;
+    --admin-transition-speed: 0.3s;
+  }
+  
+  /* Admin Layout Structure */
+  .admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--admin-bg-color);
+  }
+  
+  .admin-layout-content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+  }
+  
+  /* Main Content Area */
+  .admin-main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: var(--admin-accent-color);
+    position: relative;
+  }
+  
+  /* Back to Top Button */
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--admin-primary-color);
+    color: var(--admin-accent-color);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color var(--admin-transition-speed), transform var(--admin-transition-speed);
+  }
+  
+  .back-to-top:hover {
+    background-color: var(--admin-hover-color);
+    transform: scale(1.1);
+  }
+  
+  /* Admin Footer */
+  .admin-footer {
+    background-color: var(--admin-footer-bg);
+    color: var(--admin-accent-color);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+  }
+  
+  .admin-footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .admin-footer p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .admin-footer .social-icons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .admin-footer .social-icons a {
+    color: var(--admin-accent-color);
+    font-size: 18px;
+    transition: color var(--admin-transition-speed);
+  }
+  
+  .admin-footer .social-icons a:hover {
+    color: var(--admin-hover-color);
+  }
+  
+  /* Admin Sidebar */
+  .admin-sidebar {
+    width: 250px;
+    background-color: var(--admin-footer-bg);
+    padding: 20px;
+    min-height: 100vh;
+    color: var(--admin-accent-color);
+  }
+  
+  .admin-sidebar a {
+    text-decoration: none;
+    color: var(--admin-accent-color);
+    padding: 10px 0;
+    display: block;
+    transition: background-color var(--admin-transition-speed);
+  }
+  
+  .admin-sidebar a:hover {
+    background-color: var(--admin-hover-color);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .admin-layout {
+      flex-direction: column;
+    }
+  
+    .admin-sidebar {
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      justify-content: space-around;
+    }
+  
+    .admin-footer {
+      text-align: center;
+    }
+  
+    .admin-footer .footer-content {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .back-to-top {
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+  
+  /* Animations */
+  .admin-footer,
+  .admin-sidebar {
+    animation: slide-in 0.5s ease-in-out;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
