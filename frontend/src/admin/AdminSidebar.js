@@ -1,15 +1,13 @@
 // src/admin/AdminSidebar.js
 import React, { useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaTachometerAlt, FaUsers, FaBoxOpen, FaCalendarAlt, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { AdminContext } from './AdminContext';
+import { FaTachometerAlt, FaUsers, FaBoxOpen, FaCalendarAlt, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import './AdminSidebar.css';
 
 const AdminSidebar = () => {
-  const { isSidebarCollapsed, toggleSidebar, theme } = useContext(AdminContext);
-  const location = useLocation();
+  const { isSidebarCollapsed, toggleSidebar } = useContext(AdminContext);
 
-  // Define menu items
   const menuItems = [
     { path: '/admin/dashboard', name: 'Dashboard', icon: <FaTachometerAlt /> },
     { path: '/admin/manage-users', name: 'Manage Users', icon: <FaUsers /> },
@@ -19,7 +17,7 @@ const AdminSidebar = () => {
   ];
 
   return (
-    <aside className={`admin-sidebar ${isSidebarCollapsed ? 'collapsed' : ''} ${theme}`}>
+    <aside className={`admin-sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
         <h2 className="sidebar-logo">{isSidebarCollapsed ? 'AP' : 'Admin Panel'}</h2>
         <button className="collapse-btn" onClick={toggleSidebar} aria-label="Toggle Sidebar">
@@ -28,8 +26,8 @@ const AdminSidebar = () => {
       </div>
       <ul className="sidebar-menu">
         {menuItems.map((item) => (
-          <li key={item.name} className={location.pathname === item.path ? 'active' : ''}>
-            <Link to={item.path}>
+          <li key={item.name} className="sidebar-item">
+            <Link to={item.path} className="sidebar-link">
               <span className="icon">{item.icon}</span>
               {!isSidebarCollapsed && <span className="link-text">{item.name}</span>}
             </Link>

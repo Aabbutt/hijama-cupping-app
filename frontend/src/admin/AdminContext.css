@@ -1,0 +1,52 @@
+/* src/admin/AdminContext.css */
+
+/* Notification Styles */
+.notification-container {
+    position: relative;
+    max-width: 300px; /* Limit width for notifications */
+    background-color: #ffffff; /* Background for notifications */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .notification {
+    padding: 15px;
+    border-bottom: 1px solid #eaeaea; /* Divider between notifications */
+    transition: background-color 0.3s;
+  }
+  
+  .notification:last-child {
+    border-bottom: none; /* Remove border from last item */
+  }
+  
+  .notification:hover {
+    background-color: #f9f9f9; /* Light hover effect */
+  }
+  
+  .notification.read {
+    color: #999; /* Gray out read notifications */
+  }
+  
+  /* Unread Notification Indicator */
+  .unread-indicator {
+    background-color: #FFC107; /* Amber for unread indicator */
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 10px; /* Spacing for indicator */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 576px) {
+    .notification-container {
+      width: 100%; /* Full width on smaller screens */
+      padding: 10px;
+    }
+  
+    .notification {
+      padding: 10px; /* Adjust padding for mobile */
+    }
+  }
+  

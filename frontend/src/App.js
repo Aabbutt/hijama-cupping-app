@@ -14,6 +14,7 @@ import Appointment from './pages/Appointment';
 import JoinAsPractitioner from './pages/JoinAsPractitioner'; // Corrected syntax error
 import AdminLayout from './admin/AdminLayout'; // Admin Layout (Header + Sidebar)
 import Dashboard from './admin/Dashboard'; // Admin Dashboard Component
+import { AdminProvider } from './admin/AdminContext'; // Ensure you import the AdminProvider
 import ManageUsers from './admin/ManageUsers'; // Admin Users Management
 import ManageProducts from './admin/ManageProducts'; // Admin Products Management
 import ManageAppointments from './admin/ManageAppointments'; // Admin Appointments Management
@@ -21,6 +22,7 @@ import Personalization from './components/Personalization'; // AI Personalizatio
 import SmartBooking from './components/SmartBooking'; // Smart Booking Component
 import PrivateRoute from './components/PrivateRoute'; // Admin Route Protection
 import AdminLogin from './admin/AdminLogin'; // Separate admin login page
+import { AuthProvider } from './components/AuthContext'; 
 import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
 import './App.css'; // Global CSS Styles
 
@@ -39,6 +41,7 @@ function App() {
 
   return (
     <Router>
+
       <div className="App">
         <Routes>
           {/* User Side Routes */}
@@ -64,24 +67,6 @@ function App() {
             <Route path="appointment" element={<Appointment />} />
             <Route path="join-as-practitioner" element={<JoinAsPractitioner />} /> {/* Corrected route */}
           </Route>
-
-          {/* Admin Panel Routes (Protected by PrivateRoute) */}
-          <Route
-            path="/admin"
-            element={
-              <PrivateRoute>
-                <AdminLayout />
-              </PrivateRoute>
-            }
-          >
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="manage-users" element={<ManageUsers />} />
-            <Route path="manage-products" element={<ManageProducts />} />
-            <Route path="manage-appointments" element={<ManageAppointments />} />
-          </Route>
-
-          {/* Admin Login */}
-          <Route path="/admin/login" element={<AdminLogin />} />
         </Routes>
 
         {/* Floating AI-Powered Personalization Button */}
@@ -113,6 +98,21 @@ function App() {
           </div>
         )}
       </div>
+      <AuthProvider>
+        <AdminProvider>
+          <Routes>
+            {/* Admin Login Route */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            {/* Protected Admin Routes */}
+            <Route path="/admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="manage-users" element={<ManageUsers />} />
+              <Route path="manage-products" element={<ManageProducts />} />
+              <Route path="manage-appointments" element={<ManageAppointments />} />
+            </Route>
+          </Routes>
+        </AdminProvider>
+      </AuthProvider>
     </Router>
   );
 }

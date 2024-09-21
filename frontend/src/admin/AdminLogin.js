@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+// src/admin/AdminLogin.js
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../components/AuthContext'; // Import AuthContext
 import './AdminLogin.css';
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Get the login function from context
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     // Simulate admin credentials
     if (username === 'admin' && password === 'admin123') {
-      // Store admin authentication status in localStorage
-      localStorage.setItem('isAdminAuthenticated', 'true');
+      login(); // Call the login function to set authentication state
 
       // Redirect to admin dashboard
       navigate('/admin/dashboard');

@@ -1,15 +1,12 @@
-import React from 'react';
+// src/components/PrivateRoute.js
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-
-// Mock authentication function (replace with actual auth logic)
-const isAuthenticated = () => {
-  // Example: Check if the user is authenticated by checking localStorage or context
-  // You can replace this with actual authentication logic
-  return localStorage.getItem('isAdminAuthenticated') === 'true';
-};
+import { AuthContext } from './AuthContext';
 
 const PrivateRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/login" />;
+  const { isAuthenticated } = useContext(AuthContext);
+
+  return isAuthenticated ? children : <Navigate to="/admin/login" />;
 };
 
 export default PrivateRoute;

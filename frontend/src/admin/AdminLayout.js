@@ -1,29 +1,28 @@
 // src/admin/AdminLayout.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
+import { AdminContext } from './AdminContext';
 import AdminSidebar from './AdminSidebar';
-import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
-import Breadcrumb from './Breadcrumb';
-import Notifications from './Notifications';
-import { AdminProvider } from './AdminContext'; // Ensure you import the provider
-import './AdminLayout.css';
+import './AdminLayout.css'; // Ensure you have styles here
 
-const AdminLayout = () => (
-  <AdminProvider>
-    <div className="admin-layout">
+const AdminLayout = () => {
+  const { isSidebarCollapsed } = useContext(AdminContext);
+
+  return (
+    <div className={`admin-layout ${isSidebarCollapsed ? 'collapsed' : ''}`}>
       <AdminSidebar />
       <div className="admin-content">
-        <AdminHeader />
-        <div className="admin-main">
-          <Breadcrumb />
-          <Notifications />
+        <header className="admin-header">
+          <h1>Admin Dashboard</h1>
+        </header>
+        <main className="admin-main">
           <Outlet />
-        </div>
+        </main>
         <AdminFooter />
       </div>
     </div>
-  </AdminProvider>
-);
+  );
+};
 
 export default AdminLayout;

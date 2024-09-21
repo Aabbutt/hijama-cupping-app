@@ -1,36 +1,32 @@
-/* src/admin/AdminLayout.css */
-
+/* Admin Layout */
 .admin-layout {
-    display: flex;
-    height: 100vh;
-    background-color: var(--admin-bg-color);
-    transition: background-color 0.3s ease;
-  }
-  
-  .admin-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  .admin-main {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: var(--admin-main-bg);
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Light Theme Variables */
-  :root {
-    --admin-bg-color: #f5f7fa;
-    --admin-main-bg: #ffffff;
-  }
-  
-  /* Dark Theme Variables */
-  [data-theme='dark'] {
-    --admin-bg-color: #2c3e50;
-    --admin-main-bg: #34495e;
-  }
-  
+  display: flex;
+  min-height: 100vh; /* Use minimum height to ensure it stretches the viewport */
+  flex-direction: row;
+  background-color: #f5f7fa;
+}
+
+.admin-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column; /* Header, main content, and footer stack vertically */
+}
+
+.admin-header {
+  background-color: #00A9BD;
+  padding: 20px;
+  color: white;
+}
+
+.admin-main {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto; /* Scrollable content if needed */
+}
+
+.admin-footer {
+  background-color: #2b2b2b;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
