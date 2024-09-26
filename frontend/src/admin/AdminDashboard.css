@@ -16,31 +16,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.welcome-text {
   text-align: center;
 }
 
-.welcome-text h1 {
+.welcome-section h1 {
   font-size: 3em;
   font-weight: bold;
   color: #0aabc6;
   margin-bottom: 20px;
 }
 
-.welcome-text p {
+.welcome-section p {
   font-size: 1.2em;
   color: #444;
   margin-bottom: 20px;
   line-height: 1.6;
-}
-
-.welcome-text h2 {
-  font-size: 1.8em;
-  font-weight: bold;
-  color: #0aabc6;
-  margin-bottom: 20px;
 }
 
 /* Features section */
@@ -61,14 +51,13 @@
   margin: 10px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
   background-color: #ffffff;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .feature img {
   max-width: 80px;
   margin-bottom: 20px;
-  transition: transform 0.3s;
 }
 
 .feature h3 {
@@ -173,7 +162,7 @@
 }
 
 /* Admin Support Section */
-.admin-appointment {
+.admin-support {
   padding: 60px 20px;
   background-color: #ffffff;
   text-align: center;
@@ -181,20 +170,20 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.admin-appointment h2 {
+.admin-support h2 {
   font-size: 3em;
   font-weight: bold;
   color: #0aabc6;
   margin-bottom: 20px;
 }
 
-.admin-appointment p {
+.admin-support p {
   font-size: 1.2em;
   color: #444;
   margin-bottom: 20px;
 }
 
-.admin-support {
+.admin-support-link {
   padding: 15px 30px;
   background-color: #0aabc6;
   color: white;
@@ -205,36 +194,66 @@
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.admin-support:hover {
+.admin-support-link:hover {
   background-color: #0899ac;
   transform: translateY(-2px);
 }
 
-.admin-support:active {
+.admin-support-link:active {
   background-color: #088a9a;
   transform: translateY(2px);
 }
 
+/* Global link styling to remove underlines */
+a {
+  text-decoration: none; /* Remove underline from all links */
+  color: inherit; /* Inherit color from parent elements */
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .feature,
   .info-item {
-    flex: 1 1 100%;
+    flex: 1 1 100%; /* Stack items on smaller screens */
   }
 
   .admin-features,
   .info-grid {
-    flex-direction: column;
+    flex-direction: column; /* Change layout to column */
   }
 
-  .welcome-text h1 {
-    font-size: 2.5em;
+  .welcome-section h1 {
+    font-size: 2.5em; /* Adjust heading size */
   }
 
-  .welcome-text h2 {
-    font-size: 1.5em;
+  .welcome-section h2 {
+    font-size: 1.5em; /* Adjust secondary heading size */
   }
 
-  .welcome-text p {
-    font-size: 1.1em;
+  .welcome-section p {
+    font-size: 1.1em; /* Adjust paragraph size */
   }
+}
+/* Admin Layout Button */
+.admin-layout-button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #0aabc6;
+  color: white;
+  border-radius: 50px;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 20px; /* Spacing from the text above */
+}
+
+.admin-layout-button:hover {
+  background-color: #0899ac;
+  transform: translateY(-2px);
+}
+
+.admin-layout-button:active {
+  background-color: #088a9a;
+  transform: translateY(2px);
 }

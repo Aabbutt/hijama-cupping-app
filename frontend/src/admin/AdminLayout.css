@@ -1,159 +1,36 @@
-/* General settings for the admin layout */
 .admin-layout {
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  background-color: #f4f7f6;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-/* Welcome section */
-.welcome-section {
-  background-color: #f7f9fc;
-  padding: 60px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.welcome-text {
-  max-width: 800px;
-}
-
-.welcome-text h1 {
-  font-size: 3em;
-  font-weight: bold;
-  color: #0aabc6;
-}
-
-.welcome-text p {
-  font-size: 1.2em;
-  color: #444;
-  line-height: 1.6;
-}
-
-.read-more {
-  padding: 15px 30px;
-  background-color: #0aabc6;
+.admin-header {
+  background: #0aabc6;
   color: white;
-  border-radius: 50px;
-  font-size: 1.2em;
-  font-weight: 600;
+  padding: 1rem;
+  text-align: center;
+}
+
+.admin-header nav a {
+  margin: 0 1rem;
+  color: white;
   text-decoration: none;
-  transition: background-color 0.3s;
 }
 
-.read-more:hover {
-  background-color: #0899ac;
+.admin-sidebar {
+  background: #f7f9fc;
+  padding: 1rem;
+  width: 200px;
 }
 
-/* Features section */
-.features {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 60px 20px;
+.admin-content {
+  flex: 1;
+  padding: 2rem;
 }
 
-.feature {
-  flex: 1 1 calc(45% - 20px);
+.admin-footer {
+  background: #0aabc6;
+  color: white;
   text-align: center;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-}
-
-.feature img {
-  max-width: 80px;
-  margin-bottom: 20px;
-}
-
-.feature h3 {
-  font-size: 1.5em;
-  color: #0aabc6;
-}
-
-/* FAQ Section */
-.faq-section {
-  padding: 60px 20px;
-  background-color: #f7f9fc;
-}
-
-.faq-section h2 {
-  font-size: 2.5em;
-  color: #0aabc6;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.faq-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.faq {
-  background-color: #ffffff;
-  border: 1px solid #e7eef7;
-  border-radius: 10px;
-  margin: 20px 0;
-  padding: 30px;
-  transition: 0.3s ease;
-  cursor: pointer;
-}
-
-.faq.active {
-  background-color: #f7f9fc;
-}
-
-.faq-title {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #0aabc6;
-  cursor: pointer;
-}
-
-.faq-text {
-  display: none;
-  margin-top: 20px;
-}
-
-.faq.active .faq-text {
-  display: block;
-}
-
-/* Review Section */
-.review-section {
-  padding: 60px 20px;
-  background-color: #f7f9fc;
-  border-radius: 10px;
-}
-
-.review-title {
-  font-size: 2.5em;
-  color: #0aabc6;
-  margin-bottom: 20px;
-}
-
-.review-content {
-  text-align: center;
-}
-
-.review-text {
-  display: inline-block;
-  margin: 20px auto;
-}
-
-.review-text blockquote {
-  font-size: 1.2em;
-  color: #444;
-}
-
-.review-author {
-  font-weight: bold;
-  color: #0aabc6;
+  padding: 1rem;
 }

@@ -13,25 +13,27 @@ const AdminDashboard = () => {
           <p>
             Here you can manage users, monitor activities, and maintain the overall functionality of the clinic. Use the tools below to navigate to different administrative features.
           </p>
+          {/* Admin Layout Button */}
+          <Link to="/admin" className="admin-layout-button">Admin Layout</Link>
         </div>
       </section>
 
       <section className="admin-features">
-        <div className="feature feature-square">
+        <Link to="/manage-users" className="feature feature-square">
           <img src="/images/user-management.png" alt="User Management" />
           <h3>User Management</h3>
           <p>View and manage user data</p>
-        </div>
-        <div className="feature feature-square">
-          <img src="/images/system-status.png" alt="System Status" />
-          <h3>System Status</h3>
-          <p>Monitor system health and activity</p>
-        </div>
-        <div className="feature feature-square">
-          <img src="/images/content-moderation.png" alt="Content Moderation" />
-          <h3>Content Moderation</h3>
-          <p>Manage and review posted content</p>
-        </div>
+        </Link>
+        <Link to="/manage-products" className="feature feature-square">
+          <img src="/images/system-status.png" alt="Product Management" />
+          <h3>Product Management</h3>
+          <p>Manage clinic products and services</p>
+        </Link>
+        <Link to="/manage-appointments" className="feature feature-square">
+          <img src="/images/content-moderation.png" alt="Appointment Management" />
+          <h3>Appointment Management</h3>
+          <p>View and manage appointments</p>
+        </Link>
         <div className="feature feature-square">
           <img src="/images/settings.png" alt="Settings" />
           <h3>Settings</h3>

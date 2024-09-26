@@ -1,0 +1,64 @@
+.user-card {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+  }
+  
+  .user-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .user-details {
+    margin-bottom: 15px;
+  }
+  
+  .user-name {
+    font-size: 1.5em;
+    color: #0aabc6;
+    margin: 0;
+  }
+  
+  .user-email {
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .user-role {
+    color: #777;
+    font-style: italic;
+  }
+  
+  .user-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .edit-button,
+  .delete-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-button {
+    background-color: #0aabc6;
+  }
+  
+  .delete-button {
+    background-color: #d9534f;
+  }
+  
+  .edit-button:hover {
+    background-color: #0899ac;
+  }
+  
+  .delete-button:hover {
+    background-color: #c9302c;
+  }
+  

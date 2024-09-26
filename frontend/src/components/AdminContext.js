@@ -1,12 +1,20 @@
-import React, { createContext, useState } from 'react';
+// src/components/AdminContext.js
+import React, { createContext, useState, useContext } from 'react';
 
 // Create the Admin Context
-export const AdminContext = createContext();
+const AdminContext = createContext();
 
-// Create a Provider component
+// AdminProvider Component to wrap around admin-related parts of the app
 export const AdminProvider = ({ children }) => {
-  const [adminData, setAdminData] = useState({}); // Initialize adminData state
+  // Initialize admin-specific data
+  const [adminData, setAdminData] = useState({
+    // Add any initial admin data here
+    users: [],
+    products: [],
+    appointments: [],
+  });
 
+  // Provide the admin data and a function to update it to children components
   return (
     <AdminContext.Provider value={{ adminData, setAdminData }}>
       {children}
@@ -14,11 +22,11 @@ export const AdminProvider = ({ children }) => {
   );
 };
 
-// Optional: Export a custom hook for easier access to the context
-export const useAdminContext = () => {
-  const context = React.useContext(AdminContext);
+// Custom hook for easier access to AdminContext
+export const useAdmin = () => {
+  const context = useContext(AdminContext);
   if (!context) {
-    throw new Error('useAdminContext must be used within an AdminProvider');
+    throw new Error('useAdmin must be used within an AdminProvider');
   }
   return context;
 };

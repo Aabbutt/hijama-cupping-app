@@ -14,6 +14,7 @@ import Appointment from './pages/Appointment';
 import JoinAsPractitioner from './pages/JoinAsPractitioner'; // Corrected syntax error
 import AdminLayout from './admin/AdminLayout'; // Admin Layout (Header + Sidebar)
 import AdminDashboard from './admin/AdminDashboard';
+import Support from './admin/Support';
 import { AdminProvider } from './components/AdminContext'; // Ensure you import the AdminProvider
 import ManageUsers from './admin/ManageUsers'; // Admin Users Management
 import ManageProducts from './admin/ManageProducts'; // Admin Products Management
@@ -109,16 +110,19 @@ function App() {
     <Route index element={<AdminDashboard />} /> {/* Default to dashboard */}
     <Route path="/admin-dashboard" element={<AdminDashboard />} />
     <Route path="dashboard" element={<AdminDashboard />} />
-    <Route path="manage-users" element={<ManageUsers />} />
+  
     <Route path="manage-products" element={<ManageProducts />} />
     <Route path="manage-appointments" element={<ManageAppointments />} />
+    <Route path="support" element={<Support />} />
   </Route>
 </Routes>
         </AdminProvider>
       </AuthProvider>
+{/* ERRRRRRR */}
       <Routes>
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        {/* Other routes can go here */}
+        <Route path="/admin-layout" element={<AdminLayout />} />
+        <Route path="manage-users" element={<ManageUsers />} />
       </Routes>
     </Router>
     
