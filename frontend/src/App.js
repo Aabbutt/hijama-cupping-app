@@ -13,8 +13,8 @@ import TherapistNearYou from './pages/TherapistNearYou';
 import Appointment from './pages/Appointment';
 import JoinAsPractitioner from './pages/JoinAsPractitioner'; // Corrected syntax error
 import AdminLayout from './admin/AdminLayout'; // Admin Layout (Header + Sidebar)
-import Dashboard from './admin/Dashboard'; // Admin Dashboard Component
-import { AdminProvider } from './admin/AdminContext'; // Ensure you import the AdminProvider
+import AdminDashboard from './admin/AdminDashboard';
+import { AdminProvider } from './components/AdminContext'; // Ensure you import the AdminProvider
 import ManageUsers from './admin/ManageUsers'; // Admin Users Management
 import ManageProducts from './admin/ManageProducts'; // Admin Products Management
 import ManageAppointments from './admin/ManageAppointments'; // Admin Appointments Management
@@ -100,20 +100,28 @@ function App() {
       </div>
       <AuthProvider>
         <AdminProvider>
-          <Routes>
-            {/* Admin Login Route */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            {/* Protected Admin Routes */}
-            <Route path="/admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="manage-users" element={<ManageUsers />} />
-              <Route path="manage-products" element={<ManageProducts />} />
-              <Route path="manage-appointments" element={<ManageAppointments />} />
-            </Route>
-          </Routes>
+        <Routes>
+  {/* Admin Login Route */}
+  <Route path="/admin/login" element={<AdminLogin />} />
+
+  {/* Protected Admin Routes */}
+  <Route path="/admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
+    <Route index element={<AdminDashboard />} /> {/* Default to dashboard */}
+    <Route path="/admin-dashboard" element={<AdminDashboard />} />
+    <Route path="dashboard" element={<AdminDashboard />} />
+    <Route path="manage-users" element={<ManageUsers />} />
+    <Route path="manage-products" element={<ManageProducts />} />
+    <Route path="manage-appointments" element={<ManageAppointments />} />
+  </Route>
+</Routes>
         </AdminProvider>
       </AuthProvider>
+      <Routes>
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        {/* Other routes can go here */}
+      </Routes>
     </Router>
+    
   );
 }
 

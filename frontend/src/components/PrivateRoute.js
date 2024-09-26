@@ -1,12 +1,12 @@
 // src/components/PrivateRoute.js
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
+import { useAuth } from './AuthContext'; // Ensure this path is correct
 
 const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useAuth(); // Adjust based on your AuthContext
 
   return isAuthenticated ? children : <Navigate to="/admin/login" />;
 };
 
-export default PrivateRoute;
+export default PrivateRoute; // Ensure the component is exported as default
