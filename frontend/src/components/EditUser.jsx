@@ -1,4 +1,4 @@
-// src/components/EditUser.js
+// src/components/EditUser.jsx
 
 import React, { useState, useEffect } from 'react';
 import './EditUser.css'; // Add appropriate styles

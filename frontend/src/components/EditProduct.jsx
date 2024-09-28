@@ -1,4 +1,4 @@
-// src/components/EditProduct.js
+// src/components/EditProduct.jsx
 
 import React, { useState, useEffect } from 'react';
 import './EditProduct.css'; // Add styles as needed
