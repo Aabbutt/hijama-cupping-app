@@ -14,7 +14,6 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Welcome section */
 .welcome-section {
   background-color: #f7f9fc; /* Updated to match the review section background */
   padding: 60px 20px; /* Same padding as review section */
@@ -25,8 +24,12 @@
   justify-content: space-between;
   align-items: center;
   animation: slide-in-down 1s ease-out;
+  gap: 50px;
 }
-
+.welcome-section-img{
+  object-fit: contain;
+  border-radius: 50%;
+}
 .welcome-text {
   flex: 1;
   padding-right: 20px;
@@ -54,6 +57,7 @@
   color: #0aabc6; /* Updated to match review section */
   margin-bottom: 20px;
 }
+
 
 .read-more {
   padding: 15px 30px;
@@ -222,7 +226,29 @@
   background-color: #007B82; /* Even darker Teal Blue when active */
   transform: translateY(2px);
 }
+@media (max-width: 1024px) {
+  .info-grid {
+    flex-direction: column;
+  }
 
+  .info-item {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .info-item p {
+    text-align: center;
+  }
+
+  .welcome-section-img-div{
+    width: 90vh;
+  }
+
+  .welcome-section-img {
+    width: 95%;
+    border-radius: 10px;
+  }
+}
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .info-grid {
@@ -236,6 +262,9 @@
 
   .info-item p {
     text-align: center;
+  }
+  .welcome-section-img {
+    border-radius: 10px;
   }
 }
 /* FAQ Section */

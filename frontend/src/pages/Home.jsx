@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import hijama_pic from '../components/images/hijama-pic.webp'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Home = () => {
 
   return (
     <div className="home">
+     <div className="welcome-section">
       <section className="welcome-section">
         <div className="welcome-text">
           <h1>WELCOME TO HIJAMA CLINIC</h1>
@@ -53,7 +55,11 @@ const Home = () => {
           </p>
           <button className="read-more" onClick={handleReadMoreClick}>READ MORE</button>
         </div>
+        <div className='welcome-section-img-div'>
+        <img src={hijama_pic} alt="" className="welcome-section-img"/>
+      </div>
       </section>
+      </div>
 
       <section className="features">
         <div className="feature feature-square">

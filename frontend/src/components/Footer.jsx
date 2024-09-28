@@ -35,7 +35,6 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* About Us Section */}
         <div className="footer-section about">
           <h3>About Us</h3>
           <p>

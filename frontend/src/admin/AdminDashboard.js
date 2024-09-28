@@ -34,11 +34,11 @@ const AdminDashboard = () => {
           <h3>Appointment Management</h3>
           <p>View and manage appointments</p>
         </Link>
-        <div className="feature feature-square">
-          <img src="/images/settings.png" alt="Settings" />
-          <h3>Settings</h3>
-          <p>Adjust system settings and preferences</p>
-        </div>
+        <Link to="/admin/manage-settings" className="feature feature-square">
+  <img src="/images/settings.png" alt="Settings" />
+  <h3>Settings</h3>
+  <p>Adjust system settings and preferences</p>
+</Link>
       </section>
 
       <section className="admin-info">

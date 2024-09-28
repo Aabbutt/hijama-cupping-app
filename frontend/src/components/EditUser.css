@@ -1,0 +1,114 @@
+/* src/components/EditUser.css */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure the modal appears above other elements */
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+    animation: slide-in 0.3s ease-out;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  
+  .edit-user-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-user-form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .edit-user-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .edit-user-form .form-group .required {
+    color: #e74c3c;
+  }
+  
+  .edit-user-form .form-group input,
+  .edit-user-form .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1em;
+    transition: border-color 0.3s;
+  }
+  
+  .edit-user-form .form-group input:focus,
+  .edit-user-form .form-group select:focus {
+    border-color: #1abc9c;
+  }
+  
+  .edit-user-form .phone-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .edit-user-form .phone-input input {
+    flex: 1;
+  }
+  
+  .edit-user-form button {
+    background-color: #1abc9c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .edit-user-form button:hover {
+    background-color: #16a085;
+    transform: translateY(-2px);
+  }
+  
+  .edit-user-form button:active {
+    transform: translateY(2px);
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
