@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import UserLayout from './components/UserLayout'; // User Layout that handles Header and Footer
 import Home from './pages/Home';
 import About from './pages/About';
@@ -27,12 +27,15 @@ import { AuthProvider } from './components/AuthContext';
 import AddProduct from './components/AddProduct';
 import EditProduct from './components/EditProduct';
 import ManageSettings from './admin/ManageSettings'; // Import the new Settings Page
+import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
 import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
 import './App.css'; // Global CSS Styles
 
 function App() {
   const [showPersonalization, setShowPersonalization] = useState(false); // Toggle AI modal
   const [showSmartBooking, setShowSmartBooking] = useState(false); // Toggle Smart Booking modal
+  const [showShortLogin, setShowShortLogin] = useState(false); // Toggle short login modal
+  const [isVerified, setIsVerified] = useState(false); // Track if admin is re-verified
   const [users, setUsers] = useState([]); // Users state for admin
   const [appointments, setAppointments] = useState([]); // Appointments state for admin
   const [products, setProducts] = useState([]); // Products state for admin
@@ -83,6 +86,12 @@ function App() {
 
   const toggleSmartBooking = () => {
     setShowSmartBooking(!showSmartBooking);
+  };
+
+  // Function to handle successful re-confirmation login
+  const handleShortLoginSuccess = () => {
+    setIsVerified(true);
+    setShowShortLogin(false);
   };
 
   // User management handlers
@@ -189,6 +198,14 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* Short Login Modal for Manage Settings */}
+        {showShortLogin && (
+          <ShortLoginModal
+            onClose={() => setShowShortLogin(false)}
+            onSuccess={handleShortLoginSuccess}
+          />
+        )}
       </div>
 
       <AuthProvider>
@@ -198,32 +215,71 @@ function App() {
             <Route path="/admin/login" element={<AdminLogin />} />
 
             {/* Protected Admin Routes */}
-            <Route path="/admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
+            <Route
+              path="/admin"
+              element={<PrivateRoute><AdminLayout /></PrivateRoute>}
+            >
               <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="support" element={<Support />} /> 
-      <Route path="manage-settings" element={<ManageSettings />} />
-
+              <Route path="support" element={<Support />} />
             </Route>
           </Routes>
+                <Routes>
+      <Route path="/admin/manage-settings" element={<ManageSettings />} />
+      </Routes>
         </AdminProvider>
       </AuthProvider>
+
       <Routes>
-      <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
-       <Routes>
-{/* Manage Users Route */}
-<Route path="manage-users" element={<ManageUsers users={users} onAddUser={handleAddUser} onEdit={handleEdit} onDelete={handleDelete} />} />
-       </Routes>
-       <Routes>
-      { /* Manage Products Routes */}
-<Route path="manage-products" element={<ManageProducts products={products} onAddProduct={handleAddProduct} onEditProduct={handleEditProduct} onDeleteProduct={handleDeleteProduct} />} />
-<Route path="manage-products/add" element={<AddProduct onAddProduct={handleAddProduct} products={products} />} />
-<Route path="manage-products/edit/:id" element={<EditProduct onUpdate={handleEditProduct} products={products} />} />
-       </Routes>
-       <Routes>
-{/* Manage Appointments Route */}
-<Route path="manage-appointments" element={<ManageAppointments appointments={appointments} onAddAppointment={handleAddAppointment} onEditAppointment={handleEditAppointment} onDeleteAppointment={handleDeleteAppointment} />} />
-       </Routes>
+
+
+
+      <Routes>
+        {/* Manage Users Route */}
+        <Route
+          path="manage-users"
+          element={<ManageUsers users={users} onAddUser={handleAddUser} onEdit={handleEdit} onDelete={handleDelete} />}
+        />
+      </Routes>
+
+      <Routes>
+        {/* Manage Products Routes */}
+        <Route
+          path="manage-products"
+          element={
+            <ManageProducts
+              products={products}
+              onAddProduct={handleAddProduct}
+              onEditProduct={handleEditProduct}
+              onDeleteProduct={handleDeleteProduct}
+            />
+          }
+        />
+        <Route
+          path="manage-products/add"
+          element={<AddProduct onAddProduct={handleAddProduct} products={products} />}
+        />
+        <Route
+          path="manage-products/edit/:id"
+          element={<EditProduct onUpdate={handleEditProduct} products={products} />}
+        />
+      </Routes>
+
+      <Routes>
+        {/* Manage Appointments Route */}
+        <Route
+          path="manage-appointments"
+          element={
+            <ManageAppointments
+              appointments={appointments}
+              onAddAppointment={handleAddAppointment}
+              onEditAppointment={handleEditAppointment}
+              onDeleteAppointment={handleDeleteAppointment}
+            />
+          }
+        />
+      </Routes>
     </Router>
   );
 }
