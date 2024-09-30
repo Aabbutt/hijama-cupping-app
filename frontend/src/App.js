@@ -158,6 +158,7 @@ function App() {
             <Route path="products/honey" element={<Products.Honey />} />
             <Route path="contact" element={<Contact />} />
             <Route path="login" element={<Login />} />
+            <Route path="products" element={<Products />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="therapist-near-you" element={<TherapistNearYou />} />
@@ -228,13 +229,9 @@ function App() {
       </Routes>
         </AdminProvider>
       </AuthProvider>
-
       <Routes>
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
-
-
-
       <Routes>
         {/* Manage Users Route */}
         <Route
