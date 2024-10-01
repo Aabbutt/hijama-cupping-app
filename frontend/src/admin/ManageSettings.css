@@ -1,85 +1,100 @@
-/* src/admin/ManageSettings.css */
-
+/* General Settings Container */
 .settings-container {
   padding: 20px;
   background-color: #f8f9fb;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
 }
 
 .settings-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .settings-header h1 {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: bold;
+  color: #333;
 }
 
-.settings-actions .btn-theme-editor,
-.settings-actions .btn-theme-settings {
-  background-color: #5664d2;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  margin-left: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
+/* Grid layout for settings boxes */
 .settings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
 
+/* Individual setting card */
 .settings-card {
   background-color: white;
   border: 1px solid #e1e5eb;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   text-align: center;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .settings-card:hover {
   transform: translateY(-5px);
-}
-
-.settings-card-image {
-  width: 100%;
-  max-height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .settings-card h3 {
-  margin: 10px 0;
   font-size: 18px;
   font-weight: bold;
   color: #333;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .settings-card p {
   font-size: 14px;
   color: #666;
+}
+
+.settings-icon {
+  font-size: 36px;
   margin-bottom: 15px;
+  color: #007bff;
 }
 
-.btn-action {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
+/* Active state for the selected card */
+.settings-card.active {
+  background-color: #f0f9ff;
+  border-color: #007bff;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.2);
 }
 
-.btn-action:hover {
-  background-color: #388e3c;
+/* Settings panel to display detailed content of selected section */
+.settings-panel {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.settings-panel h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.settings-panel p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
 }

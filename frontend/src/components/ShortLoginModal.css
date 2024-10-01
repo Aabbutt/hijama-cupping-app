@@ -1,39 +1,104 @@
-/* src/components/ShortLoginModal.css */
-
+/* Overlay for the modal */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* High z-index to ensure it stays on top */
+}
+
+/* Blurred background effect */
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover; /* Cover the entire screen */
+  filter: blur(8px); /* Blur the background */
+  z-index: -1; /* Place it behind the modal */
+}
+
+/* Modal content styling */
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for the modal */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 400px; /* Fixed width for modal */
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out; /* Animation effect for modal */
+}
+
+.modal-content h2 {
+  font-size: 1.8em;
+  color: #0aabc6;
+  margin-bottom: 20px;
+}
+
+/* Input fields styling */
+input[type='text'],
+input[type='password'] {
+  width: 100%; /* Full width inputs */
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+input[type='text']:focus,
+input[type='password']:focus {
+  border-color: #0aabc6; /* Border color on focus */
+  outline: none; /* Remove outline */
+}
+
+/* Button styling */
+button[type='submit'] {
+  background-color: #0aabc6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type='submit']:hover {
+  background-color: #0899ac; /* Lighter shade on hover */
+}
+
+/* Close button styling */
+.close-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  color: #0aabc6;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 0.9em;
+}
+
+/* Animation for modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .error-message {
-    color: red;
-    margin-top: 10px;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    background: none;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
+}

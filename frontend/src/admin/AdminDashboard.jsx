@@ -33,26 +33,31 @@ const AdminDashboard = () => {
           <h1>Welcome, Admin</h1>
           <p>Manage Your Clinic's Data and Users Efficiently</p>
           <h2>Admin Dashboard Overview</h2>
-          <p>Here you can manage users, monitor activities, and maintain the overall functionality of the clinic.</p>
+          <p>Here you can monitor activities and maintain the overall functionality of the clinic.</p>
           <Link to="/admin" className="admin-layout-button">Admin Layout</Link>
         </div>
       </section>
 
       <section className="admin-features">
-        <Link to="/manage-users" className="feature feature-square">
-          <img src="/images/user-management.png" alt="User Management" />
-          <h3>User Management</h3>
-          <p>View and manage user data</p>
+        {/* Client Health Insights - Update to New Path */}
+        <Link to="/client-health-insights" className="feature feature-square">
+          <img src="/images/client-health-insights.png" alt="Client Health Insights" />
+          <h3>Client Health Insights</h3>
+          <p>Monitor and manage client health profiles, treatment history, and post-therapy feedback.</p>
         </Link>
-        <Link to="/manage-products" className="feature feature-square">
-          <img src="/images/system-status.png" alt="Product Management" />
-          <h3>Product Management</h3>
-          <p>Manage clinic products and services</p>
+
+        {/* Therapy Kit Inventory - Update to New Path */}
+        <Link to="/therapy-kit-inventory" className="feature feature-square">
+          <img src="/images/therapy-kit-inventory.png" alt="Therapy Kit Inventory" />
+          <h3>Therapy Kit Inventory</h3>
+          <p>Oversee Hijama therapy kits, cupping tools, and inventory management.</p>
         </Link>
-        <Link to="/manage-appointments" className="feature feature-square">
-          <img src="/images/content-moderation.png" alt="Appointment Management" />
-          <h3>Appointment Management</h3>
-          <p>View and manage appointments</p>
+
+        {/* Holistic Treatment Tracker - Update to New Path */}
+        <Link to="/holistic-treatment-tracker" className="feature feature-square">
+          <img src="/images/holistic-treatment-tracker.png" alt="Holistic Treatment Tracker" />
+          <h3>Holistic Treatment Tracker</h3>
+          <p>Track and manage the progress of ongoing treatments and client preferences.</p>
         </Link>
 
         {/* Updated Settings Button */}

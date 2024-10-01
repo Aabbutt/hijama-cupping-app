@@ -14,20 +14,20 @@
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
   text-align: center;
 }
 
 .welcome-section h1 {
-  font-size: 3em;
+  font-size: 2.5em; /* Responsive size */
   font-weight: bold;
   color: #0aabc6;
   margin-bottom: 20px;
 }
 
 .welcome-section p {
-  font-size: 1.2em;
+  font-size: 1.2em; /* Responsive size */
   color: #444;
   margin-bottom: 20px;
   line-height: 1.6;
@@ -38,14 +38,14 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 60px 20px;
+  padding: 40px 10px; /* Reduced padding for smaller screens */
   background-color: #f7f9fc;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .feature {
-  flex: 1 1 calc(45% - 20px);
+  flex: 1 1 calc(30% - 20px); /* Flex items with a calculated width */
   text-align: center;
   padding: 20px;
   margin: 10px;
@@ -55,20 +55,44 @@
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.feature img {
-  max-width: 80px;
-  margin-bottom: 20px;
+.feature .icon {
+  font-size: 2.5em; /* Adjusted icon size */
+  margin-bottom: 10px;
 }
 
 .feature h3 {
-  font-size: 1.5em;
+  font-size: 1.5em; /* Responsive size */
   color: #0aabc6;
   margin-bottom: 10px;
 }
 
 .feature p {
-  font-size: 1.2em;
+  font-size: 1em; /* Responsive size */
   color: #444;
+}
+
+/* Uniform button styles */
+.button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #0aabc6;
+  color: white;
+  border-radius: 50px;
+  font-size: 1.2em; /* Responsive size */
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: #0899ac;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  background-color: #088a9a;
+  transform: translateY(2px);
 }
 
 .feature:hover {
@@ -79,14 +103,14 @@
 /* Information section */
 .admin-info {
   background-color: #ffffff;
-  padding: 60px 20px;
+  padding: 40px 20px; /* Reduced padding for smaller screens */
   text-align: center;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .admin-info h2 {
-  font-size: 3em;
+  font-size: 2.5em; /* Responsive size */
   font-weight: bold;
   color: #0aabc6;
   margin-bottom: 10px;
@@ -106,7 +130,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   margin: 20px;
-  flex: 1 1 calc(45% - 40px);
+  flex: 1 1 calc(45% - 40px); /* Responsive width */
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: left;
 }
@@ -120,14 +144,14 @@
 }
 
 .info-item h3 {
-  font-size: 1.5em;
+  font-size: 1.5em; /* Responsive size */
   font-weight: bold;
   color: #0aabc6;
   margin-bottom: 15px;
 }
 
 .info-item p {
-  font-size: 1.2em;
+  font-size: 1em; /* Responsive size */
   color: #333;
   line-height: 1.6;
 }
@@ -144,7 +168,7 @@
   background-color: #0aabc6;
   color: white;
   border-radius: 50px;
-  font-size: 1.2em;
+  font-size: 1.2em; /* Responsive size */
   font-weight: 600;
   text-decoration: none;
   transition: background-color 0.3s, transform 0.3s;
@@ -171,14 +195,14 @@
 }
 
 .admin-support h2 {
-  font-size: 3em;
+  font-size: 2.5em; /* Responsive size */
   font-weight: bold;
   color: #0aabc6;
   margin-bottom: 20px;
 }
 
 .admin-support p {
-  font-size: 1.2em;
+  font-size: 1.2em; /* Responsive size */
   color: #444;
   margin-bottom: 20px;
 }
@@ -188,7 +212,7 @@
   background-color: #0aabc6;
   color: white;
   border-radius: 50px;
-  font-size: 1.2em;
+  font-size: 1.2em; /* Responsive size */
   font-weight: 600;
   text-decoration: none;
   transition: background-color 0.3s, transform 0.3s;
@@ -211,6 +235,17 @@ a {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .feature,
+  .info-item {
+    flex: 1 1 calc(45% - 40px); /* 2 items per row */
+  }
+
+  .admin-features {
+    padding: 40px 10px; /* Reduce padding */
+  }
+}
+
 @media (max-width: 768px) {
   .feature,
   .info-item {
@@ -234,6 +269,7 @@ a {
     font-size: 1.1em; /* Adjust paragraph size */
   }
 }
+
 /* Admin Layout Button */
 .admin-layout-button {
   display: inline-block;
@@ -241,7 +277,7 @@ a {
   background-color: #0aabc6;
   color: white;
   border-radius: 50px;
-  font-size: 1.2em;
+  font-size: 1.2em; /* Responsive size */
   font-weight: 600;
   text-decoration: none;
   transition: background-color 0.3s, transform 0.3s;

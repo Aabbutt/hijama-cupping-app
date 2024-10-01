@@ -1,5 +1,3 @@
-// src/components/ShortLoginModal.js
-
 import React, { useState } from 'react';
 import './ShortLoginModal.css'; // Include your styles for the modal
 
@@ -22,6 +20,7 @@ const ShortLoginModal = ({ onClose, onSuccess }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-background"></div> {/* Blurred background */}
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>Admin Re-confirmation</h2>
         <form onSubmit={handleLogin}>

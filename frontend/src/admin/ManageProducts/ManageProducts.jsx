@@ -1,8 +1,8 @@
 // src/admin/ManageProducts.js
 
 import React, { useState } from 'react';
-import AddProduct from '../components/AddProduct'; // Import AddProduct Component
-import EditProduct from '../components/EditProduct'; // Import EditProduct Component
+import AddProduct from '../../components/AddProduct'; // Import AddProduct Component
+import EditProduct from '../../components/EditProduct'; // Import EditProduct Component
 import './ManageProducts.css'; // Ensure your CSS file exists
 
 const ManageProducts = ({ products, onAddProduct, onEditProduct, onDeleteProduct }) => {

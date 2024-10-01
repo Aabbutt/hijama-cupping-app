@@ -17,15 +17,18 @@ import AdminDashboard from './admin/AdminDashboard';
 import Support from './admin/Support';
 import { AdminProvider } from './components/AdminContext';
 import ManageUsers from './admin/ManageUsers'; // Admin Users Management
-import ManageProducts from './admin/ManageProducts'; // Admin Products Management
+import ManageProducts from './admin/ManageProducts/ManageProducts'; // Admin Products Management
 import ManageAppointments from './admin/ManageAppointments'; // Admin Appointments Management
 import Personalization from './components/Personalization'; // AI Personalization Component
 import SmartBooking from './components/SmartBooking'; // Smart Booking Component
 import PrivateRoute from './components/PrivateRoute'; // Admin Route Protection
 import AdminLogin from './admin/AdminLogin'; // Separate admin login page
 import { AuthProvider } from './components/AuthContext';
+import ManagePractitioners from './admin/ManagePractitioners';
 import AddProduct from './components/AddProduct';
 import EditProduct from './components/EditProduct';
+import ManageDiscounts from './admin/ManageDiscounts';
+import ManageNotifications from './admin/ManageNotifications';
 import ManageSettings from './admin/ManageSettings'; // Import the new Settings Page
 import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
 import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
@@ -39,6 +42,9 @@ function App() {
   const [users, setUsers] = useState([]); // Users state for admin
   const [appointments, setAppointments] = useState([]); // Appointments state for admin
   const [products, setProducts] = useState([]); // Products state for admin
+  const [practitioners, setPractitioners] = useState([]);
+  const [discounts, setDiscounts] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   // Load users from localStorage on initial render
   useEffect(() => {
@@ -135,7 +141,65 @@ function App() {
   const handleDeleteProduct = (productId) => {
     setProducts(products.filter(prod => prod.id !== productId));
   };
+  useEffect(() => {
+    const storedPractitioners = localStorage.getItem('adminPractitioners');
+    if (storedPractitioners) {
+      setPractitioners(JSON.parse(storedPractitioners));
+    }
+  }, []);
 
+  // Save practitioners to localStorage whenever practitioners state changes
+  useEffect(() => {
+    localStorage.setItem('adminPractitioners', JSON.stringify(practitioners));
+  }, [practitioners]);
+
+  // Other useEffect hooks for users and appointments...
+
+  // Handle adding, editing, and deleting practitioners
+  const handleAddPractitioner = (newPractitioner) => {
+    const practitionerId = practitioners.length > 0 ? Math.max(...practitioners.map(p => p.id)) + 1 : 1;
+    setPractitioners([...practitioners, { id: practitionerId, ...newPractitioner }]);
+  };
+
+  const handleEditPractitioner = (updatedPractitioner) => {
+    setPractitioners(practitioners.map(practitioner => (practitioner.id === updatedPractitioner.id ? updatedPractitioner : practitioner)));
+  };
+
+  const handleDeletePractitioner = (practitionerId) => {
+    setPractitioners(practitioners.filter(practitioner => practitioner.id !== practitionerId));
+  };
+    //Discount
+    const handleAddDiscount = (newDiscount) => {
+      setDiscounts((prevDiscounts) => [...prevDiscounts, newDiscount]);
+    };
+  
+    const handleEditDiscount = (updatedDiscount) => {
+      setDiscounts((prevDiscounts) =>
+        prevDiscounts.map((discount) =>
+          discount.id === updatedDiscount.id ? updatedDiscount : discount
+        )
+      );
+    };
+  
+    const handleDeleteDiscount = (id) => {
+      setDiscounts((prevDiscounts) => prevDiscounts.filter((discount) => discount.id !== id));
+    };
+    //Notification 
+    const handleAddNotification = (newNotification) => {
+      setNotifications((prevNotifications) => [...prevNotifications, newNotification]);
+    };
+  
+    const handleEditNotification = (updatedNotification) => {
+      setNotifications((prevNotifications) =>
+        prevNotifications.map((notification) =>
+          notification.id === updatedNotification.id ? updatedNotification : notification
+        )
+      );
+    };
+  
+    const handleDeleteNotification = (id) => {
+      setNotifications((prevNotifications) => prevNotifications.filter((notification) => notification.id !== id));
+    };
   return (
     <Router>
       <div className="App">
@@ -226,21 +290,11 @@ function App() {
           </Routes>
                 <Routes>
       <Route path="/admin/manage-settings" element={<ManageSettings />} />
-      </Routes>
-        </AdminProvider>
-      </AuthProvider>
-      <Routes>
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-      </Routes>
-      <Routes>
         {/* Manage Users Route */}
         <Route
           path="manage-users"
           element={<ManageUsers users={users} onAddUser={handleAddUser} onEdit={handleEdit} onDelete={handleDelete} />}
         />
-      </Routes>
-
-      <Routes>
         {/* Manage Products Routes */}
         <Route
           path="manage-products"
@@ -261,9 +315,6 @@ function App() {
           path="manage-products/edit/:id"
           element={<EditProduct onUpdate={handleEditProduct} products={products} />}
         />
-      </Routes>
-
-      <Routes>
         {/* Manage Appointments Route */}
         <Route
           path="manage-appointments"
@@ -276,6 +327,20 @@ function App() {
             />
           }
         />
+        <Route path="manage-practitioners" element={<ManagePractitioners practitioners={practitioners} onAddPractitioner={handleAddPractitioner} onEditPractitioner={handleEditPractitioner} onDeletePractitioner={handleDeletePractitioner} />} />
+        <Route path="/manage-discounts" element={<ManageDiscounts discounts={discounts} onAddDiscount={handleAddDiscount} onEditDiscount={handleEditDiscount} onDeleteDiscount={handleDeleteDiscount}/>}/>
+        <Route path="/manage-notifications" element={
+          <ManageNotifications
+            notifications={notifications}
+            onAddNotification={handleAddNotification}
+            onEditNotification={handleEditNotification}
+            onDeleteNotification={handleDeleteNotification}
+          />}/>        
+      </Routes>
+        </AdminProvider>
+      </AuthProvider>
+      <Routes>
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );
