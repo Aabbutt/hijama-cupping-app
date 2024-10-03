@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import UserLayout from './components/UserLayout'; // User Layout that handles Header and Footer
 import Home from './pages/Home';
 import About from './pages/About';
-import KnowledgeBase from './pages/KnowledgeBase';
+import KnowledgeBase from './pages/Knowledgebase';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
@@ -37,6 +37,7 @@ import BranchManagement from './admin/BranchManagement';
 import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
 import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
 import './App.css'; // Global CSS Styles
+import Knowledgebase from './pages/Knowledgebase';
 
 function App() {
   const [showPersonalization, setShowPersonalization] = useState(false); // Toggle AI modal
@@ -291,13 +292,7 @@ function App() {
             {/* UserLayout includes Header and Footer */}
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-            <Route path="knowledge-base/hijama-in-islam" element={<KnowledgeBase.HijamaInIslam />} />
-            <Route path="knowledge-base/hijama-modern-world" element={<KnowledgeBase.HijamaModernWorld />} />
-            <Route path="knowledge-base/hijama-history" element={<KnowledgeBase.HijamaHistory />} />
-            <Route path="knowledge-base/benefits-of-hijama" element={<KnowledgeBase.BenefitsOfHijama />} />
-            <Route path="knowledge-base/hijama-sunnah-dates" element={<KnowledgeBase.HijamaSunnahDates />} />
-            <Route path="knowledge-base/sunnah-points" element={<KnowledgeBase.SunnahPoints />} />
-            <Route path="knowledge-base/hijama-course" element={<KnowledgeBase.HijamaCourse />} />
+            <Route path="knowledge-base" element={<Knowledgebase />} />
             <Route path="products/hijama-cups" element={<Products.HijamaCups />} />
             <Route path="products/hijama-pumps" element={<Products.HijamaPumps />} />
             <Route path="products/hijama-kits" element={<Products.HijamaKits />} />

@@ -30,8 +30,8 @@ const Header = () => {
       {/* Top header bar for contact and actions */}
       <div className="top-header">
         <div className="contact-info">
-          <span>Phone: 0315 7130363 | 0300 7130363</span>
-          <a href="https://wa.me/03007130363" target="_blank" rel="noopener noreferrer">
+          <span>Phone: 0315 1766375 | 0300 0308910</span>
+          <a href="https://wa.me/03000308910" target="_blank" rel="noopener noreferrer">
             <img src="/images/whatsapp-icon.png" alt="WhatsApp" className="whatsapp-icon" />
           </a>
         </div>

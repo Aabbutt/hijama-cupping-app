@@ -9,6 +9,11 @@ import ourproduct from '../components/images/ourproduct.jpg'
 import ourbranch from '../components/images/ourbranch.webp'
 import hijamainislam from '../components/images/hijamainislam.jpg'
 import modernworld from '../components/images/modernworld.jpg'
+import bofhijama from '../components/images/bofhijama.jpg'
+import hijamac from '../components/images/hijamac.jpg'
+import reviewimage from '../components/images/reviewimage.png'
+import abc from '../components/videos/abc.mp4'
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -40,34 +45,30 @@ const Home = () => {
     {
       name: "Peter Esser",
       reviewText: "I was very impressed by Dr Pavel Zwolak. His knowledge of the various treatment methods is extraordinary.",
-      profileImage: "doctor.png"  // Update with the correct image path
+      profileImage: "doctor.png"  
     },
-    // You can add more reviews if needed
   ];
 
   return (
     <div className="home">
-     <div className="welcome-section">
-      <section className="welcome-section">
-        <div className="welcome-text">
-          <h1>WELCOME TO HIJAMA CLINIC</h1>
-          <p>ISO Certified Hijama Alternative Clinic</p>
-          <p>
-            UG Healing Center is one of the best and hygienic Hijama Clinics in Karachi, Pakistan which provide quality health care services and Certified Training for Hijama Cupping Therapy.
-          </p>
-          <h2>MODERN MEDICAL FACILITIES</h2>
-          <p>
-            UG Healing Center was established by <strong>Mohammad Usman Ghani</strong> from an early age he was very aware of the energies surrounding us and had that special touch to heal and to understand that we are more than just physical humans... Usman Ghani had a keen thirst of knowledge, he unconsciously knew deep in his heart the mission he had to accomplish...
-          </p>
-          <button className="read-more" onClick={handleReadMoreClick}>READ MORE</button>
-        </div>
-        <div className='welcome-section-img-div'>
-        <img src={hijama_pic} alt="" className="welcome-section-img"/>
-      </div>
-      </section>
-      </div>
-
-      <section className="features">
+  <section className="welcome-section">
+    <div className="welcome-text">
+      <h1>WELCOME TO HIJAMA CLINIC</h1>
+      <p>ISO Certified Hijama Alternative Clinic</p>
+      <p>
+        UG Healing Center is one of the best and hygienic Hijama Clinics in Karachi, Pakistan which provide quality health care services and Certified Training for Hijama Cupping Therapy.
+      </p>
+      <h2>MODERN MEDICAL FACILITIES</h2>
+      <p>
+        UG Healing Center was established by <strong>Mohammad Usman Ghani</strong> from an early age he was very aware of the energies surrounding us and had that special touch to heal and to understand that we are more than just physical humans... Usman Ghani had a keen thirst of knowledge, he unconsciously knew deep in his heart the mission he had to accomplish...
+      </p>
+      <button className="read-more" onClick={handleReadMoreClick}>READ MORE</button>
+    </div>
+    <div className='welcome-section-img-div'>
+      <img src={hijama_pic} alt="" className="welcome-section-img"/>
+    </div>
+  </section>
+ <section className="features">
         <div className="feature feature-square">
           <img src={knowledge_base} alt="Knowledge Base" />
           <h3>Knowledge Base</h3>
@@ -104,12 +105,12 @@ const Home = () => {
             <p>These days, people are looking to alternative therapies...</p>
           </div>
           <div className="feature feature-square">
-            <img src="/images/benefits.png" alt="Benefits of Hijama" />
+            <img src={bofhijama} alt="Benefits of Hijama" />
             <h3>Benefits of Hijama</h3>
             <p>The strengthening and stimulating effects of Hijama therapy...</p>
           </div>
           <div className="feature feature-square">
-            <img src="/images/course.png" alt="Hijama Course" />
+            <img src={hijamac} alt="Hijama Course" />
             <h3>Hijama Course</h3>
             <p>This course will be conducted based on a combination of...</p>
           </div>
@@ -136,20 +137,21 @@ const Home = () => {
       </section>
 
       <section className="testimonial">
-        <h2>Testimonials</h2>
-        <div className="testimonial-content">
-          <video controls>
-            <source src="/videos/testimonial.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="testimonial-text">
-            <blockquote>Done with Hijama, Sunnah of our Badshah Hazrat Muhammad PBUH!!! MashaAllah feeling so relax, all Muslims should do this Sunnah. By Dr Usman Ghani</blockquote>
-            <cite>Agha Shiraz Bin Saeed</cite>
-          </div>
-        </div>
-      </section>
-
-      <div className="appointment">
+  <h2>Testimonials</h2>
+  <div className="testimonial-content">
+    <video controls>
+      <source src={abc} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div className="testimonial-text">
+      <blockquote>
+        Done with Hijama, Sunnah of our Badshah Hazrat Muhammad PBUH!!! MashaAllah feeling so relaxed, all Muslims should do this Sunnah. By Dr Usman Ghani
+      </blockquote>
+      <cite>Agha Shiraz Bin Saeed</cite>
+    </div>
+  </div>
+</section>
+<div className="appointment">
         <h2>Book an Appointment for Hijama</h2>
         <p>Call Now +92-332-1366246 and book your schedule for Hijama</p>
         <Link to="/therapist-near-you" className="therapist-near-you">Therapist Near You</Link>
@@ -164,7 +166,7 @@ const Home = () => {
         </p>
         <div className="review-content">
           <div className="review-image">
-          <img src="/images/reviewimage.png" alt="reviewimage" />
+          <img src={reviewimage} alt="reviewimage" />
           </div>
           <div className="review-text">
             <blockquote>
