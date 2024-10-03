@@ -3,6 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import hijama_pic from '../components/images/hijama-pic.webp'
+import knowledge_base from '../components/images/knowledge-base.jpg'
+import blogimage from '../components/images/blogimage.jpg'
+import ourproduct from '../components/images/ourproduct.jpg'
+import ourbranch from '../components/images/ourbranch.webp'
+import hijamainislam from '../components/images/hijamainislam.jpg'
+import modernworld from '../components/images/modernworld.jpg'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -63,22 +69,22 @@ const Home = () => {
 
       <section className="features">
         <div className="feature feature-square">
-          <img src="/images/knowledge-base.png" alt="Knowledge Base" />
+          <img src={knowledge_base} alt="Knowledge Base" />
           <h3>Knowledge Base</h3>
           <p>The Backbone of our Clinic</p>
         </div>
         <div className="feature feature-square">
-          <img src="/images/blog.png" alt="Blogs" />
+          <img src={blogimage} alt="Blogs" />
           <h3>Blogs</h3>
           <p>Call us or fill in a form</p>
         </div>
         <div className="feature feature-square">
-          <img src="/images/products.png" alt="Our Products" />
+          <img src={ourproduct} alt="Our Products" />
           <h3>Our Products</h3>
           <p>A list of all available</p>
         </div>
         <div className="feature feature-square">
-          <img src="/images/branches.png" alt="Our Branches" />
+          <img src={ourbranch} alt="Our Branches" />
           <h3>Our Branches</h3>
           <p>All our staff by department</p>
         </div>
@@ -87,22 +93,22 @@ const Home = () => {
       <section className="information">
         <h2>Information on Hijama</h2>
         <div className="info-grid">
-          <div className="info-item info-square">
-            <img src="/images/hijama-in-islam.png" alt="Hijama in Islam" />
+          <div className="feature feature-square">
+            <img src={hijamainislam} alt="Hijama in Islam" />
             <h3>Hijama in Islam</h3>
             <p>Wet Cupping (Hijama) is one of the remedies from the...</p>
           </div>
-          <div className="info-item info-square">
-            <img src="/images/modern-world.png" alt="Hijama & Modern World" />
+          <div className="feature feature-square">
+            <img src={modernworld} alt="Hijama & Modern World" />
             <h3>Hijama & Modern World</h3>
             <p>These days, people are looking to alternative therapies...</p>
           </div>
-          <div className="info-item info-square">
+          <div className="feature feature-square">
             <img src="/images/benefits.png" alt="Benefits of Hijama" />
             <h3>Benefits of Hijama</h3>
             <p>The strengthening and stimulating effects of Hijama therapy...</p>
           </div>
-          <div className="info-item info-square">
+          <div className="feature feature-square">
             <img src="/images/course.png" alt="Hijama Course" />
             <h3>Hijama Course</h3>
             <p>This course will be conducted based on a combination of...</p>

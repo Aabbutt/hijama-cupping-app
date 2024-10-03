@@ -14,22 +14,28 @@
   100% { background-position: 0% 50%; }
 }
 
+/* =========================================
+   Welcome Section
+========================================= */
 .welcome-section {
-  background-color: #f7f9fc; /* Updated to match the review section background */
-  padding: 60px 20px; /* Same padding as review section */
-  border-radius: 10px; /* Rounded corners for a more cohesive look */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  background-color: #f7f9fc;
+  padding: 60px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   animation: slide-in-down 1s ease-out;
   gap: 50px;
+  flex-direction: row;
 }
-.welcome-section-img{
-  object-fit: contain;
-  border-radius: 50%;
+
+@keyframes slide-in-down {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
+
 .welcome-text {
   flex: 1;
   padding-right: 20px;
@@ -38,15 +44,15 @@
 }
 
 .welcome-text h1 {
-  font-size: 3em; /* Increased size to match review section */
+  font-size: 3em;
   font-weight: bold;
-  color: #0aabc6; /* Updated to match review section title color */
+  color: #0aabc6;
   margin-bottom: 20px;
 }
 
 .welcome-text p {
   font-size: 1.2em;
-  color: #444; /* Consistent text color with review section */
+  color: #444;
   margin-bottom: 20px;
   line-height: 1.6;
 }
@@ -54,19 +60,19 @@
 .welcome-text h2 {
   font-size: 1.8em;
   font-weight: bold;
-  color: #0aabc6; /* Updated to match review section */
+  color: #0aabc6;
   margin-bottom: 20px;
 }
-
 
 .read-more {
   padding: 15px 30px;
   background-color: #0aabc6;
   color: white;
+  border: none;
   border-radius: 50px;
   font-size: 1.2em;
   font-weight: 600;
-  text-decoration: none;
+  cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -80,193 +86,109 @@
   transform: translateY(2px);
 }
 
-/* Features section */
-.features {
+.welcome-section-img-div {
+  flex: 1;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 60px 20px; /* Updated padding to match the review section */
-  background-color: #f7f9fc; /* Updated background color */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
+.welcome-section-img {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+}
+/* Features section */
 .feature {
-  flex: 1 1 calc(45% - 20px); /* Same size adjustment */
+  display: inline-block;
   text-align: center;
+  background-color: #f9f9f9; /* Soft background color */
   padding: 20px;
-  margin: 10px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Consistent shadow with review section */
-  transition: transform 0.3s, box-shadow 0.3s;
-  background-color: #ffffff; /* Clean, professional background */
-}
-
-.feature-square {
-  border-radius: 10px; /* Consistent rounded corners */
-}
-
-.feature:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced hover effect */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 20px;
+  max-width: 300px; /* Set a max width to keep the block size consistent */
 }
 
 .feature img {
-  max-width: 80px;
-  margin-bottom: 20px;
-  transition: transform 0.3s;
+  object-fit: cover;
+  width: 100%; /* Ensure the image fills the container */
+  height: 200px; /* Fixed height for uniform look */
+  border-radius: 10px; /* Match the block's rounded corners */
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-10px); /* Lift the block on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add more depth on hover */
 }
 
 .feature:hover img {
-  transform: scale(1.1); /* Slight zoom on hover */
+  transform: scale(1.05); /* Slight zoom on image hover */
 }
 
 .feature h3 {
-  font-size: 1.5em; /* Slightly larger font for prominence */
-  color: #0aabc6; /* Updated to match title color in review section */
+  font-size: 1.5em;
+  color: #333;
   margin-bottom: 10px;
   transition: color 0.3s;
 }
 
 .feature:hover h3 {
-  color: #f25f5c; /* Highlight color on hover */
+  color: #0073e6; /* Change text color on hover */
 }
 
 .feature p {
-  font-size: 1.2em; /* Updated font size for consistency */
-  color: #444; /* Consistent text color */
-  transition: color 0.3s;
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 0;
 }
-
-.feature:hover p {
-  color: #f25f5c; /* Highlight color on hover */
-}
-/* Information section */
+/* =========================================
+   Information Section
+========================================= */
 .information {
-  background-color: #ffffff; /* White background to match the overall clean theme */
-  padding: 60px 20px; /* Same padding as the review section for consistency */
+  background-color: #ffffff; /* Clean white background */
+  padding: 40px 10px;
   text-align: center;
-  border-radius: 10px; /* Rounded corners for a cohesive look */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 .information h2 {
-  font-size: 3em; /* Increased size to match the review section */
+  font-size: 2.5em;
   font-weight: bold;
-  color: #ffffff; /* Teal Blue to match the review section title color */
-  margin-bottom: 10px;
-}
-
-.info-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  color: #f3f4f4; /* Teal Blue color for the heading */
   margin-bottom: 40px;
 }
 
-.info-item {
-  background-color: #f7f9fc; /* Light gray for a softer look */
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  flex: 1 1 calc(45% - 40px); /* Adjust for a balanced layout */
-  transition: transform 0.3s, box-shadow 0.3s;
-  text-align: left;
-}
-
-.info-item img {
-  border-radius: 50%; /* Rounded images to match the review section */
-  max-width: 100px; /* Consistent image size */
-  height: auto;
-  object-fit: cover;
-  border: 5px solid #e7eef7; /* Border to match the review section */
-  margin-bottom: 20px;
-}
-
-.info-item h3 {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #00A9BD; /* Teal Blue to match the review section */
-  margin-bottom: 15px;
-}
-
-.info-item p {
-  font-size: 1.2em;
-  color: #333; /* Consistent text color with the general theme */
-  line-height: 1.6;
-}
-
-.info-item:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* View All Button */
 .view-all {
   display: inline-block;
   padding: 15px 30px;
-  background-color: #00A9BD; /* Teal Blue button color */
+  background-color: #0aabc6;
   color: white;
+  border: none;
   border-radius: 50px;
   font-size: 1.2em;
-  font-weight: 600;
+  font-weight: bold;
   text-decoration: none;
+  cursor: pointer;
+  margin-top: 40px;
   transition: background-color 0.3s, transform 0.3s;
-  margin-top: 20px;
 }
 
 .view-all:hover {
-  background-color: #008D99; /* Darker Teal Blue on hover */
-  transform: translateY(-2px);
+  background-color: #0899ac;
+  transform: translateY(-5px);
 }
 
 .view-all:active {
-  background-color: #007B82; /* Even darker Teal Blue when active */
+  background-color: #088a9a;
   transform: translateY(2px);
 }
-@media (max-width: 1024px) {
-  .info-grid {
-    flex-direction: column;
-  }
 
-  .info-item {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .info-item p {
-    text-align: center;
-  }
-
-  .welcome-section-img-div{
-    width: 90vh;
-  }
-
-  .welcome-section-img {
-    width: 95%;
-    border-radius: 10px;
-  }
-}
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .info-grid {
-    flex-direction: column;
-  }
-
-  .info-item {
-    margin-right: 0;
-    margin-bottom: 20px;
-  }
-
-  .info-item p {
-    text-align: center;
-  }
-  .welcome-section-img {
-    border-radius: 10px;
-  }
-}
 /* FAQ Section */
 .faq-section {
   padding: 60px 20px; /* Updated padding to match other sections */

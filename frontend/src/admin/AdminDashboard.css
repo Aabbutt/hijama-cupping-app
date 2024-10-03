@@ -271,7 +271,7 @@ a {
 }
 
 /* Admin Layout Button */
-.admin-layout-button {
+.btn-manage-branches {
   display: inline-block;
   padding: 15px 30px;
   background-color: #0aabc6;
@@ -284,12 +284,12 @@ a {
   margin-top: 20px; /* Spacing from the text above */
 }
 
-.admin-layout-button:hover {
+.btn-manage-branches:hover {
   background-color: #0899ac;
   transform: translateY(-2px);
 }
 
-.admin-layout-button:active {
+.btn-manage-branches:active {
   background-color: #088a9a;
   transform: translateY(2px);
 }

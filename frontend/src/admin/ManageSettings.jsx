@@ -26,6 +26,15 @@ const ManageSettings = () => {
       else if (section === 'notifications') {
       navigate('/manage-notifications'); 
     }
+      else if (section === 'billing') {
+      navigate('/manage-billing'); 
+    }
+      else if (section === 'subscriptions') {
+      navigate('/manage-subscriptions'); 
+    } 
+      else if (section === 'rooms') {
+      navigate('/manage-room-scheduling'); 
+    }
   };
 
   // Sections to display

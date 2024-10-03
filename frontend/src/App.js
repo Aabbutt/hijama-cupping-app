@@ -30,6 +30,10 @@ import EditProduct from './components/EditProduct';
 import ManageDiscounts from './admin/ManageDiscounts';
 import ManageNotifications from './admin/ManageNotifications';
 import ManageSettings from './admin/ManageSettings'; // Import the new Settings Page
+import ManageBilling from './admin/ManageBilling';
+import ManageSubscriptions from './admin/ManageSubscriptions';
+import ManageRoomScheduling from './admin/ManageRoomScheduling';
+import BranchManagement from './admin/BranchManagement';
 import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
 import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
 import './App.css'; // Global CSS Styles
@@ -45,6 +49,22 @@ function App() {
   const [practitioners, setPractitioners] = useState([]);
   const [discounts, setDiscounts] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [invoices, setInvoices] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [schedules, setSchedules] = useState([]);const [branches, setBranches] = useState([
+    {
+      id: 1,
+      name: 'Main Branch',
+      address: '123 Healing St, Wellness City',
+      contact: '+1-234-567-8901',
+      operatingHours: '9 AM - 6 PM',
+      latitude: 37.7749,
+      longitude: -122.4194,
+      clientVisits: 150,
+      revenue: 5000,
+    },
+    // Add more branch objects as needed
+  ]);
 
   // Load users from localStorage on initial render
   useEffect(() => {
@@ -200,6 +220,68 @@ function App() {
     const handleDeleteNotification = (id) => {
       setNotifications((prevNotifications) => prevNotifications.filter((notification) => notification.id !== id));
     };
+    //Invoice
+    const handleAddInvoice = (newInvoice) => {
+      setInvoices((prevInvoices) => [...prevInvoices, newInvoice]);
+    };
+  
+    const handleEditInvoice = (updatedInvoice) => {
+      setInvoices((prevInvoices) =>
+        prevInvoices.map((invoice) =>
+          invoice.id === updatedInvoice.id ? updatedInvoice : invoice
+        )
+      );
+    };
+  
+    const handleDeleteInvoice = (id) => {
+      setInvoices((prevInvoices) => prevInvoices.filter((invoice) => invoice.id !== id));
+    };
+    const handleAddSubscription = (newSubscription) => {
+      setSubscriptions((prevSubscriptions) => [...prevSubscriptions, newSubscription]);
+    };
+  
+    const handleEditSubscription = (updatedSubscription) => {
+      setSubscriptions((prevSubscriptions) =>
+        prevSubscriptions.map((subscription) =>
+          subscription.id === updatedSubscription.id ? updatedSubscription : subscription
+        )
+      );
+    };
+  
+    const handleDeleteSubscription = (id) => {
+      setSubscriptions((prevSubscriptions) => prevSubscriptions.filter((subscription) => subscription.id !== id));
+    };
+    //Room
+    const handleAddSchedule = (newSchedule) => {
+      setSchedules((prevSchedules) => [...prevSchedules, newSchedule]);
+    };
+  
+    const handleEditSchedule = (updatedSchedule) => {
+      setSchedules((prevSchedules) =>
+        prevSchedules.map((schedule) =>
+          schedule.id === updatedSchedule.id ? updatedSchedule : schedule
+        )
+      );
+    };
+  
+    const handleDeleteSchedule = (id) => {
+      setSchedules((prevSchedules) => prevSchedules.filter((schedule) => schedule.id !== id));
+    };
+    const handleAddBranch = (newBranch) => {
+      setBranches((prevBranches) => [...prevBranches, newBranch]);
+    };
+  
+    const handleEditBranch = (updatedBranch) => {
+      setBranches((prevBranches) =>
+        prevBranches.map((branch) =>
+          branch.id === updatedBranch.id ? updatedBranch : branch
+        )
+      );
+    };
+  
+    const handleDeleteBranch = (id) => {
+      setBranches((prevBranches) => prevBranches.filter((branch) => branch.id !== id));
+    };  
   return (
     <Router>
       <div className="App">
@@ -335,7 +417,35 @@ function App() {
             onAddNotification={handleAddNotification}
             onEditNotification={handleEditNotification}
             onDeleteNotification={handleDeleteNotification}
-          />}/>        
+          />}/>
+          <Route path="/manage-billing" element={
+          <ManageBilling
+            invoices={invoices}
+            onAddInvoice={handleAddInvoice}
+            onEditInvoice={handleEditInvoice}
+            onDeleteInvoice={handleDeleteInvoice}
+          />}/>
+          <Route path="/manage-subscriptions" element={
+          <ManageSubscriptions
+            subscriptions={subscriptions}
+            onAddSubscription={handleAddSubscription}
+            onEditSubscription={handleEditSubscription}
+            onDeleteSubscription={handleDeleteSubscription}
+          />}/>
+          <Route path="/manage-room-scheduling" element={
+          <ManageRoomScheduling
+            schedules={schedules}
+            onAddSchedule={handleAddSchedule}
+            onEditSchedule={handleEditSchedule}
+            onDeleteSchedule={handleDeleteSchedule}
+          />}/>
+          <Route path="/admin/manage-branches" element={
+          <BranchManagement
+            branch={branches[0]} // Pass the first branch or modify as needed
+            onAddBranch={handleAddBranch}
+            onEditBranch={handleEditBranch}
+            onDeleteBranch={handleDeleteBranch}
+          />}/>
       </Routes>
         </AdminProvider>
       </AuthProvider>

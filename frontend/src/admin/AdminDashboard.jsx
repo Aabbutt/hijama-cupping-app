@@ -34,7 +34,8 @@ const AdminDashboard = () => {
           <p>Manage Your Clinic's Data and Users Efficiently</p>
           <h2>Admin Dashboard Overview</h2>
           <p>Here you can monitor activities and maintain the overall functionality of the clinic.</p>
-          <Link to="/admin" className="admin-layout-button">Admin Layout</Link>
+          <Link to="/admin/manage-branches" className="btn-manage-branches"> Manage Branches </Link>
+
         </div>
       </section>
 
