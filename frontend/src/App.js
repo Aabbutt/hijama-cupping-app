@@ -23,6 +23,10 @@ import Personalization from './components/Personalization'; // AI Personalizatio
 import SmartBooking from './components/SmartBooking'; // Smart Booking Component
 import PrivateRoute from './components/PrivateRoute'; // Admin Route Protection
 import AdminLogin from './admin/AdminLogin'; // Separate admin login page
+import CartPage from './pages/Cart/CartPage';
+import CheckoutPage from './pages/Checkout/CheckoutPage';
+import OrderConfirmationPage from './pages/OrderConfirmation/OrderConfirmationPage';
+import Notification from './pages/Notification/Notification';
 import { AuthProvider } from './components/AuthContext';
 import ManagePractitioners from './admin/ManagePractitioners';
 import AddProduct from './components/AddProduct';
@@ -34,6 +38,7 @@ import ManageBilling from './admin/ManageBilling';
 import ManageSubscriptions from './admin/ManageSubscriptions';
 import ManageRoomScheduling from './admin/ManageRoomScheduling';
 import BranchManagement from './admin/BranchManagement';
+import { CartProvider } from './pages/context/CartContext';
 import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
 import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
 import './App.css'; // Global CSS Styles
@@ -52,6 +57,7 @@ function App() {
   const [notifications, setNotifications] = useState([]);
   const [invoices, setInvoices] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
+  const [cart, setCart] = useState([]);
   const [schedules, setSchedules] = useState([]);const [branches, setBranches] = useState([
     {
       id: 1,
@@ -284,6 +290,7 @@ function App() {
       setBranches((prevBranches) => prevBranches.filter((branch) => branch.id !== id));
     };  
   return (
+    <CartProvider>
     <Router>
       <div className="App">
         <Routes>
@@ -448,6 +455,7 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
+    </CartProvider>
   );
 }
 

@@ -1,33 +1,29 @@
 import React from 'react';
-import './Products.css'; // Use shared CSS
+import PropTypes from 'prop-types';
 
-const ProductModal = ({ selectedProduct, closeProductDetails, addToCart }) => {
-  return (
-    <div className="product-modal">
-      <div className="modal-content">
-        <span className="close-modal" onClick={closeProductDetails}>&times;</span>
-        <img
-          src={selectedProduct.image}
-          alt={selectedProduct.name}
-          className="modal-image"
-        />
-        <h2>{selectedProduct.name}</h2>
-        <p>{selectedProduct.description}</p>
-        <p><strong>Price:</strong> ${selectedProduct.price.toFixed(2)}</p>
-        <p><strong>Stock:</strong> {selectedProduct.stock > 0 ? 'In Stock' : 'Out of Stock'}</p>
-        {selectedProduct.stock > 0 ? (
-          <button
-            onClick={() => addToCart(selectedProduct)}
-            className="add-to-cart-btn"
-          >
-            Add to Cart
-          </button>
-        ) : (
-          <p className="out-of-stock">Out of Stock</p>
-        )}
-      </div>
-    </div>
-  );
+const ProductModal = ({ product, closeModal, addToCart }) => {
+    return (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div className="modal-content">
+                <button className="close-button" onClick={closeModal} aria-label="Close Modal">&times;</button>
+                <img src={product.image} alt={product.name} className="modal-image" />
+                <div className="modal-info">
+                    <h2 id="modal-title">{product.name}</h2>
+                    <p>{product.description}</p>
+                    <p className="modal-price">${product.price.toFixed(2)}</p>
+                    <button onClick={() => addToCart(product)} className="btn add-to-cart-btn">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+ProductModal.propTypes = {
+    product: PropTypes.object.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductModal;
