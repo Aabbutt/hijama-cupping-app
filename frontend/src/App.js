@@ -312,6 +312,9 @@ function App() {
             <Route path="therapist-near-you" element={<TherapistNearYou />} />
             <Route path="appointment" element={<Appointment />} />
             <Route path="join-as-practitioner" element={<JoinAsPractitioner />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage cart={cart} setCart={setCart} />} />
+            <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
           </Route>
         </Routes>
 
