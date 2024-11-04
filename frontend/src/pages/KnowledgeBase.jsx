@@ -1,5 +1,5 @@
 import React from 'react';
-import './Knowledgebase.css'; // Import the CSS for styling
+import './KnowledgeBase.css'; // Import the CSS for styling
 
 // Reusable Section Component for Knowledge Base
 const Section = ({ title, children }) => {
@@ -28,7 +28,7 @@ const SidebarSection = ({ title, items }) => {
 // Main KnowledgeBase Component
 const KnowledgeBase = () => {
   return (
-    <div className="knowledgebase-container">
+    <div className="knowledgeBase-container">
       {/* Main content area */}
       <div className="main-content">
         <h1 className="page-title">What is Hijama (Cupping Therapy)?</h1>
