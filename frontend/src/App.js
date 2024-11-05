@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import UserLayout from './components/UserLayout'; // User Layout that handles Header and Footer
 import Home from './pages/Home';
 import About from './pages/About';
-import KnowledgeBase from './pages/Knowledgebase';
+import KnowledgeBase from './pages/KnowledgeBase';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
@@ -42,7 +42,7 @@ import { CartProvider } from './pages/context/CartContext';
 import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
 import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
 import './App.css'; // Global CSS Styles
-import Knowledgebase from './pages/Knowledgebase';
+import Knowledgebase from './pages/KnowledgeBase';
 
 function App() {
   const [showPersonalization, setShowPersonalization] = useState(false); // Toggle AI modal
@@ -299,7 +299,7 @@ function App() {
             {/* UserLayout includes Header and Footer */}
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
-            <Route path="knowledge-base" element={<Knowledgebase />} />
+            <Route path="knowledge-base" element={<KnowledgeBase />} />
             <Route path="products/hijama-cups" element={<Products.HijamaCups />} />
             <Route path="products/hijama-pumps" element={<Products.HijamaPumps />} />
             <Route path="products/hijama-kits" element={<Products.HijamaKits />} />

@@ -1,5 +1,5 @@
 
-.knowledgebase-container {
+.KnowledgeBase-container {
   display: grid;
   grid-template-columns: 3fr 1fr; 
   gap: 40px;
@@ -185,7 +185,7 @@
 
 
 @media (max-width: 1024px) {
-  .knowledgebase-container {
+  .KnowledgeBase-container {
     grid-template-columns: 2fr 1fr;
     padding: 30px;
   }
@@ -204,7 +204,7 @@
 }
 
 @media (max-width: 768px) {
-  .knowledgebase-container {
+  .KnowledgeBase-container {
     grid-template-columns: 1fr; 
     padding: 20px;
   }

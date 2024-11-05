@@ -1,5 +1,5 @@
 // src/admin/api/userApi.js
-const API_URL = 'https://api.example.com/users'; // Replace with your actual API endpoint
+const API_URL = 'https://localhost:3000/user'; 
 
 // Fetch users from the API
 export const fetchUsers = async () => {
