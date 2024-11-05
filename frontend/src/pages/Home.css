@@ -14,7 +14,6 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Welcome Section */
 .welcome-section {
   background-color: #f7f9fc;
   padding: 60px 20px;
@@ -84,7 +83,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 .welcome-section-img {
@@ -94,7 +92,6 @@
   object-fit: contain;
   border-radius: 10px;
 }
-
 /* Features section */
 .feature {
   display: inline-block;
