@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import TherapistNearYou from './pages/TherapistNearYou';
 import Appointment from './pages/Appointment';
+import HijamaInIslam from './pages/HijamaInIslam';
 import JoinAsPractitioner from './pages/JoinAsPractitioner';
 import AdminLayout from './admin/AdminLayout'; // Admin Layout (Header + Sidebar)
 import AdminDashboard from './admin/AdminDashboard';
@@ -19,8 +20,6 @@ import { AdminProvider } from './components/AdminContext';
 import ManageUsers from './admin/ManageUsers'; // Admin Users Management
 import ManageProducts from './admin/ManageProducts/ManageProducts'; // Admin Products Management
 import ManageAppointments from './admin/ManageAppointments'; // Admin Appointments Management
-import Personalization from './components/Personalization'; // AI Personalization Component
-import SmartBooking from './components/SmartBooking'; // Smart Booking Component
 import PrivateRoute from './components/PrivateRoute'; // Admin Route Protection
 import AdminLogin from './admin/AdminLogin'; // Separate admin login page
 import CartPage from './pages/Cart/CartPage';
@@ -40,13 +39,9 @@ import ManageRoomScheduling from './admin/ManageRoomScheduling';
 import BranchManagement from './admin/BranchManagement';
 import { CartProvider } from './pages/context/CartContext';
 import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
-import { FaRobot, FaCalendarAlt } from 'react-icons/fa'; // Floating action buttons
 import './App.css'; // Global CSS Styles
-import Knowledgebase from './pages/KnowledgeBase';
 
 function App() {
-  const [showPersonalization, setShowPersonalization] = useState(false); // Toggle AI modal
-  const [showSmartBooking, setShowSmartBooking] = useState(false); // Toggle Smart Booking modal
   const [showShortLogin, setShowShortLogin] = useState(false); // Toggle short login modal
   const [isVerified, setIsVerified] = useState(false); // Track if admin is re-verified
   const [users, setUsers] = useState([]); // Users state for admin
@@ -111,16 +106,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem('adminProducts', JSON.stringify(products));
   }, [products]);
-
-  // Toggle functions for modals
-  const togglePersonalization = () => {
-    setShowPersonalization(!showPersonalization);
-  };
-
-  const toggleSmartBooking = () => {
-    setShowSmartBooking(!showSmartBooking);
-  };
-
   // Function to handle successful re-confirmation login
   const handleShortLoginSuccess = () => {
     setIsVerified(true);
@@ -306,6 +291,7 @@ function App() {
             <Route path="products/honey" element={<Products.Honey />} />
             <Route path="contact" element={<Contact />} />
             <Route path="login" element={<Login />} />
+            <Route path="HijamaInIslam" element={<HijamaInIslam />} />
             <Route path="products" element={<Products />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
@@ -317,39 +303,6 @@ function App() {
             <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
           </Route>
         </Routes>
-
-        {/* Floating AI-Powered Personalization Button */}
-        <button className="ai-button" onClick={togglePersonalization} aria-label="AI-Powered Therapy">
-          <FaRobot size={20} />
-        </button>
-
-        {/* Floating Smart Booking Button */}
-        <button className="booking-button" onClick={toggleSmartBooking} aria-label="Smart Booking System">
-          <FaCalendarAlt size={20} />
-        </button>
-
-        {/* Modals */}
-        {showPersonalization && (
-          <div className="modal" onClick={togglePersonalization}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <span className="close-button" onClick={togglePersonalization}>
-                &times;
-              </span>
-              <Personalization />
-            </div>
-          </div>
-        )}
-
-        {showSmartBooking && (
-          <div className="modal" onClick={toggleSmartBooking}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <span className="close-button" onClick={toggleSmartBooking}>
-                &times;
-              </span>
-              <SmartBooking />
-            </div>
-          </div>
-        )}
 
         {/* Short Login Modal for Manage Settings */}
         {showShortLogin && (

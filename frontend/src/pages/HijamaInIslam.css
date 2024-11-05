@@ -1,0 +1,40 @@
+.hijama-page {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f4f7f6;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  
+  .hijama-page h1,
+  .hijama-page h2,
+  .hijama-page h3 {
+    color: #0aabc6;
+    margin-bottom: 20px;
+  }
+  
+  .introduction p,
+  .importance p,
+  .conclusion p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .hadiths ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .hadiths li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .hadiths li:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+  }

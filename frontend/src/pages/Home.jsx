@@ -4,13 +4,9 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import hijama_pic from "../components/images/hijama-pic.webp";
 import knowledge_base from "../components/images/knowledge-base.jpg";
-import blogimage from "../components/images/blogimage.jpg";
 import ourproduct from "../components/images/ourproduct.jpg";
 import ourbranch from "../components/images/ourbranch.webp";
 import hijamainislam from "../components/images/hijamainislam.jpg";
-import modernworld from "../components/images/modernworld.jpg";
-import bofhijama from "../components/images/bofhijama.jpg";
-import hijamac from "../components/images/hijamac.jpg";
 import reviewimage from "../components/images/reviewimage.png";
 import abc from "../components/videos/abc.mp4";
 
@@ -81,34 +77,13 @@ const Home = () => {
       <section className="information">
         <h2>Information on Hijama</h2>
         <div className="info-grid">
-          <div className="feature feature-square">
+          <div className="feature feature-square"
+          onClick={() => navigate("/HijamaInIslam")}>
             <img src={hijamainislam} alt="Hijama in Islam" />
             <h3>Hijama in Islam</h3>
             <p>Wet Cupping (Hijama) is one of the remedies from the...</p>
           </div>
-          <div className="feature feature-square">
-            <img src={modernworld} alt="Hijama & Modern World" />
-            <h3>Hijama & Modern World</h3>
-            <p>These days, people are looking to alternative therapies...</p>
-          </div>
-          <div className="feature feature-square">
-            <img src={bofhijama} alt="Benefits of Hijama" />
-            <h3>Benefits of Hijama</h3>
-            <p>
-              The strengthening and stimulating effects of Hijama therapy...
-            </p>
-          </div>
-          <div className="feature feature-square">
-            <img src={hijamac} alt="Hijama Course" />
-            <h3>Hijama Course</h3>
-            <p>This course will be conducted based on a combination of...</p>
-          </div>
-        </div>
-        <button className="view-all">View All</button>
-      </section>
-
-      <section className="features">
-        <div
+          <div
           className="feature feature-square"
           onClick={() => navigate("/knowledge-base")}
         >
@@ -116,12 +91,7 @@ const Home = () => {
           <h3>Knowledge Base</h3>
           <p>The Backbone of our Clinic</p>
         </div>
-        <div className="feature feature-square">
-          <img src={blogimage} alt="Blogs" />
-          <h3>Blogs</h3>
-          <p>Call us or fill in a form</p>
-        </div>
-        <div
+          <div
           className="feature feature-square"
           onClick={() => navigate("/products")}
         >
@@ -129,14 +99,14 @@ const Home = () => {
           <h3>Our Products</h3>
           <p>A list of all available</p>
         </div>
-        <div className="feature feature-square">
+          <div className="feature feature-square">
           <img src={ourbranch} alt="Our Branches" />
           <h3>Our Branches</h3>
           <p>All our staff by department</p>
         </div>
+        </div>
       </section>
-
-      <section className="faq-section">
+     <section className="faq-section">
         <h2>Frequently Asked Questions</h2>
         <div className="faq-container">
           {faqItems.map((item, index) => (
@@ -191,9 +161,9 @@ const Home = () => {
           <span className="highlight">UpTopics publish us in top</span>.
         </p>
         <div className="review-content">
-          <div className="review-image">
+      <span className="review-image">
             <img src={reviewimage} alt="review" />
-          </div>
+            </span>
           <div className="review-text">
             <blockquote>
               <p>{reviews[0].reviewText}</p>
