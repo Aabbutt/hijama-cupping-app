@@ -42,7 +42,44 @@ const Footer = () => {
             providing quality healthcare services and Certified Training for Hijama Cupping Therapy.
           </p>
         </div>
+            {/* Admin Footer: Services Section */}
+            <div className="footer-section">
+              <h3>Services</h3>
+              <ul>
+            <li>
+              <Link to="/products#hijama-cups" className="footer-link">
+                Hijama Cups
+              </Link>
+            </li>
+            <li>
+              <Link to="/products#hijama-pumps" className="footer-link">
+                Hijama Pumps
+              </Link>
+            </li>
+            <li>
+              <Link to="/products#hijama-kits" className="footer-link">
+                Hijama Kits
+              </Link>
+            </li>
+            <li>
+              <Link to="/products#honey" className="footer-link">
+                Honey
+              </Link>
+            </li>
+          </ul>
+            </div>
 
+            {/* Admin Footer: Contact Section */}
+            <div className="footer-section">
+              <h3>Contact Us</h3>
+              <p>Dubai Healthcare City, Ibn Sina Building 27, Block B, Clinic 302 & 404</p>
+              <p><a href="tel:+97142480574" className="footer-link">+971 4 248 0574</a></p>
+              <p><a href="tel:+971555" className="footer-link">+971 555 (HEALTH)</a></p>
+              <p><a href="mailto:info@gmcdhcc.com" className="footer-link">info@gmcdhcc.com</a></p>
+              <p>9:00 AM - 6:00 PM (SAT, MON, TUES, WED)</p>
+              <p>10:00 AM - 2:00 PM (SUN & THURS)</p>
+              <p>FRIDAY - Closed</p>
+            </div>
         {/* Quick Links Section */}
         <div className="footer-section links">
           <h3>Quick Links</h3>

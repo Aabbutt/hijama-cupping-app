@@ -47,9 +47,6 @@ const Header = () => {
           <div className="menu-icon" onClick={toggleMenu}>
             {menuOpen ? <FaTimes /> : <FaBars />}
           </div>
-          <div className="logo">
-            <img src={logo} alt="Hijama" />
-          </div>
           <nav ref={menuRef} className={`nav-bar ${menuOpen ? 'active' : ''}`}>
             <div className="Nav-Items">
             <ul className="nav-links">
@@ -83,6 +80,9 @@ const Header = () => {
               <li><Link to="/login" onClick={toggleMenu}>Login</Link></li>
             </ul>
             </div>
+            <div className="logo">
+            <img src={logo} alt="Hijama" />
+          </div>
           </nav>
         </div>
     </>
