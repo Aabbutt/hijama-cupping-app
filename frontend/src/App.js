@@ -65,7 +65,6 @@ function App() {
       clientVisits: 150,
       revenue: 5000,
     },
-    // Add more branch objects as needed
   ]);
 
   // Load users from localStorage on initial render
