@@ -78,7 +78,7 @@ const Products = () => {
         <div className="products-page">
             {/* SEO Meta Tags */}
             <Helmet>
-                <title>Hijama Cupping Products | Your Store Name</title>
+                <title>HIJAMA Products | Your Store Name</title>
                 <meta name="description" content="Browse our wide range of baby care products. High quality and affordable prices." />
                 <meta name="keywords" content="baby care, infant products, baby formula, baby shampoo, baby wipes" />
             </Helmet>

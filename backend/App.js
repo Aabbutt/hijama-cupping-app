@@ -65,14 +65,14 @@ app.use("/HijamaCuping", (req, res) => {
 // POST: Add a new product with image upload
 app.post('/products', upload.single('image'), async (req, res) => {
   try {
-      const { name, price } = req.body;
+      const { name, price, quantity } = req.body;
       const image = req.file ? req.file.path : null; // Get the uploaded image path
 
-      // Create a new product with name, price, and image path
       const newProduct = new Product({
           name,
           image,
-          price
+          price,
+          quantity
       });
 
       const savedProduct = await newProduct.save();
@@ -107,34 +107,37 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
-// PUT: Update a product by ID
 // PUT: Update a product by ID with optional image upload
 app.put('/products/:id', upload.single('image'), async (req, res) => {
   try {
-      const { name, price } = req.body;
-      const image = req.file ? req.file.path : null; // Get the uploaded image path
+    const { name, price, quantity } = req.body;
+    const image = req.file ? req.file.path : null; // Get the uploaded image path (if available)
 
-      // Find the product by ID
-      const updatedProduct = await Product.findByIdAndUpdate(
-          req.params.id,
-          { 
-              name, 
-              price, 
-              image: image || undefined  // Update image only if it's provided
-          },
-          { new: true } // Return the updated product
-      );
+    // Find and update the product by ID
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      { 
+        name, 
+        price, 
+        quantity,
+        image: image || undefined,  // Update image only if it's provided
+      },
+      { new: true } // Return the updated product
+    );
 
-      if (!updatedProduct) {
-          return res.status(404).json({ error: 'Product not found' });
-      }
+    // If product is not found, send an error response
+    if (!updatedProduct) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
 
-      res.status(200).json(updatedProduct);
+    // Return the updated product
+    res.status(200).json(updatedProduct);
   } catch (error) {
-      console.error('Error updating product:', error);
-      res.status(500).json({ error: 'Failed to update product' });
+    console.error('Error updating product:', error);
+    res.status(500).json({ error: 'Failed to update product' });
   }
 });
+
 
 // DELETE: Delete a product by ID
 app.delete('/products/:id', async (req, res) => {

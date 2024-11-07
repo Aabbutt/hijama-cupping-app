@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaWhatsapp } from 'react-icons/fa';
 import './Header.css';
 import logo from '../components/images/logo.png';
-import whatsapp from '../components/images/whatsapp.png';
-
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -33,7 +31,7 @@ const Header = () => {
         <div className="contact-info">
           <span>Phone: 0315 1766375 | 0300 0308910</span>
           <a href="https://wa.me/03000308910" target="_blank" rel="noopener noreferrer">
-            <img src={whatsapp} alt="WhatsApp" className="whatsapp-icon" />
+            <FaWhatsapp size={24} color='green' />
           </a>
         </div>
         <div className="actions">

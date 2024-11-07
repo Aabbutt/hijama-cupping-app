@@ -15,6 +15,11 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 0 // price should be a non-negative number
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min: 1
     }
 }, {
     timestamps: true // automatically adds createdAt and updatedAt fields

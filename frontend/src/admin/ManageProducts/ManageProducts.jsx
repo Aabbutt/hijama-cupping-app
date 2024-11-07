@@ -125,6 +125,7 @@ const ManageProducts = ({ onAddProduct }) => {
               <th>Name</th>
               <th>Image</th>
               <th>Price</th>
+              <th>Quantity</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -136,6 +137,7 @@ const ManageProducts = ({ onAddProduct }) => {
                   <td>{product.name}</td>
                   <td><img src={product.image} alt={product.name} style={{ width: '50px' }} /></td>
                   <td>Rs {product.price}</td>
+                  <td>{product.quantity}</td>
                   <td>
                     <div>
                       <EditIcon size={24} onClick={() => handleEditClick(product)} color='blue'/>

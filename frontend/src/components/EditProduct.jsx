@@ -5,6 +5,7 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
+    quantity: '',
     image: null, // Add image as a file input
   });
 
@@ -15,6 +16,7 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
       setFormData({
         name: product.name,
         price: product.price,
+        quantity: product.quantity || '', // Ensure quantity is initialized
         image: null, // No image file by default when loading the form
       });
     }
@@ -29,7 +31,10 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
         image: files[0], // Save the file in the form state
       }));
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({
+        ...prev,
+        [name]: name === 'quantity' || name === 'price' ? parseFloat(value) : value, // Handle price and quantity as numbers
+      }));
     }
   };
 
@@ -42,6 +47,10 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
 
     if (!formData.price || isNaN(formData.price) || formData.price <= 0) {
       newErrors.price = 'A valid price is required.';
+    }
+
+    if (!formData.quantity || isNaN(formData.quantity) || formData.quantity <= 0) {
+      newErrors.quantity = 'A valid quantity is required.';
     }
 
     setErrors(newErrors);
@@ -57,13 +66,29 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
     const updatedProductData = new FormData();
     updatedProductData.append('name', formData.name);
     updatedProductData.append('price', formData.price);
+    updatedProductData.append('quantity', formData.quantity);
 
     if (formData.image) {
       updatedProductData.append('image', formData.image); // Attach the image file
     }
 
-    onUpdate({ ...product, formData: updatedProductData });
-    onClose();
+    // Update the product using PUT API
+    try {
+      const response = await fetch(`/products/${product._id}`, {
+        method: 'PUT',
+        body: updatedProductData,
+      });
+
+      const updatedProduct = await response.json();
+      if (response.ok) {
+        onUpdate(updatedProduct); // Pass the updated product to parent component
+        onClose(); // Close the modal after success
+      } else {
+        console.error('Failed to update product:', updatedProduct.error);
+      }
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
   };
 
   return (
@@ -99,6 +124,20 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
               placeholder="Enter price"
             />
             {errors.price && <span className="error-message">{errors.price}</span>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="quantity">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={formData.quantity || ''}
+              onChange={handleChange}
+              required
+              placeholder="Enter Quantity"
+            />
+            {errors.quantity && <span className="error-message">{errors.quantity}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="image">Product Image</label>

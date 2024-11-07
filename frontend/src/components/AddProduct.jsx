@@ -32,6 +32,9 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
     if (!formData.image) {
       newErrors.image = 'Product image is required.';
     }
+    if (!formData.quantity || isNaN(formData.quantity) || formData.quantity <= 1) {
+      newErrors.quantity = 'Product Quantity is required.';
+    }
 
     // Check for duplicate product name
     const isDuplicate = products.some(
@@ -54,7 +57,8 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
     const newProduct = new FormData();
     newProduct.append('name', formData.name);
     newProduct.append('price', formData.price);
-    newProduct.append('image', formData.image); // Append the image file
+    newProduct.append('image', formData.image);
+    newProduct.append('quantity', formData.quantity);
 
     try {
       // Make the API call to add the product with the form data
@@ -106,6 +110,21 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
             />
             {errors.price && <span className="error-message">{errors.price}</span>}
           </div>
+
+          <div className="form-group">
+            <label htmlFor="quantity">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              required
+              placeholder="Enter Quantity"
+            />
+            {errors.quantity && <span className="error-message">{errors.quantity}</span>}
+          </div>
+
 
           <div className="form-group">
             <label htmlFor="image">Product Image</label>
