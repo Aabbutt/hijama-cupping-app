@@ -1,14 +1,11 @@
-// src/components/EditProduct.jsx
-
 import React, { useState, useEffect } from 'react';
 import './EditProduct.css'; // Add styles as needed
 
 const EditProduct = ({ product, onUpdate, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
-    category: '',
     price: '',
-    discount: '',
+    image: null, // Add image as a file input
   });
 
   const [errors, setErrors] = useState({});
@@ -17,34 +14,23 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
     if (product) {
       setFormData({
         name: product.name,
-        category: product.category,
         price: product.price,
-        discount: product.discount || '',
+        image: null, // No image file by default when loading the form
       });
     }
   }, [product]);
 
-  const categories = [
-    'Wet Cupping Cups',
-    'Vacuum Pumps',
-    'Cupping Therapy Kits',
-    'Dry Cupping Cups',
-    'Wood Massager Tools',
-    'PVC Massager Tools',
-    'Acupuncture Needles',
-    'Personal Care Developers',
-    'Special Hijama Products',
-    'Regular Hijama Products',
-    'Leech Therapy',
-    'Trimmers',
-    'Hijama Books',
-    'Acupuncture Books',
-    'Herbal Products',
-  ];
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, files } = e.target;
+
+    if (name === 'image') {
+      setFormData((prev) => ({
+        ...prev,
+        image: files[0], // Save the file in the form state
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const validateForm = () => {
@@ -53,9 +39,7 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
     if (!formData.name.trim()) {
       newErrors.name = 'Product Name is required.';
     }
-    if (!formData.category) {
-      newErrors.category = 'Category is required.';
-    }
+
     if (!formData.price || isNaN(formData.price) || formData.price <= 0) {
       newErrors.price = 'A valid price is required.';
     }
@@ -64,12 +48,21 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
       return;
     }
-    onUpdate({ ...product, ...formData });
+
+    const updatedProductData = new FormData();
+    updatedProductData.append('name', formData.name);
+    updatedProductData.append('price', formData.price);
+
+    if (formData.image) {
+      updatedProductData.append('image', formData.image); // Attach the image file
+    }
+
+    onUpdate({ ...product, formData: updatedProductData });
     onClose();
   };
 
@@ -95,24 +88,6 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
             {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="category">Category</label>
-            <select
-              id="category"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select a category</option>
-              {categories.map((cat, index) => (
-                <option key={index} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-            {errors.category && <span className="error-message">{errors.category}</span>}
-          </div>
-          <div className="form-group">
             <label htmlFor="price">Price</label>
             <input
               type="number"
@@ -126,15 +101,15 @@ const EditProduct = ({ product, onUpdate, onClose }) => {
             {errors.price && <span className="error-message">{errors.price}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="discount">Discount (%)</label>
+            <label htmlFor="image">Product Image</label>
             <input
-              type="number"
-              id="discount"
-              name="discount"
-              value={formData.discount}
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
               onChange={handleChange}
-              placeholder="Enter discount percentage"
             />
+            {errors.image && <span className="error-message">{errors.image}</span>}
           </div>
           <button type="submit">Update Product</button>
         </form>

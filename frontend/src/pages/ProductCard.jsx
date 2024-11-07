@@ -18,9 +18,6 @@ const ProductCard = ({ product, addToCart, addToWishlist, openProductDetails }) 
                 <button onClick={() => addToCart(product)} className="btn add-to-cart-btn">
                     Add to Cart
                 </button>
-                <button onClick={() => addToWishlist(product)} className="btn wishlist-btn">
-                    Wishlist
-                </button>
             </div>
         </div>
     </div>

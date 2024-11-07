@@ -1,17 +1,40 @@
 // src/admin/ManageProducts.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddProduct from '../../components/AddProduct'; // Import AddProduct Component
 import EditProduct from '../../components/EditProduct'; // Import EditProduct Component
 import './ManageProducts.css'; // Ensure your CSS file exists
+import { DeleteIcon, EditIcon } from 'lucide-react';
+import axios from 'axios'; // Import Axios for making API requests
 
-const ManageProducts = ({ products, onAddProduct, onEditProduct, onDeleteProduct }) => {
+const ManageProducts = ({ onAddProduct }) => {
+  const [products, setProducts] = useState([]); // State to hold the products data
+  const [loading, setLoading] = useState(true); // State to handle loading
+  const [error, setError] = useState(null); // State to handle errors
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showEditProduct, setShowEditProduct] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null); // Holds the product being edited
   const [successMessage, setSuccessMessage] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState({ show: false, productId: null });
 
+  // Fetch products data from the API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/products'); // Adjust the URL based on your backend URL
+        setProducts(response.data); // Set the fetched products
+        setLoading(false); // Update loading state
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+        setError('Failed to fetch products');
+        setLoading(false); // Update loading state
+      }
+    };
+
+    fetchProducts(); // Call the fetch function when the component mounts
+  }, []); // Empty dependency array means this runs once on component mount
+
+  // Handle adding a new product
   const toggleAddProduct = () => {
     setShowAddProduct(!showAddProduct);
     setShowEditProduct(false); // Close edit modal if open
@@ -24,33 +47,60 @@ const ManageProducts = ({ products, onAddProduct, onEditProduct, onDeleteProduct
     setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
   };
 
+  // Handle edit product action
   const handleEditClick = (product) => {
     setCurrentProduct(product);
     setShowEditProduct(true);
   };
 
-  const handleUpdateProduct = (updatedProduct) => {
-    onEditProduct(updatedProduct);
-    setSuccessMessage('Product updated successfully!');
-    setShowEditProduct(false);
-    setCurrentProduct(null);
-    setTimeout(() => setSuccessMessage(''), 3000);
+  const handleUpdateProduct = async (updatedProduct) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/products/${updatedProduct._id}`, updatedProduct);
+      setSuccessMessage('Product updated successfully!');
+      setShowEditProduct(false);
+      setCurrentProduct(null);
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product._id === updatedProduct._id ? response.data : product
+        )
+      );
+      setTimeout(() => setSuccessMessage(''), 3000);
+    } catch (error) {
+      console.error('Failed to update product:', error);
+      setError('Failed to update product');
+    }
   };
 
+  // Handle delete product action
   const handleDelete = (productId) => {
     setDeleteConfirm({ show: true, productId });
   };
 
-  const confirmDelete = () => {
-    onDeleteProduct(deleteConfirm.productId);
-    setDeleteConfirm({ show: false, productId: null });
-    setSuccessMessage('Product deleted successfully!');
-    setTimeout(() => setSuccessMessage(''), 3000);
+  const confirmDelete = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/products/${deleteConfirm.productId}`);
+      setProducts((prevProducts) => prevProducts.filter((product) => product._id !== deleteConfirm.productId));
+      setDeleteConfirm({ show: false, productId: null });
+      setSuccessMessage('Product deleted successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000);
+    } catch (error) {
+      console.error('Failed to delete product:', error);
+      setError('Failed to delete product');
+    }
   };
 
   const cancelDelete = () => {
     setDeleteConfirm({ show: false, productId: null });
   };
+
+  // Render loading or error states
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
   return (
     <div className="manage-products-container">
@@ -73,34 +123,30 @@ const ManageProducts = ({ products, onAddProduct, onEditProduct, onDeleteProduct
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Category</th>
+              <th>Image</th>
               <th>Price</th>
-              <th>Discount</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {products.length > 0 ? (
               products.map((product) => (
-                <tr key={product.id}>
-                  <td>{product.id}</td>
+                <tr key={product._id}>
+                  <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>{product.category}</td>
+                  <td><img src={product.image} alt={product.name} style={{ width: '50px' }} /></td>
                   <td>Rs {product.price}</td>
-                  <td>{product.discount ? `-${product.discount}%` : 'No Discount'}</td>
                   <td>
-                    <button className="edit-button" onClick={() => handleEditClick(product)}>
-                      Edit
-                    </button>
-                    <button className="delete-button" onClick={() => handleDelete(product.id)}>
-                      Delete
-                    </button>
+                    <div>
+                      <EditIcon size={24} onClick={() => handleEditClick(product)} color='blue'/>
+                      <DeleteIcon size={24} onClick={() => handleDelete(product._id)} color='red'/>
+                    </div>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6">No products available.</td>
+                <td colSpan="5">No products available.</td>
               </tr>
             )}
           </tbody>

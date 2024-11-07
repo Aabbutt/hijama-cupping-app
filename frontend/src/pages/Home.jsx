@@ -48,66 +48,71 @@ const Home = () => {
   return (
     <div className="home">
       <section className="welcome-section">
-      <div class="welcome-container">
-  <div class="welcome-left">
-    <h1>WELCOME TO HIJAMA CLINIC</h1>
-    <p>ISO Certified Hijama Alternative Clinic</p>
-    <p>
-      UG Healing Center is one of the best and hygienic Hijama Clinics in
-      Karachi, Pakistan, providing quality health care services and
-      Certified Training for Hijama Cupping Therapy.
-    </p>
-    <h2>MODERN MEDICAL FACILITIES</h2>
-    <p>
-      UG Healing Center was established by <strong>Mohammad Usman Ghani</strong>. From an early age, he was very
-      aware of the energies surrounding us and had that special touch to
-      heal and to understand that we are more than just physical humans...
-      Usman Ghani had a keen thirst for knowledge and unconsciously knew deep
-      in his heart the mission he had to accomplish.
-    </p>
-    <button class="read-more" onClick="handleReadMoreClick()">READ MORE</button>
-  </div>
+        <div class="welcome-container">
+          <div class="welcome-left">
+            <h1>WELCOME TO HIJAMA CLINIC</h1>
+            <p>ISO Certified Hijama Alternative Clinic</p>
+            <p>
+              UG Healing Center is one of the best and hygienic Hijama Clinics
+              in Karachi, Pakistan, providing quality health care services and
+              Certified Training for Hijama Cupping Therapy.
+            </p>
+            <h2>MODERN MEDICAL FACILITIES</h2>
+            <p>
+              UG Healing Center was established by{" "}
+              <strong>Mohammad Usman Ghani</strong>. From an early age, he was
+              very aware of the energies surrounding us and had that special
+              touch to heal and to understand that we are more than just
+              physical humans... Usman Ghani had a keen thirst for knowledge and
+              unconsciously knew deep in his heart the mission he had to
+              accomplish.
+            </p>
+            <div className="read-more" onClick={handleReadMoreClick}>
+              READ MORE
+            </div>
+          </div>
 
-  <div class="welcome-right">
-    <img src={hijama_pic} alt="Hijama" class="welcome-img" />
-  </div>
-</div>
-
+          <div class="welcome-right">
+            <img src={hijama_pic} alt="Hijama" class="welcome-img" />
+          </div>
+        </div>
       </section>
 
       <section className="information">
         <h2>Information on Hijama</h2>
         <div className="info-grid">
-          <div className="feature feature-square"
-          onClick={() => navigate("/HijamaInIslam")}>
+          <div
+            className="feature feature-square"
+            onClick={() => navigate("/HijamaInIslam")}
+          >
             <img src={hijamainislam} alt="Hijama in Islam" />
             <h3>Hijama in Islam</h3>
             <p>Wet Cupping (Hijama) is one of the remedies from the...</p>
           </div>
           <div
-          className="feature feature-square"
-          onClick={() => navigate("/knowledge-base")}
-        >
-          <img src={knowledge_base} alt="Knowledge Base" />
-          <h3>Knowledge Base</h3>
-          <p>The Backbone of our Clinic</p>
-        </div>
+            className="feature feature-square"
+            onClick={() => navigate("/knowledge-base")}
+          >
+            <img src={knowledge_base} alt="Knowledge Base" />
+            <h3>Knowledge Base</h3>
+            <p>The Backbone of our Clinic</p>
+          </div>
           <div
-          className="feature feature-square"
-          onClick={() => navigate("/products")}
-        >
-          <img src={ourproduct} alt="Our Products" />
-          <h3>Our Products</h3>
-          <p>A list of all available</p>
-        </div>
+            className="feature feature-square"
+            onClick={() => navigate("/products")}
+          >
+            <img src={ourproduct} alt="Our Products" />
+            <h3>Our Products</h3>
+            <p>A list of all available</p>
+          </div>
           <div className="feature feature-square">
-          <img src={ourbranch} alt="Our Branches" />
-          <h3>Our Branches</h3>
-          <p>All our staff by department</p>
-        </div>
+            <img src={ourbranch} alt="Our Branches" />
+            <h3>Our Branches</h3>
+            <p>All our staff by department</p>
+          </div>
         </div>
       </section>
-     <section className="faq-section">
+      <section className="faq-section">
         <h2>Frequently Asked Questions</h2>
         <div className="faq-container">
           {faqItems.map((item, index) => (
@@ -162,9 +167,9 @@ const Home = () => {
           <span className="highlight">UpTopics publish us in top</span>.
         </p>
         <div className="review-content">
-      <span className="review-image">
+          <span className="review-image">
             <img src={reviewimage} alt="review" />
-            </span>
+          </span>
           <div className="review-text">
             <blockquote>
               <p>{reviews[0].reviewText}</p>

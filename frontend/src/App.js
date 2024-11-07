@@ -304,12 +304,12 @@ function App() {
         </Routes>
 
         {/* Short Login Modal for Manage Settings */}
-        {showShortLogin && (
+        {/* {showShortLogin && (
           <ShortLoginModal
             onClose={() => setShowShortLogin(false)}
             onSuccess={handleShortLoginSuccess}
-          />
-        )}
+           />
+        )} */}
       </div>
 
       <AuthProvider>
