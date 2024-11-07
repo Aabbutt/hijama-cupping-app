@@ -48,30 +48,31 @@ const Home = () => {
   return (
     <div className="home">
       <section className="welcome-section">
-        <div className="welcome-text">
-          <h1>WELCOME TO HIJAMA CLINIC</h1>
-          <p>ISO Certified Hijama Alternative Clinic</p>
-          <p>
-            UG Healing Center is one of the best and hygienic Hijama Clinics in
-            Karachi, Pakistan which provide quality health care services and
-            Certified Training for Hijama Cupping Therapy.
-          </p>
-          <h2>MODERN MEDICAL FACILITIES</h2>
-          <p>
-            UG Healing Center was established by{" "}
-            <strong>Mohammad Usman Ghani</strong> from an early age he was very
-            aware of the energies surrounding us and had that special touch to
-            heal and to understand that we are more than just physical humans...
-            Usman Ghani had a keen thirst of knowledge, he unconsciously knew
-            deep in his heart the mission he had to accomplish...
-          </p>
-          <button className="read-more" onClick={handleReadMoreClick}>
-            READ MORE
-          </button>
-        </div>
-        <div className="welcome-section-img-div">
-          <img src={hijama_pic} alt="Hijama" className="welcome-section-img" />
-        </div>
+      <div class="welcome-container">
+  <div class="welcome-left">
+    <h1>WELCOME TO HIJAMA CLINIC</h1>
+    <p>ISO Certified Hijama Alternative Clinic</p>
+    <p>
+      UG Healing Center is one of the best and hygienic Hijama Clinics in
+      Karachi, Pakistan, providing quality health care services and
+      Certified Training for Hijama Cupping Therapy.
+    </p>
+    <h2>MODERN MEDICAL FACILITIES</h2>
+    <p>
+      UG Healing Center was established by <strong>Mohammad Usman Ghani</strong>. From an early age, he was very
+      aware of the energies surrounding us and had that special touch to
+      heal and to understand that we are more than just physical humans...
+      Usman Ghani had a keen thirst for knowledge and unconsciously knew deep
+      in his heart the mission he had to accomplish.
+    </p>
+    <button class="read-more" onClick="handleReadMoreClick()">READ MORE</button>
+  </div>
+
+  <div class="welcome-right">
+    <img src={hijama_pic} alt="Hijama" class="welcome-img" />
+  </div>
+</div>
+
       </section>
 
       <section className="information">

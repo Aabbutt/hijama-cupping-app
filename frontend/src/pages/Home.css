@@ -13,16 +13,16 @@
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
-.welcome-section {
+.welcome-container {
   background-color: #f7f9fc;
   padding: 60px 20px;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  animation: slide-in-down 1s ease-out;
+  display: flex; /* Flexbox layout */
+  justify-content: space-between; /* Ensure space between the text and image */
+  align-items: center; /* Vertically center the content and image */
   gap: 50px;
+  animation: slide-in-down 1s ease-out;
 }
 
 @keyframes slide-in-down {
@@ -30,27 +30,26 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-.welcome-text {
-  padding-right: 20px;
-  min-width: 300px;
+.welcome-left {
+  flex: 1; /* Take up the available space on the left */
   text-align: left;
 }
 
-.welcome-text h1 {
+.welcome-left h1 {
   font-size: 3em;
   font-weight: bold;
   color: #0aabc6;
   margin-bottom: 20px;
 }
 
-.welcome-text p {
+.welcome-left p {
   font-size: 1.2em;
   color: #444;
   margin-bottom: 20px;
   line-height: 1.6;
 }
 
-.welcome-text h2 {
+.welcome-left h2 {
   font-size: 1.8em;
   font-weight: bold;
   color: #0aabc6;
@@ -79,15 +78,15 @@
   transform: translateY(2px);
 }
 
-.welcome-section-img-div {
+.welcome-right {
+  flex: 0 0 40%; /* The image takes up 40% of the container */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.welcome-section-img {
-  max-width: 500px;
-  width: 100%;
+.welcome-img {
+  max-width: 100%;
   height: auto;
   object-fit: contain;
   border-radius: 10px;
