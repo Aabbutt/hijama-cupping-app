@@ -1,7 +1,5 @@
-/* src/components/AddAppointment.css */
-
 /* Form Container */
-.add-appointment-form {
+.edit-appointment-form {
     display: flex;
     flex-direction: column;
     padding: 20px;

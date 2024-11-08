@@ -1,7 +1,8 @@
+// src/components/PractitionerForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Practitioner = ({ onAddPractitioner }) => {
+const PractitionerForm = ({ onAddPractitioner }) => {
     const [practitionerData, setPractitionerData] = useState({
         fullName: '',
         mobileNumber: '',
@@ -117,4 +118,4 @@ const Practitioner = ({ onAddPractitioner }) => {
     );
 };
 
-export default Practitioner;
+export default PractitionerForm;

@@ -1,157 +1,184 @@
-// src/components/AddPractitioner.js
-
 import React, { useState } from 'react';
-import './AddPractitioner.css'; // Add styling as needed
+import axios from 'axios';
 
-const AddPractitioner = ({ onAddPractitioner, practitioners = [], onClose }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    specialty: 'Cupping Therapist', // Default specialty
-    experience: '',
-    certification: '',
+const AddPractitioner = ({ onAddPractitioner, onClose }) => {
+  const [practitionerData, setPractitionerData] = useState({
+    fullName: '',
+    mobileNumber: '',
+    emailAddress: '',
+    dateOfBirth: '',
+    education: '',
+    agreeTerms: false,
+    uploadDocuments: null, // For handling file upload
   });
+  const [errors, setErrors] = useState({}); // To store field-specific errors
+  const [submitError, setSubmitError] = useState(''); // For backend submission errors
 
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
+  // Handle input changes
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setPractitionerData({ ...practitionerData, [name]: value });
   };
 
-  // Validation function to ensure all fields are correctly filled
+  // Handle file upload
+  const handleFileChange = (e) => {
+    setPractitionerData({ ...practitionerData, uploadDocuments: e.target.files[0] });
+  };
+
+  // Validate form fields before submitting
   const validateForm = () => {
-    const newErrors = {};
+    let formErrors = {};
 
-    // Check for empty fields
-    if (!formData.name.trim()) {
-      newErrors.name = 'Full Name is required.';
+    if (!practitionerData.fullName.trim()) {
+      formErrors.fullName = 'Full Name is required';
     }
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required.';
+    if (!practitionerData.mobileNumber.trim()) {
+      formErrors.mobileNumber = 'Mobile Number is required';
     }
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required.';
+    if (!practitionerData.emailAddress.trim()) {
+      formErrors.emailAddress = 'Email Address is required';
     }
-
-    // Email format validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address.';
+    if (!practitionerData.dateOfBirth) {
+      formErrors.dateOfBirth = 'Date of Birth is required';
     }
-
-    // Check for duplicate email
-    const isDuplicate = practitioners.some(
-      (practitioner) => practitioner.email.toLowerCase() === formData.email.toLowerCase()
-    );
-    if (isDuplicate) {
-      newErrors.email = 'This email is already registered.';
+    if (!practitionerData.education.trim()) {
+      formErrors.education = 'Education is required';
+    }
+    if (!practitionerData.agreeTerms) {
+      formErrors.agreeTerms = 'You must agree to the terms';
+    }
+    if (!practitionerData.uploadDocuments) {
+      formErrors.uploadDocuments = 'You must upload a document';
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0; // Return true if no errors
   };
 
-  const handleSubmit = (e) => {
+  // Submit form
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate before submitting
     if (!validateForm()) {
-      return; // Stop if validation fails
+      return; // If validation fails, do not proceed with submission
     }
-    const newPractitioner = {
-      id: Date.now(), // Unique ID
-      ...formData,
-    };
-    onAddPractitioner(newPractitioner);
-    onClose(); // Close the modal after adding practitioner
+
+    // Create a FormData object to send data, including files
+    const formData = new FormData();
+    formData.append('fullName', practitionerData.fullName);
+    formData.append('mobileNumber', practitionerData.mobileNumber);
+    formData.append('emailAddress', practitionerData.emailAddress);
+    formData.append('dateOfBirth', practitionerData.dateOfBirth);
+    formData.append('education', practitionerData.education);
+    formData.append('agreeTerms', practitionerData.agreeTerms);
+    if (practitionerData.uploadDocuments) {
+      formData.append('uploadDocuments', practitionerData.uploadDocuments); // File
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/practitioners', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Important for file upload
+        },
+      });
+
+      onAddPractitioner(response.data); // Call parent component's handler to update the list
+      onClose(); // Close the add practitioner form
+    } catch (error) {
+      console.error('Error adding practitioner:', error);
+
+      // Update the error message based on the server response or generic message
+      setSubmitError(error.response?.data?.message || 'Error adding practitioner. Please check your input and try again.');
+    }
   };
 
   return (
-    <div className="modal" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <span className="close-button" onClick={onClose}>
-          &times;
-        </span>
-        <h2>Add New Practitioner</h2>
-        <form onSubmit={handleSubmit} className="add-practitioner-form">
-          <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+    <div className="practitioner-form">
+      <h2>Add New Practitioner</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+            type="text"
+            name="fullName"
+            value={practitionerData.fullName}
+            onChange={handleInputChange}
+            placeholder="Full Name"
+            required
+          />
+          {errors.fullName && <p style={{ color: 'red' }}>{errors.fullName}</p>}
+        </div>
+        <div>
+          <input
+            type="text"
+            name="mobileNumber"
+            value={practitionerData.mobileNumber}
+            onChange={handleInputChange}
+            placeholder="Mobile Number"
+            required
+          />
+          {errors.mobileNumber && <p style={{ color: 'red' }}>{errors.mobileNumber}</p>}
+        </div>
+        <div>
+          <input
+            type="email"
+            name="emailAddress"
+            value={practitionerData.emailAddress}
+            onChange={handleInputChange}
+            placeholder="Email Address"
+            required
+          />
+          {errors.emailAddress && <p style={{ color: 'red' }}>{errors.emailAddress}</p>}
+        </div>
+        <div>
+          <input
+            type="date"
+            name="dateOfBirth"
+            value={practitionerData.dateOfBirth}
+            onChange={handleInputChange}
+            required
+          />
+          {errors.dateOfBirth && <p style={{ color: 'red' }}>{errors.dateOfBirth}</p>}
+        </div>
+        <div>
+          <input
+            type="text"
+            name="education"
+            value={practitionerData.education}
+            onChange={handleInputChange}
+            placeholder="Education"
+            required
+          />
+          {errors.education && <p style={{ color: 'red' }}>{errors.education}</p>}
+        </div>
+        <div>
+          <input
+            type="file"
+            name="uploadDocuments"
+            onChange={handleFileChange}
+            required
+          />
+          {errors.uploadDocuments && <p style={{ color: 'red' }}>{errors.uploadDocuments}</p>}
+        </div>
+        <div>
+          <label>
             <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
+              type="checkbox"
+              name="agreeTerms"
+              checked={practitionerData.agreeTerms}
+              onChange={(e) => setPractitionerData({ ...practitionerData, agreeTerms: e.target.checked })}
               required
-              placeholder="Enter full name"
             />
-            {errors.name && <span className="error-message">{errors.name}</span>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Enter email"
-            />
-            {errors.email && <span className="error-message">{errors.email}</span>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              placeholder="Enter phone number"
-            />
-            {errors.phone && <span className="error-message">{errors.phone}</span>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="specialty">Specialty</label>
-            <select
-              id="specialty"
-              name="specialty"
-              value={formData.specialty}
-              onChange={handleChange}
-              required
-            >
-              <option value="Cupping Therapist">Cupping Therapist</option>
-              <option value="Acupuncturist">Acupuncturist</option>
-              <option value="Physiotherapist">Physiotherapist</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="experience">Experience (Years)</label>
-            <input
-              type="number"
-              id="experience"
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              placeholder="Enter years of experience"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="certification">Certification</label>
-            <input
-              type="text"
-              id="certification"
-              name="certification"
-              value={formData.certification}
-              onChange={handleChange}
-              placeholder="Enter certifications"
-            />
-          </div>
-          <button type="submit">Add Practitioner</button>
-        </form>
-      </div>
+            I agree to the terms and conditions
+          </label>
+          {errors.agreeTerms && <p style={{ color: 'red' }}>{errors.agreeTerms}</p>}
+        </div>
+        <button type="submit">Add Practitioner</button>
+      </form>
+
+      {submitError && <p style={{ color: 'red' }}>{submitError}</p>} {/* Display backend submission error */}
+      
+      <button onClick={onClose}>Close</button>
     </div>
   );
 };

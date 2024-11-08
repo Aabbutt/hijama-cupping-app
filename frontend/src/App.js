@@ -12,7 +12,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import TherapistNearYou from './pages/TherapistNearYou';
 import Appointment from './pages/Appointment';
 import HijamaInIslam from './pages/HijamaInIslam';
-import JoinAsPractitioner from './pages/JoinAsPractitioner';
+import Practitioner from './pages/Practitioner';
 import AdminLayout from './admin/AdminLayout'; // Admin Layout (Header + Sidebar)
 import AdminDashboard from './admin/AdminDashboard';
 import Support from './admin/Support';
@@ -296,7 +296,7 @@ function App() {
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route path="therapist-near-you" element={<TherapistNearYou />} />
             <Route path="appointment" element={<Appointment />} />
-            <Route path="join-as-practitioner" element={<JoinAsPractitioner />} />
+            <Route path="join-as-practitioner" element={<Practitioner />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage cart={cart} setCart={setCart} />} />
             <Route path="/order-confirmation" element={<OrderConfirmationPage />} />

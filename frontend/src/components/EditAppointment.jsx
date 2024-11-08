@@ -1,17 +1,13 @@
-// src/components/AddAppointment.js
-import React, { useState } from 'react';
+// src/components/EditAppointment.js
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AddAppointment = ({ onAddAppointment, onClose }) => {
-  const [appointmentData, setAppointmentData] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    services: 'Service1',
-    preferredDate: '',
-    preferredTime: 'Morning',
-    message: ''
-  });
+const EditAppointment = ({ appointment, onUpdate, onClose }) => {
+  const [appointmentData, setAppointmentData] = useState(appointment);
+
+  useEffect(() => {
+    setAppointmentData(appointment);
+  }, [appointment]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,17 +17,17 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/appointments', appointmentData);
-      onAddAppointment(response.data);
-      onClose(); // Close the add appointment form
+      const response = await axios.put(`http://localhost:5000/appointments/${appointmentData._id}`, appointmentData);
+      onUpdate(response.data);
+      onClose(); // Close the edit appointment form
     } catch (error) {
-      console.error('Error adding appointment:', error);
+      console.error('Error updating appointment:', error);
     }
   };
 
   return (
     <div className="appointment-form">
-      <h2>Add New Appointment</h2>
+      <h2>Edit Appointment</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -88,11 +84,11 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
           onChange={handleInputChange}
           placeholder="Message (optional)"
         />
-        <button type="submit">Add Appointment</button>
+        <button type="submit">Update Appointment</button>
       </form>
       <button onClick={onClose}>Close</button>
     </div>
   );
 };
 
-export default AddAppointment;
+export default EditAppointment;
