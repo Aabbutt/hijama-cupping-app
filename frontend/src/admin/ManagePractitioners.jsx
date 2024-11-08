@@ -1,81 +1,92 @@
-import React, { useState } from 'react';
+// src/components/ManagePractitioners.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import AddPractitioner from '../components/AddPractitioner';
-import './ManagePractitioners.css';
+import EditPractitioner from '../components/EditPractitioner';
 
-const ManagePractitioners = ({ practitioners, onAddPractitioner, onEditPractitioner, onDeletePractitioner }) => {
-  const [showAddPractitioner, setShowAddPractitioner] = useState(false);
-  const [currentPractitioner, setCurrentPractitioner] = useState(null); // For editing practitioner
+const ManagePractitioners = () => {
+  const [practitioners, setPractitioners] = useState([]);
+  const [showAdd, setShowAdd] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [currentPractitioner, setCurrentPractitioner] = useState(null);
 
-  const handleAddClick = () => {
-    setShowAddPractitioner(true);
-    setCurrentPractitioner(null); // Reset for new addition
+  // Fetching all practitioners
+  const fetchPractitioners = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/practitioners');
+      setPractitioners(response.data);
+    } catch (error) {
+      console.error('Error fetching practitioners:', error);
+    }
   };
 
-  const handleCloseForm = () => {
-    setShowAddPractitioner(false);
-    setCurrentPractitioner(null);
+  useEffect(() => {
+    fetchPractitioners();
+  }, []);
+
+  // Handle the addition of a new practitioner
+  const handleAddPractitioner = (practitioner) => {
+    setPractitioners((prevPractitioners) => [...prevPractitioners, practitioner]);
   };
 
-  const handleEditClick = (practitioner) => {
-    setCurrentPractitioner(practitioner);
-    setShowAddPractitioner(true);
+  // Handle updating a practitioner
+  const handleUpdatePractitioner = (updatedPractitioner) => {
+    setPractitioners((prevPractitioners) =>
+      prevPractitioners.map((practitioner) =>
+        practitioner._id === updatedPractitioner._id ? updatedPractitioner : practitioner
+      )
+    );
+  };
+
+  // Handle the deletion of a practitioner
+  const handleDeletePractitioner = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/practitioners/${id}`);
+      setPractitioners((prevPractitioners) =>
+        prevPractitioners.filter((practitioner) => practitioner._id !== id)
+      );
+    } catch (error) {
+      console.error('Error deleting practitioner:', error);
+    }
   };
 
   return (
-    <div className="manage-practitioners-container">
-      <h1>Manage Practitioners</h1>
-      <button className="add-practitioner-button" onClick={handleAddClick}>
-        {showAddPractitioner ? 'Close Add Practitioner' : 'Add New Practitioner'}
-      </button>
-      
-      {showAddPractitioner && (
-        <AddPractitioner
-          practitioner={currentPractitioner}
-          onAddPractitioner={onAddPractitioner}
-          onEditPractitioner={onEditPractitioner}
-          onClose={handleCloseForm}
-        />
-      )}
-      
-      <div className="practitioners-list">
-        <table className="practitioners-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Specialization</th>
-              <th>Experience</th>
-              <th>Contact</th>
-              <th>Actions</th>
+    <div className="practitioner-management">
+      <h2>Manage Practitioners</h2>
+      <button onClick={() => setShowAdd(true)}>Add Practitioner</button>
+
+      {showAdd && <AddPractitioner onAddPractitioner={handleAddPractitioner} onClose={() => setShowAdd(false)} />}
+      {showEdit && <EditPractitioner practitioner={currentPractitioner} onUpdate={handleUpdatePractitioner} onClose={() => setShowEdit(false)} />}
+
+      <table>
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th>Date of Birth</th>
+            <th>Education</th>
+            <th>Terms Agreed</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {practitioners.map((practitioner) => (
+            <tr key={practitioner._id}>
+              <td>{practitioner.fullName}</td>
+              <td>{practitioner.emailAddress}</td>
+              <td>{practitioner.mobileNumber}</td>
+              <td>{new Date(practitioner.dateOfBirth).toLocaleDateString()}</td>
+              <td>{practitioner.education}</td>
+              <td>{practitioner.agreeTerms ? 'Yes' : 'No'}</td>
+              <td>
+                <button onClick={() => { setCurrentPractitioner(practitioner); setShowEdit(true); }}>Edit</button>
+                <button onClick={() => handleDeletePractitioner(practitioner._id)}>Delete</button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {practitioners.length > 0 ? (
-              practitioners.map((practitioner) => (
-                <tr key={practitioner.id}>
-                  <td>{practitioner.id}</td>
-                  <td>{practitioner.name}</td>
-                  <td>{practitioner.specialization}</td>
-                  <td>{practitioner.experience} years</td>
-                  <td>{practitioner.contact}</td>
-                  <td>
-                    <button className="edit-button" onClick={() => handleEditClick(practitioner)}>
-                      Edit
-                    </button>
-                    <button className="delete-button" onClick={() => onDeletePractitioner(practitioner.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">No practitioners available.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
