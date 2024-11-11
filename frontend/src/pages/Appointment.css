@@ -1,140 +1,77 @@
 /* General settings for the appointment page */
-.appointment-page {
-  display: flex;
-  flex-direction: row; /* Ensure left and right side are aligned horizontally */
-  min-height: 100vh; /* Full viewport height */
-  background: linear-gradient(to right, #f4f7f6, #e0eafc);
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow: hidden; /* Prevent overflow */
-}
-
-/* Left side content styling */
-.appointment-left {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px;
-  box-sizing: border-box;
-  animation: slide-in-left 1s ease-out;
-}
-
-/* Header in left side content */
-.appointment-left h1 {
-  font-size: 3em;
-  color: #2c3e50;
-  margin-bottom: 20px;
-  transition: transform 0.3s;
-}
-
-/* Paragraphs in left side content */
-.appointment-left p {
-  font-size: 1.2em;
-  color: #555;
-}
-
-/* List items in left side content */
-.appointment-left ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.appointment-left ul li {
-  background: #ecf0f1;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  transition: transform 0.3s, background-color 0.3s;
-}
-
-.appointment-left ul li:hover {
-  transform: scale(1.05);
-  background-color: #dfe6e9;
-}
-
-/* Hover effect on header in left side content */
-.appointment-left:hover h1 {
-  transform: scale(1.1);
-}
-
-/* Right side form styling */
-.appointment-right {
-  flex: 1;
+.appointment-form-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  box-sizing: border-box;
-  animation: slide-in-right 1s ease-out;
-  overflow-y: auto; /* Ensure scrolling if form is long */
+  height: 100vh;
+  background: linear-gradient(to right, #e9f5f2, #f0f8ff);
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  padding: 20px;
+  overflow: hidden;
+  animation: background-slide 10s ease-in-out infinite;
 }
 
-/* Form container styling */
-.appointment-container {
-  background: #ffffff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+@keyframes background-slide {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Hover effect on form container */
-.appointment-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Heading in form container */
-.appointment-container h2 {
-  margin-bottom: 20px;
-  font-size: 2em;
+.appointment-form-container h2 {
+  font-size: 2.5em;
   color: #2c3e50;
-  font-weight: 700;
-  animation: fade-in 1s ease-out;
-}
-
-/* Paragraph in form container */
-.appointment-container p {
   margin-bottom: 20px;
-  font-size: 1em;
-  color: #666;
-  animation: fade-in 1.2s ease-out;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* Form group styling */
-.form-group {
+.appointment-form-container h2:hover {
+  transform: scale(1.05);
+}
+
+.form-field {
   margin-bottom: 20px;
-  text-align: left;
 }
 
-/* Form group label styling */
-.form-group label {
+.form-field label {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
   color: #555;
+  transition: color 0.3s;
 }
 
-/* Form input styling */
-.form-group input {
+.form-field label:hover {
+  color: #1abc9c;
+}
+
+.form-field input, .form-field select, .form-field textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  outline: none;
   font-size: 1em;
   transition: border-color 0.3s;
 }
 
-/* Focus effect on form input */
-.form-group input:focus {
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus {
   border-color: #1abc9c;
+}
+
+.form-field input:hover, .form-field select:hover, .form-field textarea:hover {
+  border-color: #1abc9c;
+}
+
+/* Service Dropdown and Time selection */
+.form-field select {
+  cursor: pointer;
+}
+
+/* Textarea styling */
+textarea {
+  height: 100px;
+  resize: vertical;
 }
 
 /* Button styling */
@@ -152,66 +89,54 @@ button {
   margin-top: 20px;
 }
 
-/* Hover effect on button */
 button:hover {
   background-color: #16a085;
   transform: translateY(-2px);
 }
 
-/* Active state effect on button */
 button:active {
   transform: translateY(2px);
 }
 
-/* Keyframes for animations */
-@keyframes slide-in-left {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in-right {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+/* Form container animation */
+.appointment-form-container {
+  animation: fade-in 1s ease-in-out;
 }
 
 @keyframes fade-in {
   from {
-    opacity: 0;
+      opacity: 0;
   }
   to {
-    opacity: 1;
+      opacity: 1;
   }
 }
 
-/* Responsive design for mobile */
+/* Media query for responsiveness */
 @media (max-width: 768px) {
-  .appointment-page {
-    flex-direction: column;
+  .appointment-form-container {
+      padding: 15px;
   }
 
-  .appointment-left, .appointment-right {
-    width: 100%;
-    text-align: center;
+  h2 {
+      font-size: 2em;
   }
 
-  .appointment-container {
-    margin-top: 20px;
+  button {
+      font-size: 1em;
   }
 }
 
-/* New Hover Effects */
-.form-group label:hover {
-  color: #1abc9c;
+/* New glowing text effect for appointment success messages */
+.appointment-form-container h2 {
+  animation: text-glow 2s ease-in-out infinite alternate;
 }
 
-.form-group input:hover {
-  border-color: #1abc9c;
+@keyframes text-glow {
+  from {
+      text-shadow: 0 0 5px #1abc9c;
+  }
+  to {
+      text-shadow: 0 0 20px #1abc9c;
+  }
 }

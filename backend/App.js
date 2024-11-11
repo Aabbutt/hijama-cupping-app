@@ -2,7 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require('mongoose');
 const multer = require('multer');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const practitionerRoutes = require('./routes/practitioner');
+
+
 
 // Import models (make sure the file names are correct based on your folder structure)
 const Product = require('./models/product');
@@ -11,10 +15,14 @@ const Practitioner = require('./models/Practitioner');
 
 
 
+
+require('dotenv').config();
+
 // Initialize Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
+
 
 // MongoDB Connection
 mongoose.connect("mongodb://localhost:27017/HijamaCuppingApp")
@@ -55,10 +63,18 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
 
-mongoose.connect('mongodb://localhost:27017/yourDatabase', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('Failed to connect to MongoDB', err));
-
+async function connectDB() {
+  if (mongoose.connection.readyState === 0) {
+      // Replace 'your_connection_string' with your MongoDB URI
+      await mongoose.connect('your_connection_string', {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+      });
+      console.log('MongoDB connected');
+  } else {
+      console.log('MongoDB connection is already established');
+  }
+}
 // Routes
 app.use('/practitioners', practitionerRoutes);
 
@@ -335,7 +351,6 @@ app.delete('/practitioners/:id', async (req, res) => {
   }
 });
 
-
 app.use('/uploads', express.static('uploads'));
 
 
@@ -352,3 +367,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+

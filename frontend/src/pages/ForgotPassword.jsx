@@ -7,7 +7,7 @@ const ForgotPassword = () => {
     <div className="login-page">
       <div className="login-left">
         <h1>Reset Password</h1>
-        <p>Enter your phone number to reset your password</p>
+        <p>Enter your phone number or email to reset your password</p>
         <ul>
           <li>Securely manage your account</li>
           <li>Regain access to your health dashboard</li>
@@ -17,13 +17,16 @@ const ForgotPassword = () => {
       <div className="login-right">
         <div className="login-container">
           <h2>Forgot Password</h2>
-          <p>Please enter your phone number to reset your password</p>
+          <p>Please enter your phone number or email to reset your password</p>
           <form>
             <div className="form-group">
-              <label htmlFor="phone-number">Phone Number</label>
-              <div className="phone-input">
-                <span className="country-code">+92</span>
-                <input type="text" id="phone-number" placeholder="301 2345678" />
+              <label htmlFor="contact-info">Phone Number or Email</label>
+              <div className="contact-input">
+                <input
+                  type="text"
+                  id="contact-info"
+                  placeholder="Enter phone number or email"
+                />
               </div>
             </div>
             <button type="submit">Reset Password</button>

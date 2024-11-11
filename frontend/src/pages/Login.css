@@ -112,45 +112,24 @@
   color: #555;
 }
 
-.phone-input {
-  display: flex;
-  align-items: center;
-}
-
-.country-code {
-  background-color: #ecf0f1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px 0 0 5px;
-  border-right: none;
-  font-weight: 500;
-  transition: background-color 0.3s;
-}
-
-.phone-input input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 0 5px 5px 0;
-  outline: none;
-  transition: border-color 0.3s;
-}
-
-.phone-input input:focus {
-  border-color: #1abc9c;
-}
-
 .form-group input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 5px;
   outline: none;
   font-size: 1em;
+  transition: border-color 0.3s;
 }
 
 .form-group input:focus {
   border-color: #1abc9c;
+}
+
+.form-group input::placeholder {
+  color: #888; /* Light gray for modern look */
+  opacity: 1; /* Make placeholder color consistent */
+  font-style: italic;
 }
 
 button {
@@ -188,6 +167,7 @@ button:active {
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s;
+  padding-left: 20px;
 }
 
 .additional-options a:hover {
@@ -249,8 +229,12 @@ button:active {
   border-color: #1abc9c;
 }
 
-.country-code:hover {
-  background-color: #dfe6e9;
+/* New Placeholder styling for modern look */
+.form-group input::placeholder {
+  color: #b0b0b0; /* Slightly lighter gray for more subtle placeholder */
+  font-size: 1em;
+  font-weight: 400;
+  opacity: 1;
 }
 
 /* New Text Animation */
