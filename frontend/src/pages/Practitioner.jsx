@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './Practitioner.css';
 
 const Practitioner = () => {
   const [practitionerData, setPractitionerData] = useState({

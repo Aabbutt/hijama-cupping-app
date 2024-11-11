@@ -1,142 +1,77 @@
-/* General settings for the appointment page */
+/* General Styling for the Appointment Form Container */
 .appointment-form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background: linear-gradient(to right, #e9f5f2, #f0f8ff);
-  font-family: 'Roboto', sans-serif;
-  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
   padding: 20px;
-  overflow: hidden;
-  animation: background-slide 10s ease-in-out infinite;
-}
-
-@keyframes background-slide {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .appointment-form-container h2 {
-  font-size: 2.5em;
-  color: #2c3e50;
-  margin-bottom: 20px;
   text-align: center;
-  transition: transform 0.3s ease-in-out;
-}
-
-.appointment-form-container h2:hover {
-  transform: scale(1.05);
-}
-
-.form-field {
   margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+/* Styling for Form Fields */
+.form-field {
+  margin-bottom: 15px;
 }
 
 .form-field label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: 600;
+  font-size: 14px;
   color: #555;
-  transition: color 0.3s;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.form-field label:hover {
-  color: #1abc9c;
-}
-
-.form-field input, .form-field select, .form-field textarea {
+.form-field input,
+.form-field select,
+.form-field textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  font-size: 16px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1em;
   transition: border-color 0.3s;
 }
 
-.form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-  border-color: #1abc9c;
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
-.form-field input:hover, .form-field select:hover, .form-field textarea:hover {
-  border-color: #1abc9c;
-}
-
-/* Service Dropdown and Time selection */
-.form-field select {
-  cursor: pointer;
-}
-
-/* Textarea styling */
-textarea {
-  height: 100px;
+/* Additional styling for Textarea */
+.form-field textarea {
+  min-height: 100px;
   resize: vertical;
 }
 
-/* Button styling */
-button {
-  background-color: #1abc9c;
+/* Styling for the Submit Button */
+.form-field button {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  background-color: #007bff;
   color: white;
-  padding: 12px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1.1em;
-  font-weight: 600;
-  transition: background-color 0.3s, transform 0.3s;
-  width: 100%;
-  margin-top: 20px;
+  transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #16a085;
-  transform: translateY(-2px);
+.form-field button:hover {
+  background-color: #0056b3;
 }
 
-button:active {
-  transform: translateY(2px);
-}
-
-/* Form container animation */
-.appointment-form-container {
-  animation: fade-in 1s ease-in-out;
-}
-
-@keyframes fade-in {
-  from {
-      opacity: 0;
-  }
-  to {
-      opacity: 1;
-  }
-}
-
-/* Media query for responsiveness */
+/* Responsive Styling */
 @media (max-width: 768px) {
   .appointment-form-container {
-      padding: 15px;
-  }
-
-  h2 {
-      font-size: 2em;
-  }
-
-  button {
-      font-size: 1em;
-  }
-}
-
-/* New glowing text effect for appointment success messages */
-.appointment-form-container h2 {
-  animation: text-glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes text-glow {
-  from {
-      text-shadow: 0 0 5px #1abc9c;
-  }
-  to {
-      text-shadow: 0 0 20px #1abc9c;
+    padding: 15px;
   }
 }
