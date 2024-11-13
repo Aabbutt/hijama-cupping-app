@@ -32,9 +32,9 @@ const Appointment = () => {
         name: '',
         email: '',
         phoneNumber: '',
-        services: 'Service1',
+        services: 'Consultation',
         preferredDate: '',
-        preferredTime: 'Morning',
+        preferredTime: '8:30',
         message: ''
       });
     } catch (error) {
@@ -97,9 +97,9 @@ const Appointment = () => {
             onChange={handleInputChange}
             required
           >
-            <option value="Service1">Service1</option>
-            <option value="Service2">Service2</option>
-            <option value="Service3">Service3</option>
+            <option value="Service1">Consultation</option>
+            <option value="Service2">Treatement</option>
+            <option value="Service3">Checkup</option>
           </select>
         </div>
 
@@ -124,11 +124,17 @@ const Appointment = () => {
             name="preferredTime"
             value={appointmentData.preferredTime}
             onChange={handleInputChange}
+            min={new Date().toISOString().split('T')[0]} 
+
             required
           >
-            <option value="Morning">Morning</option>
-            <option value="Afternoon">Afternoon</option>
-            <option value="Evening">Evening</option>
+          <option value="8:30">8:30</option>
+          <option value="10:00">10:00</option>
+          <option value="11:30">11:30</option>
+          <option value="11:00">11:00</option>
+          <option value="2:30">2:30</option>
+          <option value="4:00">4:00</option>
+          <option value="5:30">5:30</option>
           </select>
         </div>
 
