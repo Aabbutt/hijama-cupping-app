@@ -5,13 +5,17 @@ const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const practitionerRoutes = require('./routes/practitioner');
+const roomroutes = require ('./routes/roomroutes');
+
+ 
 
 
 
 // Import models (make sure the file names are correct based on your folder structure)
 const Product = require('./models/product');
-const Appointment = require('./models/appointment');
+//const Appointment = require('./models/appointment');
 const Practitioner = require('./models/Practitioner');
+const { MONGO_URI } = require("./config/env");
 
 
 
@@ -25,7 +29,7 @@ app.use(express.json());
 
 
 // MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/HijamaCuppingApp")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("Error Connecting to MongoDB: " + err));
 
@@ -77,6 +81,7 @@ async function connectDB() {
 }
 // Routes
 app.use('/practitioners', practitionerRoutes);
+//app.use('/room' , roomroutes);
 
 // Test route for verifying app is running
 app.use("/HijamaCuping", (req, res) => {
@@ -350,6 +355,133 @@ app.delete('/practitioners/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete practitioner' });
   }
 });
+
+const createRoomSchedule = async (req, res) => {
+
+  const { roomId, appointmentId, patientId, practitionerId, startTime, endTime } = req.body;
+
+  try {
+    // Check if the room is available at the given time
+    const room = await Room.findById(roomId);
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+
+    const existingSchedule = await RoomSchedule.findOne({
+      roomId,
+      $or: [
+        { startTime: { $lt: endTime, $gte: startTime } },
+        { endTime: { $gt: startTime, $lte: endTime } }
+      ]
+    });
+
+    if (existingSchedule) {
+      return res.status(400).json({ message: 'Room is already booked during this time slot.' });
+    }
+
+    const roomSchedule = new RoomSchedule({
+      roomId,
+      appointmentId,
+      patientId,
+      practitionerId,
+      startTime,
+      endTime,
+    });
+
+    await roomSchedule.save();
+    room.status = 'occupied'; // Change room status to 'occupied'
+    await room.save();
+
+    res.status(201).json(roomSchedule);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get all room schedules
+const getRoomSchedules = async (req, res) => {
+  try {
+    const schedules = await RoomSchedule.find()
+      .populate('roomId')
+      .populate('appointmentId')
+      .populate('patientId')
+      .populate('practitionerId');
+    
+    res.json(schedules);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get room schedules by date
+const getRoomSchedulesByDate = async (req, res) => {
+  const { date } = req.params;
+
+  try {
+    const schedules = await RoomSchedule.find({
+      startTime: { $gte: new Date(date), $lt: new Date(new Date(date).setDate(new Date(date).getDate() + 1)) }
+    })
+      .populate('roomId')
+      .populate('appointmentId')
+      .populate('patientId')
+      .populate('practitionerId');
+
+    res.json(schedules);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Update room schedule status
+const updateRoomScheduleStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const schedule = await RoomSchedule.findById(id);
+    if (!schedule) {
+      return res.status(404).json({ message: 'Room schedule not found' });
+    }
+
+    schedule.status = status;
+    await schedule.save();
+
+    if (status === 'completed') {
+      const room = await Room.findById(schedule.roomId);
+      room.status = 'available'; // Change room status back to 'available'
+      await room.save();
+    }
+
+    res.json(schedule);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Delete a room schedule
+const deleteRoomSchedule = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const schedule = await RoomSchedule.findByIdAndDelete(id);
+    if (!schedule) {
+      return res.status(404).json({ message: 'Room schedule not found' });
+    }
+
+    const room = await Room.findById(schedule.roomId);
+    room.status = 'available'; // Change room status back to 'available'
+    await room.save();
+
+    res.json({ message: 'Room schedule deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
+
 
 app.use('/uploads', express.static('uploads'));
 
