@@ -20,4 +20,6 @@ const patientSchema = new mongoose.Schema({
   medicalHistory: String
 });
 
-module.exports = mongoose.model('Patient', patientSchema);
+const patient = mongoose.model('patient', patientSchema);
+
+module.exports = patient;

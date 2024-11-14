@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { ADMIN } = require("../constants/roles");
 
 const userschema = new mongoose.Schema({
   name: {
@@ -19,7 +20,7 @@ const userschema = new mongoose.Schema({
 
   role: {
     type: String,
-    enum: ["admin", "practitioner", "patient"],
+    enum: [ADMIN, "practitioner", "patient"],
     default: "patient",
   },
 

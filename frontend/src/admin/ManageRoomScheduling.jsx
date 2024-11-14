@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddRoomSchedule from '../components/AddRoomSchedule';
+import axios from 'axios';
 import './ManageRoomScheduling.css';
 
-const ManageRoomScheduling = ({ schedules, onAddSchedule, onEditSchedule, onDeleteSchedule }) => {
+
+const ManageRoomScheduling = () => {
+  const [schedules, setSchedules] = useState([]);
   const [showAddSchedule, setShowAddSchedule] = useState(false);
-  const [currentSchedule, setCurrentSchedule] = useState(null); // For editing schedule
+  const [currentSchedule, setCurrentSchedule] = useState(null);
+
+  // Fetch all schedules from the backend on component load
+  useEffect(() => {
+    const fetchSchedules = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/rooms/schedules');
+        setSchedules(response.data);
+      } catch (error) {
+        console.error('Error fetching schedules:', error);
+      }
+    };
+    fetchSchedules();
+  }, []);
 
   const handleAddClick = () => {
     setShowAddSchedule(true);
@@ -14,6 +30,33 @@ const ManageRoomScheduling = ({ schedules, onAddSchedule, onEditSchedule, onDele
   const handleCloseForm = () => {
     setShowAddSchedule(false);
     setCurrentSchedule(null);
+  };
+
+  // Add or Edit Schedule and call backend API accordingly
+  const handleAddOrEditSchedule = async (schedule) => {
+    try {
+      if (schedule.id) {
+        // Editing existing schedule
+        const response = await axios.put(`http://localhost:5000/api/rooms/schedules${schedule.id}`, schedule);
+        setSchedules(schedules.map((s) => (s.id === schedule.id ? response.data : s)));
+      } else {
+        // Adding new schedule
+        const response = await axios.post('http://localhost:5000/api/rooms/schedules', schedule);
+        setSchedules([...schedules, response.data]);
+      }
+      handleCloseForm();
+    } catch (error) {
+      console.error('Error adding or editing schedule:', error);
+    }
+  };
+
+  const handleDeleteSchedule = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/rooms/schedules${id}`);
+      setSchedules(schedules.filter((schedule) => schedule.id !== id));
+    } catch (error) {
+      console.error('Error deleting schedule:', error);
+    }
   };
 
   const handleEditClick = (schedule) => {
@@ -31,8 +74,7 @@ const ManageRoomScheduling = ({ schedules, onAddSchedule, onEditSchedule, onDele
       {showAddSchedule && (
         <AddRoomSchedule
           schedule={currentSchedule}
-          onAddSchedule={onAddSchedule}
-          onEditSchedule={onEditSchedule}
+          onAddOrEditSchedule={handleAddOrEditSchedule}
           onClose={handleCloseForm}
         />
       )}
@@ -62,7 +104,7 @@ const ManageRoomScheduling = ({ schedules, onAddSchedule, onEditSchedule, onDele
                     <button className="edit-button" onClick={() => handleEditClick(schedule)}>
                       Edit
                     </button>
-                    <button className="delete-button" onClick={() => onDeleteSchedule(schedule.id)}>
+                    <button className="delete-button" onClick={() => handleDeleteSchedule(schedule.id)}>
                       Delete
                     </button>
                   </td>

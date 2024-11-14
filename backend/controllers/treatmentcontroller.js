@@ -40,10 +40,10 @@ const getallttreatment = async (req, res) => {
 
 const gettreatmentbyid = async (req, res) => {
  try {
-  const treatement = req.treatement;
+  const treatment = req.treatment;
   res.status(200).json({
     message: "treatement found",
-    treatement,
+    treatment,
     success : true,
   });
   
