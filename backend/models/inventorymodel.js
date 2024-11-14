@@ -1,5 +1,4 @@
 const mongoose = require ('mongoose');
-const user = require('./usermodel');
 
 
 const inventoryschema = new mongoose.Schema ({
@@ -26,4 +25,5 @@ const inventoryschema = new mongoose.Schema ({
      }
 })
 
-module.exports = mongoose.model ('inventory', inventoryschema);
+const inventory = mongoose.model('inventory', inventoryschema);
+module.exports =inventory

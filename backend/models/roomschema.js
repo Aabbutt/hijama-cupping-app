@@ -4,7 +4,7 @@ const Practitioner = require('./Practitioner');
 
 const roomSchema = new mongoose.Schema({
   roomNumber: { type: Number, required: true, unique: true },
-  status: { type: String, enum : [ocuppied , available] , default: 'available' },  
+  // status: { type: String, enum : [ocuppied , available] , default: 'available' },  
   appointmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' } ,
   Practitionerid: { type : mongoose.Schema.Types.ObjectId , ref : 'Practitioner'},
   patientid : { type : mongoose.Schema.Types.ObjectId , ref : 'patient'},
@@ -12,4 +12,8 @@ const roomSchema = new mongoose.Schema({
   endTime: { type: Date, required: true },
 });
 
-module.exports = mongoose.model('room', roomSchema);
+// Create the Rooms model
+const Rooms = mongoose.model('Rooms', roomSchema);
+
+// Export the model
+module.exports = Rooms;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './AddRoomSchedule.css'; // Add styling as needed
+import './AddRoomSchedule.css';
 
-const AddRoomSchedule = ({ onAddSchedule, onEditSchedule, schedule = null, onClose }) => {
+const AddRoomSchedule = ({ onAddOrEditSchedule, schedule = null, onClose }) => {
   const [formData, setFormData] = useState({
     roomName: schedule ? schedule.roomName : '',
     clientName: schedule ? schedule.clientName : '',
@@ -16,53 +16,32 @@ const AddRoomSchedule = ({ onAddSchedule, onEditSchedule, schedule = null, onClo
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Validation function to ensure all fields are correctly filled
   const validateForm = () => {
     const newErrors = {};
-
-    // Check for empty fields
-    if (!formData.roomName.trim()) {
-      newErrors.roomName = 'Room Name is required.';
-    }
-    if (!formData.clientName.trim()) {
-      newErrors.clientName = 'Client Name is required.';
-    }
-    if (!formData.date) {
-      newErrors.date = 'Date is required.';
-    }
-    if (!formData.time) {
-      newErrors.time = 'Time is required.';
-    }
-
+    if (!formData.roomName.trim()) newErrors.roomName = 'Room Name is required.';
+    if (!formData.clientName.trim()) newErrors.clientName = 'Client Name is required.';
+    if (!formData.date) newErrors.date = 'Date is required.';
+    if (!formData.time) newErrors.time = 'Time is required.';
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return; // Stop if validation fails
-    }
-    
+    if (!validateForm()) return;
+
     const newSchedule = {
-      id: schedule ? schedule.id : Date.now(), // Unique ID
+      id: schedule ? schedule.id : null, // Assign null for new schedule, ID will be set by backend
       ...formData,
     };
-
-    if (schedule) {
-      onEditSchedule(newSchedule);
-    } else {
-      onAddSchedule(newSchedule);
-    }
-    onClose(); // Close the modal after adding or editing schedule
+    onAddOrEditSchedule(newSchedule); // Triggers either add or edit operation
+    onClose(); // Close form after submit
   };
 
   return (
     <div className="modal" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <span className="close-button" onClick={onClose}>
-          &times;
-        </span>
+        <span className="close-button" onClick={onClose}>&times;</span>
         <h2>{schedule ? 'Edit Room Schedule' : 'Add New Room Schedule'}</h2>
         <form onSubmit={handleSubmit} className="add-room-schedule-form">
           <div className="form-group">
@@ -73,7 +52,6 @@ const AddRoomSchedule = ({ onAddSchedule, onEditSchedule, schedule = null, onClo
               name="roomName"
               value={formData.roomName}
               onChange={handleChange}
-              required
               placeholder="Enter room name"
             />
             {errors.roomName && <span className="error-message">{errors.roomName}</span>}
@@ -86,7 +64,6 @@ const AddRoomSchedule = ({ onAddSchedule, onEditSchedule, schedule = null, onClo
               name="clientName"
               value={formData.clientName}
               onChange={handleChange}
-              required
               placeholder="Enter client name"
             />
             {errors.clientName && <span className="error-message">{errors.clientName}</span>}
@@ -99,7 +76,8 @@ const AddRoomSchedule = ({ onAddSchedule, onEditSchedule, schedule = null, onClo
               name="date"
               value={formData.date}
               onChange={handleChange}
-              required
+               min={new Date().toISOString().split('T')[0]} 
+            
             />
             {errors.date && <span className="error-message">{errors.date}</span>}
           </div>
@@ -111,7 +89,6 @@ const AddRoomSchedule = ({ onAddSchedule, onEditSchedule, schedule = null, onClo
               name="time"
               value={formData.time}
               onChange={handleChange}
-              required
             />
             {errors.time && <span className="error-message">{errors.time}</span>}
           </div>

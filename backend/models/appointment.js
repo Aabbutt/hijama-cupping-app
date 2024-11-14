@@ -18,13 +18,13 @@ const appointmentSchema = new mongoose.Schema({
     enum: ['Consultation', 'Treatment', 'Checkup'], // Enum values for services
     required: true,
   },
-  preferredDate: {
+  preferedDate: {
     type: Date,
     required: true,
   },
-  preferredTime: {
+  preferedTime: {
     type: String,
-    enum: ['Morning', 'Afternoon', 'Evening'], // Enum values for time slots
+    enum: ['8:30', '10:00', '11:30' , '1:00','2:30', '4:00', '5:30'], // Enum values for time slots
     required: true,
   },
   message: {
@@ -32,4 +32,5 @@ const appointmentSchema = new mongoose.Schema({
   },
 });
 
-const Appointment = mongoose.model('Appointment', appointmentSchema);
+const Appointments = mongoose.model('Appointments', appointmentSchema);
+module.exports =Appointments

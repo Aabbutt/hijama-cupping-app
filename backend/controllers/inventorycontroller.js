@@ -54,8 +54,9 @@ const getinventorybyid =   async(req,res) => {
           message: "inventory found",
           inventory,
           success : true,
-        });
-        
+        })
+        .populate("practitionerid");
+        res.json(inventory);
        } catch (error) {
           res.status(404).json({error : "inventory not created"})
        }

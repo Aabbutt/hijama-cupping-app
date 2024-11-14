@@ -1,6 +1,7 @@
 // src/components/AddAppointment.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import './AddAppointment.css';
 
 const AddAppointment = ({ onAddAppointment, onClose }) => {
   const [appointmentData, setAppointmentData] = useState({
@@ -62,9 +63,9 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
           value={appointmentData.services}
           onChange={handleInputChange}
         >
-          <option value="Service1">Service1</option>
-          <option value="Service2">Service2</option>
-          <option value="Service3">Service3</option>
+          <option value="Service1">Consultation</option>
+          <option value="Service2">Treatement</option>
+          <option value="Service3">Checkup</option>
         </select>
         <input
           type="date"
@@ -77,10 +78,16 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
           name="preferredTime"
           value={appointmentData.preferredTime}
           onChange={handleInputChange}
+          min={new Date().toISOString().split('T')[0]} 
+
         >
-          <option value="Morning">Morning</option>
-          <option value="Afternoon">Afternoon</option>
-          <option value="Evening">Evening</option>
+          <option value="8:30">8:30</option>
+          <option value="10:00">10:00</option>
+          <option value="11:30">11:30</option>
+          <option value="11:00">11:00</option>
+          <option value="2:30">2:30</option>
+          <option value="4:00">4:00</option>
+          <option value="5:30">5:30</option>
         </select>
         <textarea
           name="message"

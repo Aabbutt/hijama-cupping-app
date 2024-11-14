@@ -8,8 +8,8 @@ router.post('/inventory', inventorycontroller.createinventory);  // create inven
 
 router.get('/inventory/:id' , inventorycontroller.getinventorybyid); // get inventory by id 
 
-router.put ('/inventory/: id' , inventorycontroller.updateinventory); // update inventory 
+router.put ('/inventory/:id' , inventorycontroller.updateinventory); // update inventory 
 
-router.delete('/inventory/: id' , inventorycontroller.destroyinventory); // delete inventory
+router.delete('/inventory/:id' , inventorycontroller.destroyinventory); // delete inventory
 
 module.exports = router ;
