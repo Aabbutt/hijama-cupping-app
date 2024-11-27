@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const practitionerRoutes = require('./routes/practitioner');
 const roomroutes = require ('./routes/roomroutes');
-
  
 
 
@@ -18,6 +17,7 @@ const Practitioner = require('./models/Practitioner');
 const { MONGO_URI } = require("./config/env");
 const inventory = require("./models/inventorymodel");
 const inventoryroutes = require('./controllers/inventorycontroller');
+const patients = require('./models/patientmodel')
 
 
 
@@ -42,7 +42,8 @@ app.use("/user", require("./routes/user"));
 // app.use("/schedule", require("./routes/scheduleroutes"));
 // app.use("/review", require("./routes/reviewroutes"));
 // app.use("/invoice", require("./routes/invoiceroutes"));
-app.use('/inventory', inventoryroutes);
+//app.use('/inventory', inventoryroutes);
+//app.use('/patients ,  require')
 // app.use("/product", require("./routes/productroutes"));
 // App.use("/appointments", require("./routes/appointmentroutes"));
 
@@ -88,6 +89,85 @@ app.use('/rooms' , roomroutes);
 // Test route for verifying app is running
 app.use("/HijamaCuping", (req, res) => {
   res.send("Hijama Cupping App");
+});
+
+app.post('/patients', async (req, res) => {
+  try {
+    const { name, age, gender, contactInfo } = req.body;
+
+    const newpatient = new patient({
+      name,
+      age,
+      gender,
+      contactInfo
+      
+    });
+
+    const savedpatient = await newpatient.save();
+    res.status(201).json(savedpatient);
+  } catch (error) {
+    console.error('Error creating patients:', error);
+    res.status(500).json({ error: 'Failed to create patients' });
+  }
+});
+
+// GET: Get all patients
+app.get('/patients', async (req, res) => {
+  try {
+    const patients = await patients.find();
+    console.log(patients)
+    res.status(200).json(patients);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get patients' });
+  }
+});
+
+// GET: Get a single patients by ID
+app.get('/patients/:id', async (req, res) => {
+  try {
+    const patients = await patients.findById(req.params.id);
+    if (!patients) {
+      return res.status(404).json({ error: 'patient not found' });
+    }
+    res.status(200).json(patients);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get patients' });
+  }
+});
+
+// PUT: Update an patients by ID
+app.put('/patients/:id', async (req, res) => {
+  try {
+    const { name, age, gender, contactInfo } = req.body;
+
+    const updatedpatient = await patients.findByIdAndUpdate(
+      req.params.id,
+      { name, age, gender, contactInfo },
+      { new: true }
+    );
+
+    if (!updatedpatient) {
+      return res.status(404).json({ error: 'patient not found' });
+    }
+
+    res.status(200).json(updatedpatient);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update patients' });
+  }
+});
+
+// DELETE: Delete an patients by ID
+app.delete('/patients/:id', async (req, res) => {
+  try {
+    const deletedpatient = await patients.findByIdAndDelete(req.params.id);
+    if (!deletedpatient) {
+      return res.status(404).json({ error: 'patient not found' });
+    }
+
+    res.status(200).json({ message: 'patient deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete patients' });
+  }
 });
 
 // POST: Add a new appointment
