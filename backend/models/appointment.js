@@ -1,45 +1,44 @@
 const mongoose = require("mongoose");
 
 const appointmentSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-  },
-  services: {
-    type: String,
-    enum: ["Consultation", "Treatment", "Checkup"], // Enum values for services
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
     required: true,
   },
   practitioner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Practitioner",
+    ref: "practitioner",
   },
-  preferredDate: {
+  service: {
+    type: String,
+    required: true,
+    enum: ["wet cupping", "dry cupping"],
+  },
+  appointmentDate: {
     type: Date,
     required: true,
   },
-  preferredTime: {
+  timeSlot: {
     type: String,
-    enum: ["8:30", "10:00", "11:30", "1:00", "2:30", "4:00", "5:30"], // Enum values for time slots
     required: true,
-  },
-  message: {
-    type: String,
   },
   status: {
     type: String,
-    enum: ["pending", "assigned", "completed", "cancelled"],
+    enum: ["pending", "confirmed", "cancelled", "completed"],
     default: "pending",
   },
+  notes: {
+    type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
-const Appointments = mongoose.model("Appointments", appointmentSchema);
-module.exports = Appointments;
+module.exports = mongoose.model("appointment", appointmentSchema);

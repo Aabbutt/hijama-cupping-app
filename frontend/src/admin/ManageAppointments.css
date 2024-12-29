@@ -1,180 +1,158 @@
-/* General Container Styles */
-.manage-appointments-container {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.hc-appointment-management {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Heading */
-.manage-appointments-container h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #2c3e50;
+.hc-appointment-title {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
 }
 
-/* Success Message */
-.success-message {
-    background-color: #d4edda;
-    color: #155724;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #c3e6cb;
-    border-radius: 4px;
+.hc-add-appointment-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.3s;
 }
 
-/* Add Appointment Button */
-.add-appointment-button {
-    background-color: #1abc9c;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
+.hc-add-appointment-btn:hover {
+  background-color: #45a049;
 }
 
-.add-appointment-button:hover {
-    background-color: #16a085;
+.hc-table-container {
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-/* Appointments Table */
-.appointments-table {
-    width: 100%;
-    border-collapse: collapse;
+.hc-appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  font-size: 0.9rem;
 }
 
-.appointments-table th,
-.appointments-table td {
-    padding: 12px 15px;
-    border: 1px solid #dddddd;
-    text-align: left;
+.hc-appointments-table th,
+.hc-appointments-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.appointments-table th {
-    background-color: #f4f7f6;
-    color: #333333;
-    font-weight: bold;
+.hc-appointments-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
 }
 
-.appointments-table td {
-    background-color: #ffffff;
+.hc-appointments-table tr:hover {
+  background-color: #f5f5f5;
 }
 
-/* Action Buttons */
-.edit-button,
-.delete-button {
-    padding: 6px 12px;
-    margin-right: 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
+.hc-status-badge {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
-.edit-button {
-    background-color: #007bff;
-    color: #ffffff;
+.hc-status-pending {
+  background-color: #ffd700;
+  color: #333;
 }
 
-.edit-button:hover {
-    background-color: #0056b3;
+.hc-status-assigned {
+  background-color: #4caf50;
+  color: white;
 }
 
-.delete-button {
-    background-color: #e74c3c;
-    color: #ffffff;
+.hc-status-completed {
+  background-color: #2196f3;
+  color: white;
 }
 
-.delete-button:hover {
-    background-color: #c0392b;
+.hc-status-cancelled {
+  background-color: #f44336;
+  color: white;
 }
 
-/* Modal Overlay */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+.hc-action-buttons {
+  display: flex;
+  gap: 8px;
 }
 
-/* Modal Content */
-.modal-content {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    animation: slide-down 0.3s ease-out;
+.hc-edit-btn,
+.hc-delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-/* Close Button */
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    color: #e74c3c;
-    transition: color 0.3s ease;
+.hc-edit-btn {
+  background-color: #007bff;
+  color: white;
 }
 
-.close-button:hover {
-    color: #c0392b;
+.hc-delete-btn {
+  background-color: #dc3545;
+  color: white;
 }
 
-/* Keyframe Animations */
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.hc-edit-btn:hover,
+.hc-delete-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
-/* Modal Actions for Delete Confirmation */
-.modal-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+.hc-practitioner-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: white;
+  transition: border-color 0.3s;
 }
 
-.confirm-button {
-    background-color: #e74c3c;
-    color: #ffffff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.hc-practitioner-select:focus {
+  outline: none;
+  border-color: #007bff;
 }
 
-.confirm-button:hover {
-    background-color: #c0392b;
+.hc-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.cancel-button {
-    background-color: #95a5a6;
-    color: #ffffff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+@media (max-width: 768px) {
+  .hc-appointment-management {
+    padding: 1rem;
+  }
 
-.cancel-button:hover {
-    background-color: #7f8c8d;
+  .hc-appointments-table {
+    font-size: 0.8rem;
+  }
+
+  .hc-appointments-table th,
+  .hc-appointments-table td {
+    padding: 8px 10px;
+  }
 }

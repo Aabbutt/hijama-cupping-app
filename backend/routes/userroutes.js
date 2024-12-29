@@ -7,7 +7,7 @@ const {
   validateUserLogin,
 } = require("../middleware/validation");
 
-router.get("/", isAdmin, usercontroller.getallusers); // all users
+router.get("/", [isAdmin], usercontroller.getallusers); // all users
 
 router.post(
   "/signup",
@@ -24,8 +24,10 @@ router.put("/update", jwtParse, usercontroller.updateuser); // update user
 
 router.delete("/:id", isAdmin, usercontroller.destroyuser); // delete user
 
-
-
-
+// New profile routes
+router.post("/change-password", jwtParse, usercontroller.changePassword);
+router.get("/profile", jwtParse, usercontroller.getProfile);
+router.put("/profile", jwtParse, usercontroller.updateProfile);
+router.post("/logout", jwtParse, usercontroller.logout);
 
 module.exports = router;

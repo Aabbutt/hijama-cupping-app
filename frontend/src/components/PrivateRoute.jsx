@@ -1,15 +1,20 @@
 // src/components/PrivateRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+import { useCurrentUser } from '../hooks/use-current-user';
 
-// PrivateRoute Component to protect admin routes
 const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { data: user, isLoading } = useCurrentUser();
 
-  // If the user is authenticated, render the child components
-  // Otherwise, redirect to the admin login page
-  return isAuthenticated ? children : <Navigate to="/admin/login" replace />;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 };
 
 export default PrivateRoute;

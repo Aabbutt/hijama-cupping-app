@@ -248,3 +248,35 @@
     margin: 0px auto;
   }
 }
+
+.nav-links li:last-child {
+  position: relative;
+}
+
+.nav-links .profile-dropdown {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links .profile-trigger {
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .nav-links .dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    margin-top: 0;
+    padding: 0;
+  }
+  
+  .nav-links .profile-dropdown {
+    width: 100%;
+  }
+  
+  .nav-links .profile-trigger {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}

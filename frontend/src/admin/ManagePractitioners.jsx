@@ -77,7 +77,7 @@ const ManagePractitioners = () => {
   };
 
   return (
-    <div className="hc-practitioner-management">
+    <div className="hc-practitioner-management" style={{ padding: "2rem" , minHeight: "0vh"}}>
       <h2 className="hc-practitioner-title">Manage Practitioners</h2>
       <button
         className="hc-add-practitioner-btn"

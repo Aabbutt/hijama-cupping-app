@@ -36,6 +36,7 @@ const ManageAppointments = () => {
 
   const handleAddAppointment = (appointment) => {
     setAppointments((prevAppointments) => [...prevAppointments, appointment]);
+    setShowAdd(false);
   };
 
   const handleUpdateAppointment = (updatedAppointment) => {
@@ -46,6 +47,7 @@ const ManageAppointments = () => {
           : appointment
       )
     );
+    setShowEdit(false);
   };
 
   const handleDeleteAppointment = async (id) => {
@@ -73,89 +75,111 @@ const ManageAppointments = () => {
     }
   };
 
+  const getStatusClass = (status) => {
+    return `hc-status-badge hc-status-${status.toLowerCase()}`;
+  };
+
   return (
-    <div className="appointment-management">
-      <h2>Manage Appointments</h2>
-      <button onClick={() => setShowAdd(true)}>Add Appointment</button>
+    <div className="hc-appointment-management" style={{ padding: "2rem" , minHeight: "0vh"}}>
+      <h2 className="hc-appointment-title">Manage Appointments</h2>
+      <button className="hc-add-appointment-btn" onClick={() => setShowAdd(true)}>
+        Add Appointment
+      </button>
 
       {showAdd && (
-        <AddAppointment
-          onAddAppointment={handleAddAppointment}
-          onClose={() => setShowAdd(false)}
-        />
+        <div className="hc-modal-overlay">
+          <AddAppointment
+            onAddAppointment={handleAddAppointment}
+            onClose={() => setShowAdd(false)}
+          />
+        </div>
       )}
+      
       {showEdit && (
-        <EditAppointment
-          appointment={currentAppointment}
-          onUpdate={handleUpdateAppointment}
-          onClose={() => setShowEdit(false)}
-        />
+        <div className="hc-modal-overlay">
+          <EditAppointment
+            appointment={currentAppointment}
+            onUpdate={handleUpdateAppointment}
+            onClose={() => setShowEdit(false)}
+          />
+        </div>
       )}
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Service</th>
-            <th>Preferred Date</th>
-            <th>Preferred Time</th>
-            <th>Status</th>
-            <th>Assigned To</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {appointments.map((appointment) => (
-            <tr key={appointment._id}>
-              <td>{appointment.name}</td>
-              <td>{appointment.email}</td>
-              <td>{appointment.phoneNumber}</td>
-              <td>{appointment.services}</td>
-              <td>
-                {new Date(appointment.preferredDate).toLocaleDateString()}
-              </td>
-              <td>{appointment.preferredTime}</td>
-              <td>{appointment.status}</td>
-              <td>
-                {appointment.practitioner ? (
-                  appointment.practitioner.fullName
-                ) : (
-                  <select
-                    onChange={(e) =>
-                      handleAssignPractitioner(appointment._id, e.target.value)
-                    }
-                    value=""
-                  >
-                    <option value="">Select Practitioner</option>
-                    {practitioners.map((practitioner) => (
-                      <option key={practitioner._id} value={practitioner._id}>
-                        {practitioner.fullName}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </td>
-              <td>
-                <button
-                  onClick={() => {
-                    setCurrentAppointment(appointment);
-                    setShowEdit(true);
-                  }}
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteAppointment(appointment._id)}
-                >
-                  Delete
-                </button>
-              </td>
+      <div className="hc-table-container">
+        <table className="hc-appointments-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Service</th>
+              <th>Preferred Date</th>
+              <th>Preferred Time</th>
+              <th>Status</th>
+              <th>Assigned To</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {appointments.map((appointment) => (
+              <tr key={appointment._id}>
+                <td>{appointment.name}</td>
+                <td>{appointment.email}</td>
+                <td>{appointment.phoneNumber}</td>
+                <td>{appointment.services}</td>
+                <td>
+                  {new Date(appointment.preferredDate).toLocaleDateString()}
+                </td>
+                <td>{appointment.preferredTime}</td>
+                <td>
+                  <span className={getStatusClass(appointment.status)}>
+                    {appointment.status}
+                  </span>
+                </td>
+                <td>
+                  {appointment.practitioner ? (
+                    appointment.practitioner.fullName
+                  ) : (
+                    <select
+                      className="hc-practitioner-select"
+                      onChange={(e) =>
+                        handleAssignPractitioner(appointment._id, e.target.value)
+                      }
+                      value=""
+                    >
+                      <option value="">Select Practitioner</option>
+                      {practitioners.map((practitioner) => (
+                        <option key={practitioner._id} value={practitioner._id}>
+                          {practitioner.fullName}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </td>
+                <td>
+                  <div className="hc-action-buttons">
+                    <button
+                      className="hc-edit-btn"
+                      onClick={() => {
+                        setCurrentAppointment(appointment);
+                        setShowEdit(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="hc-delete-btn"
+                      onClick={() => handleDeleteAppointment(appointment._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

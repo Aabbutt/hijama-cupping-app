@@ -5,6 +5,7 @@ import "./Header.css";
 import logo from "../components/images/logo.png";
 import whatsapp from "../components/images/whatsapp.png";
 import { useCurrentUser } from "../hooks/use-current-user";
+import ProfileDropdown from "./ProfileDropdown";
 
 const Header = () => {
   const { data } = useCurrentUser();
@@ -112,7 +113,7 @@ const Header = () => {
               </li>
               {data?.name ? (
                 <li>
-                  <span>{data.name}</span>
+                  <ProfileDropdown user={data} />
                 </li>
               ) : (
                 <li>

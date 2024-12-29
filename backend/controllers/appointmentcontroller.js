@@ -1,117 +1,127 @@
-const express = require('express');
-const appointment = require('../models/appointmentmodel');
+const Appointment = require("../models/appointment");
 
-//  create appointment   
-
-const creatappointment =   async(req , res )=> {
-  
-    
-    try {
-        const { patientid,practitionerid,date,time,status } =  req.body;
-   
-         const newappointment = new appointment(req.body);
-         await newappointment.save();
-         res.status(201).json({
-           message: "appointment was created",
-           appointment:{
-            patientid: newappointment.patientid , 
-            practitionerid : newappointment.practitionerid,
-             appointmentid : newappointment.appointmentid,
-             time: newappointment.time,
-             status: newappointment.status
-       
-           },
-         });
-         
-       } catch (error) {
-         console.error(error);
-         res.status(500).json({ error: " appointment not create " });
-       }
-   };
-
-// get all appointment 
-
-
-const getallappointment = async(req , res )=> {
-  
-    try {
-        const result = await appointment.find();
-        res.json(result);
-    }
-    catch(error){
-        console.error(error);
-        res.status(500).json({error: " appointment not create "});
-    }
+// Get user's appointments
+const getUserAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({ user: req.user._id })
+      .populate("practitioner", "name")
+      .sort({ appointmentDate: -1 });
+    res.status(200).json({ appointments });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch appointments" });
+  }
 };
 
+// Get single appointment
+const getAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findOne({
+      _id: req.params.id,
+      user: req.user._id,
+    }).populate("practitioner", "name");
 
-// get appointment by id 
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
 
-const getappointmentbyid = async(req,res) => {
-
-    try {
-        const appointment = req.appointment;
-        res.status(200).json({
-          message: "appointment found",
-          appointment,
-          success : true,
-        });
-        
-       } catch (error) {
-          res.status(404).json({error : "appointment not created"})
-       }
+    res.status(200).json({ appointment });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch appointment" });
+  }
 };
 
-// update appointment
+// Create appointment
+const createAppointment = async (req, res) => {
+  try {
+    const { service, appointmentDate, timeSlot, notes, practitioner } = req.body;
 
-const updateappointment =  async(req,res) => {
+    const appointment = new Appointment({
+      user: req.user._id,
+      service,
+      appointmentDate,
+      timeSlot,
+      notes,
+      practitioner,
+    });
 
-    try { 
-        const appointment = req.body;
-        const { patientid,practitionerid,date,time,status }=req.body;
-        patientid && (appointment.patientid = patientid );
-        practitionerid && (appointment.practitionerid = practitionerid );
-        date && ( appointment.date = date);
-        time && ( appointment.time = time);
-        status && ( appointment.status = status);
+    await appointment.save();
+    res.status(201).json({ 
+      message: "Appointment created successfully",
+      appointment 
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to create appointment" });
+  }
+};
 
-        await appointment.save();
-        res.status(200).json({
-          message : 'appointment updated',
-          data: appointment,
-          success : true ,
-        });
-        
-      } catch (error) {
-        res.status(404).json({error : "appointment not updated"})
-      
-      }
-   };
+// Update appointment
+const updateAppointment = async (req, res) => {
+  try {
+    const { service, appointmentDate, timeSlot, notes } = req.body;
 
-   //destroy appointment
+    const appointment = await Appointment.findOne({
+      _id: req.params.id,
+      user: req.user._id,
+    });
 
-   const destroyappointment =  async(req,res) => {
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
 
-    try {
-        const id = req.params.id;
-        if (!id) {
-          return res
-            .status(400)
-            .json({ message: "appointment id is required", success: false });
-        }
-        const result = await appointment.findByIdAndDelete(id);
-        res.status(200).json({
-          message: "appointment was deleted",
-          success: true,
-        }); 
-        
-       } catch (error) {
-        return res.status(404).json({
-          message: "appointment not found",
-          success: false,
-        });
-      } res.status(500).json({error: " Internal Server error "});
-       };
+    if (appointment.status === "completed") {
+      return res.status(400).json({ error: "Cannot update completed appointment" });
+    }
 
-   module.exports = { creatappointment , getallappointment , getappointmentbyid , updateappointment , destroyappointment} ; 
+    appointment.service = service || appointment.service;
+    appointment.appointmentDate = appointmentDate || appointment.appointmentDate;
+    appointment.timeSlot = timeSlot || appointment.timeSlot;
+    appointment.notes = notes || appointment.notes;
+    appointment.updatedAt = Date.now();
+
+    await appointment.save();
+    res.status(200).json({ 
+      message: "Appointment updated successfully",
+      appointment 
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update appointment" });
+  }
+};
+
+// Cancel appointment
+const cancelAppointment = async (req, res) => {
+  try {
+    const appointment = await Appointment.findOne({
+      _id: req.params.id,
+      user: req.user._id,
+    });
+
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    if (appointment.status === "completed") {
+      return res.status(400).json({ error: "Cannot cancel completed appointment" });
+    }
+
+    appointment.status = "cancelled";
+    appointment.updatedAt = Date.now();
+
+    await appointment.save();
+    res.status(200).json({ 
+      message: "Appointment cancelled successfully",
+      appointment 
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to cancel appointment" });
+  }
+};
+
+module.exports = {
+  getUserAppointments,
+  getAppointment,
+  createAppointment,
+  updateAppointment,
+  cancelAppointment,
+};
 

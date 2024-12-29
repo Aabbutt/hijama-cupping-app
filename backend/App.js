@@ -6,10 +6,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const practitionerRoutes = require("./routes/practitioner");
 const roomroutes = require("./routes/roomroutes");
+const userRoutes = require("./routes/userroutes");
+const appointmentRoutes = require("./routes/appointmentRoutes");
+const settingsRoutes = require("./routes/settingsRoutes");
 
 // Import models (make sure the file names are correct based on your folder structure)
 const Product = require("./models/product");
-const Appointments = require("./models/appointment");
+const Appointment = require("./models/appointment");
 const Practitioner = require("./models/Practitioner");
 const { MONGO_URI } = require("./config/env");
 const inventory = require("./models/inventorymodel");
@@ -17,8 +20,6 @@ const inventoryroutes = require("./controllers/inventorycontroller");
 const patients = require("./models/patientmodel");
 
 require("dotenv").config();
-
-const userroutes = require("./routes/userroutes");
 
 // Initialize Express app
 const app = express();
@@ -31,8 +32,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("Error Connecting to MongoDB: " + err));
 
-// Define routes (ensure these are also correctly linked)
-app.use("/user", require("./routes/user"));
+app.use("/user", userRoutes);
 // app.use("/treatment", require("./routes/treatmentroutes"));
 // app.use("/session", require("./routes/sessionroutes"));
 // app.use("/schedule", require("./routes/scheduleroutes"));
@@ -68,7 +68,6 @@ const fileFilter = (req, file, cb) => {
 // Initialize multer with storage and file filter
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 app.use("/uploads", express.static("uploads")); // Serve uploaded files
-app.use("/user", userroutes);
 
 async function connectDB() {
   if (mongoose.connection.readyState === 0) {
@@ -83,8 +82,11 @@ async function connectDB() {
   }
 }
 // Routes
+app.use("/user", userRoutes);
 app.use("/practitioners", practitionerRoutes);
 app.use("/rooms", roomroutes);
+app.use("/appointments", appointmentRoutes);
+app.use("/settings", settingsRoutes);
 
 // Test route for verifying app is running
 app.use("/HijamaCuping", (req, res) => {
@@ -183,7 +185,7 @@ app.post("/appointments", async (req, res) => {
       practitioner,
     } = req.body;
 
-    const newAppointment = new Appointments({
+    const newAppointment = new Appointment({
       name,
       email,
       phone,
@@ -206,7 +208,7 @@ app.post("/appointments", async (req, res) => {
 // GET: Get all appointments
 app.get("/appointments", async (req, res) => {
   try {
-    const appointments = await Appointments.find().populate(
+    const appointments = await Appointment.find().populate(
       "practitioner",
       "fullName"
     );
@@ -221,7 +223,7 @@ app.put("/appointments/:id/assign", async (req, res) => {
   try {
     const { practitionerId } = req.body;
 
-    const appointment = await Appointments.findByIdAndUpdate(
+    const appointment = await Appointment.findByIdAndUpdate(
       req.params.id,
       {
         practitioner: practitionerId,
@@ -256,7 +258,7 @@ app.put("/appointments/:id", async (req, res) => {
       status,
     } = req.body;
 
-    const updatedAppointment = await Appointments.findByIdAndUpdate(
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
       req.params.id,
       {
         name,
@@ -285,7 +287,7 @@ app.put("/appointments/:id", async (req, res) => {
 // DELETE: Delete an appointment by ID
 app.delete("/appointments/:id", async (req, res) => {
   try {
-    const deletedAppointment = await Appointments.findByIdAndDelete(
+    const deletedAppointment = await Appointment.findByIdAndDelete(
       req.params.id
     );
     if (!deletedAppointment) {
