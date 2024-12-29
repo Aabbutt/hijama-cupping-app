@@ -1,7 +1,7 @@
 // src/components/EditAppointment.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './EditAppointment.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./EditAppointment.css";
 
 const EditAppointment = ({ appointment, onUpdate, onClose }) => {
   const [appointmentData, setAppointmentData] = useState(appointment);
@@ -18,11 +18,14 @@ const EditAppointment = ({ appointment, onUpdate, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/appointments/${appointmentData._id}`, appointmentData);
+      const response = await axios.put(
+        `http://localhost:3000/appointments/${appointmentData._id}`,
+        appointmentData
+      );
       onUpdate(response.data);
       onClose(); // Close the edit appointment form
     } catch (error) {
-      console.error('Error updating appointment:', error);
+      console.error("Error updating appointment:", error);
     }
   };
 
@@ -68,8 +71,7 @@ const EditAppointment = ({ appointment, onUpdate, onClose }) => {
           name="preferredDate"
           value={appointmentData.preferredDate}
           onChange={handleInputChange}
-          min={new Date().toISOString().split('T')[0]} 
-
+          min={new Date().toISOString().split("T")[0]}
           required
         />
         <select
@@ -77,7 +79,7 @@ const EditAppointment = ({ appointment, onUpdate, onClose }) => {
           value={appointmentData.preferredTime}
           onChange={handleInputChange}
         >
-           <option value="8:30">8:30</option>
+          <option value="8:30">8:30</option>
           <option value="10:00">10:00</option>
           <option value="11:30">11:30</option>
           <option value="11:00">11:00</option>

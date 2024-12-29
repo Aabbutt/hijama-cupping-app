@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import './AddProduct.css'; // Add styling as needed
-import axios from 'axios'; // Import axios for API requests
+import React, { useState } from "react";
+import "./AddProduct.css"; // Add styling as needed
+import axios from "axios"; // Import axios for API requests
 
 const AddProduct = ({ onAddProduct, products = [], onClose }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    price: '',
+    name: "",
+    price: "",
     image: null, // Changed to store the file object
   });
 
@@ -24,16 +24,20 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Product Name is required.';
+      newErrors.name = "Product Name is required.";
     }
     if (!formData.price || isNaN(formData.price) || formData.price <= 0) {
-      newErrors.price = 'A valid price is required.';
+      newErrors.price = "A valid price is required.";
     }
     if (!formData.image) {
-      newErrors.image = 'Product image is required.';
+      newErrors.image = "Product image is required.";
     }
-    if (!formData.quantity || isNaN(formData.quantity) || formData.quantity <= 1) {
-      newErrors.quantity = 'Product Quantity is required.';
+    if (
+      !formData.quantity ||
+      isNaN(formData.quantity) ||
+      formData.quantity <= 1
+    ) {
+      newErrors.quantity = "Product Quantity is required.";
     }
 
     // Check for duplicate product name
@@ -41,7 +45,7 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
       (product) => product.name.toLowerCase() === formData.name.toLowerCase()
     );
     if (isDuplicate) {
-      newErrors.name = 'A product with this name already exists.';
+      newErrors.name = "A product with this name already exists.";
     }
 
     setErrors(newErrors);
@@ -55,23 +59,27 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
     }
 
     const newProduct = new FormData();
-    newProduct.append('name', formData.name);
-    newProduct.append('price', formData.price);
-    newProduct.append('image', formData.image);
-    newProduct.append('quantity', formData.quantity);
+    newProduct.append("name", formData.name);
+    newProduct.append("price", formData.price);
+    newProduct.append("image", formData.image);
+    newProduct.append("quantity", formData.quantity);
 
     try {
       // Make the API call to add the product with the form data
-      const response = await axios.post('http://localhost:5000/products', newProduct, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // Important to set the content type for file uploads
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:3000/products",
+        newProduct,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Important to set the content type for file uploads
+          },
+        }
+      );
       onAddProduct(response.data); // Call onAddProduct with the newly created product
       onClose(); // Close the modal after adding product
     } catch (error) {
-      console.error('Failed to add product:', error);
-      setErrors({ submit: 'Failed to add product. Please try again later.' });
+      console.error("Failed to add product:", error);
+      setErrors({ submit: "Failed to add product. Please try again later." });
     }
   };
 
@@ -94,7 +102,9 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
               required
               placeholder="Enter product name"
             />
-            {errors.name && <span className="error-message">{errors.name}</span>}
+            {errors.name && (
+              <span className="error-message">{errors.name}</span>
+            )}
           </div>
 
           <div className="form-group">
@@ -108,7 +118,9 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
               required
               placeholder="Enter price"
             />
-            {errors.price && <span className="error-message">{errors.price}</span>}
+            {errors.price && (
+              <span className="error-message">{errors.price}</span>
+            )}
           </div>
 
           <div className="form-group">
@@ -122,9 +134,10 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
               required
               placeholder="Enter Quantity"
             />
-            {errors.quantity && <span className="error-message">{errors.quantity}</span>}
+            {errors.quantity && (
+              <span className="error-message">{errors.quantity}</span>
+            )}
           </div>
-
 
           <div className="form-group">
             <label htmlFor="image">Product Image</label>
@@ -135,11 +148,15 @@ const AddProduct = ({ onAddProduct, products = [], onClose }) => {
               onChange={handleChange}
               required
             />
-            {errors.image && <span className="error-message">{errors.image}</span>}
+            {errors.image && (
+              <span className="error-message">{errors.image}</span>
+            )}
           </div>
 
-          {errors.submit && <div className="error-message">{errors.submit}</div>}
-          
+          {errors.submit && (
+            <div className="error-message">{errors.submit}</div>
+          )}
+
           <button type="submit">Add Product</button>
         </form>
       </div>

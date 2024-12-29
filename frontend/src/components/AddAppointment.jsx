@@ -1,17 +1,17 @@
 // src/components/AddAppointment.js
-import React, { useState } from 'react';
-import axios from 'axios';
-import './AddAppointment.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./AddAppointment.css";
 
 const AddAppointment = ({ onAddAppointment, onClose }) => {
   const [appointmentData, setAppointmentData] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    services: 'Service1',
-    preferredDate: '',
-    preferredTime: 'Morning',
-    message: ''
+    name: "",
+    email: "",
+    phoneNumber: "",
+    services: "Service1",
+    preferredDate: "",
+    preferredTime: "Morning",
+    message: "",
   });
 
   const handleInputChange = (e) => {
@@ -22,11 +22,14 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/appointments', appointmentData);
+      const response = await axios.post(
+        "http://localhost:3000/appointments",
+        appointmentData
+      );
       onAddAppointment(response.data);
       onClose(); // Close the add appointment form
     } catch (error) {
-      console.error('Error adding appointment:', error);
+      console.error("Error adding appointment:", error);
     }
   };
 
@@ -78,8 +81,7 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
           name="preferredTime"
           value={appointmentData.preferredTime}
           onChange={handleInputChange}
-          min={new Date().toISOString().split('T')[0]} 
-
+          min={new Date().toISOString().split("T")[0]}
         >
           <option value="8:30">8:30</option>
           <option value="10:00">10:00</option>

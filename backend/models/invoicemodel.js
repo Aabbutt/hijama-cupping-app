@@ -3,6 +3,10 @@ const user = require('./usermodel');
 
 
 const invoiceschema = new mongoose.Schema ({
+
+    Practitionerid: { type : mongoose.Schema.Types.ObjectId , ref : 'Practitioner'},
+    patientid : { type : mongoose.Schema.Types.ObjectId , ref : 'patient'},
+
     appointmentid: {
         type: mongoose.Schema.Types.ObjectId, 
         ref : 'appointment' ,

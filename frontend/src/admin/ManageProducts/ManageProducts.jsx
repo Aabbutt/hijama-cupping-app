@@ -1,11 +1,11 @@
 // src/admin/ManageProducts.js
 
-import React, { useState, useEffect } from 'react';
-import AddProduct from '../../components/AddProduct'; // Import AddProduct Component
-import EditProduct from '../../components/EditProduct'; // Import EditProduct Component
-import './ManageProducts.css'; // Ensure your CSS file exists
-import { DeleteIcon, EditIcon } from 'lucide-react';
-import axios from 'axios'; // Import Axios for making API requests
+import React, { useState, useEffect } from "react";
+import AddProduct from "../../components/AddProduct"; // Import AddProduct Component
+import EditProduct from "../../components/EditProduct"; // Import EditProduct Component
+import "./ManageProducts.css"; // Ensure your CSS file exists
+import { DeleteIcon, EditIcon } from "lucide-react";
+import axios from "axios"; // Import Axios for making API requests
 
 const ManageProducts = ({ onAddProduct }) => {
   const [products, setProducts] = useState([]); // State to hold the products data
@@ -14,19 +14,22 @@ const ManageProducts = ({ onAddProduct }) => {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showEditProduct, setShowEditProduct] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null); // Holds the product being edited
-  const [successMessage, setSuccessMessage] = useState('');
-  const [deleteConfirm, setDeleteConfirm] = useState({ show: false, productId: null });
+  const [successMessage, setSuccessMessage] = useState("");
+  const [deleteConfirm, setDeleteConfirm] = useState({
+    show: false,
+    productId: null,
+  });
 
   // Fetch products data from the API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/products'); // Adjust the URL based on your backend URL
+        const response = await axios.get("http://localhost:3000/products"); // Adjust the URL based on your backend URL
         setProducts(response.data); // Set the fetched products
         setLoading(false); // Update loading state
       } catch (error) {
-        console.error('Failed to fetch products:', error);
-        setError('Failed to fetch products');
+        console.error("Failed to fetch products:", error);
+        setError("Failed to fetch products");
         setLoading(false); // Update loading state
       }
     };
@@ -42,9 +45,9 @@ const ManageProducts = ({ onAddProduct }) => {
 
   const handleAddProductInternal = (newProduct) => {
     onAddProduct(newProduct);
-    setSuccessMessage('Product added successfully!');
+    setSuccessMessage("Product added successfully!");
     setShowAddProduct(false);
-    setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
+    setTimeout(() => setSuccessMessage(""), 3000); // Clear message after 3 seconds
   };
 
   // Handle edit product action
@@ -55,8 +58,11 @@ const ManageProducts = ({ onAddProduct }) => {
 
   const handleUpdateProduct = async (updatedProduct) => {
     try {
-      const response = await axios.put(`http://localhost:5000/products/${updatedProduct._id}`, updatedProduct);
-      setSuccessMessage('Product updated successfully!');
+      const response = await axios.put(
+        `http://localhost:3000/products/${updatedProduct._id}`,
+        updatedProduct
+      );
+      setSuccessMessage("Product updated successfully!");
       setShowEditProduct(false);
       setCurrentProduct(null);
       setProducts((prevProducts) =>
@@ -64,10 +70,10 @@ const ManageProducts = ({ onAddProduct }) => {
           product._id === updatedProduct._id ? response.data : product
         )
       );
-      setTimeout(() => setSuccessMessage(''), 3000);
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error('Failed to update product:', error);
-      setError('Failed to update product');
+      console.error("Failed to update product:", error);
+      setError("Failed to update product");
     }
   };
 
@@ -78,14 +84,20 @@ const ManageProducts = ({ onAddProduct }) => {
 
   const confirmDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:5000/products/${deleteConfirm.productId}`);
-      setProducts((prevProducts) => prevProducts.filter((product) => product._id !== deleteConfirm.productId));
+      const response = await axios.delete(
+        `http://localhost:3000/products/${deleteConfirm.productId}`
+      );
+      setProducts((prevProducts) =>
+        prevProducts.filter(
+          (product) => product._id !== deleteConfirm.productId
+        )
+      );
       setDeleteConfirm({ show: false, productId: null });
-      setSuccessMessage('Product deleted successfully!');
-      setTimeout(() => setSuccessMessage(''), 3000);
+      setSuccessMessage("Product deleted successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error('Failed to delete product:', error);
-      setError('Failed to delete product');
+      console.error("Failed to delete product:", error);
+      setError("Failed to delete product");
     }
   };
 
@@ -106,15 +118,23 @@ const ManageProducts = ({ onAddProduct }) => {
     <div className="manage-products-container">
       <h1>Manage Products</h1>
       <button className="add-product-button" onClick={toggleAddProduct}>
-        {showAddProduct ? 'Close Add Product' : 'Add New Product'}
+        {showAddProduct ? "Close Add Product" : "Add New Product"}
       </button>
-      {successMessage && <div className="success-message">{successMessage}</div>}
-      {showAddProduct && <AddProduct onAddProduct={handleAddProductInternal} products={products} onClose={() => setShowAddProduct(false)} />}
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
+      {showAddProduct && (
+        <AddProduct
+          onAddProduct={handleAddProductInternal}
+          products={products}
+          onClose={() => setShowAddProduct(false)}
+        />
+      )}
       {showEditProduct && currentProduct && (
-        <EditProduct 
-          product={currentProduct} 
-          onUpdate={handleUpdateProduct} 
-          onClose={() => setShowEditProduct(false)} 
+        <EditProduct
+          product={currentProduct}
+          onUpdate={handleUpdateProduct}
+          onClose={() => setShowEditProduct(false)}
         />
       )}
       <div className="products-list">
@@ -135,13 +155,27 @@ const ManageProducts = ({ onAddProduct }) => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td><img src={product.image} alt={product.name} style={{ width: '50px' }} /></td>
+                  <td>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      style={{ width: "50px" }}
+                    />
+                  </td>
                   <td>Rs {product.price}</td>
                   <td>{product.quantity}</td>
                   <td>
                     <div>
-                      <EditIcon size={24} onClick={() => handleEditClick(product)} color='blue'/>
-                      <DeleteIcon size={24} onClick={() => handleDelete(product._id)} color='red'/>
+                      <EditIcon
+                        size={24}
+                        onClick={() => handleEditClick(product)}
+                        color="blue"
+                      />
+                      <DeleteIcon
+                        size={24}
+                        onClick={() => handleDelete(product._id)}
+                        color="red"
+                      />
                     </div>
                   </td>
                 </tr>

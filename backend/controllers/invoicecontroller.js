@@ -1,18 +1,19 @@
-const express = require('express');
 const invoice = require('../models/invoicemodel');
-
 
 //  create invoice   
 
 const creatinvoice =  async(req , res )=> {
+  const { patientid , practitionerid , appointmentid,amount,status,payementmethod,invoicedate } =  req.body;
+
     try {
-        const { appointmentid,amount,status,payementmethod,invoicedate } =  req.body;
    
          const newinvoice = new invoice(req.body);
          await newinvoice.save();
          res.status(201).json({
            message: "invoice was created",
            invoice:{
+            patientid : newinvoice.patientid,
+            practitionerid : newinvoice.practitionerid,
             appointmentid: newinvoice.appointmentid , 
             amount : newinvoice.amount,
             status : newinvoice.status,
@@ -50,8 +51,8 @@ const getinvoicebyid =  async(req,res) => {
     try {
         const invoice = req.review;
         res.status(200).json({
-          message: "review found",
-          review,
+          message: "invoice found",
+          invoice,
           success : true,
         });
         
@@ -66,7 +67,9 @@ const updateinvoice =  async(req,res) => {
 
     try { 
         const invoice = req.body;
-        const { appointmentid,amount,status,payementmethod,invoicedate }=req.body;
+        const { patientid, practitionerid, appointmentid,amount,status,payementmethod,invoicedate }=req.body;
+        patientid && (invoice.patientid = patientid );
+        practitionerid && (invoice.practitionerid = practitionerid );
         appointmentid && (invoice.appointmentid = appointmentid );
         amount && (invoice.amount = amount );
         status && ( invoice.status = status);

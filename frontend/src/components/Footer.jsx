@@ -1,35 +1,28 @@
 // src/components/Footer.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
   FaLinkedinIn,
   FaArrowUp,
-} from 'react-icons/fa';
-import './Footer.css';
+} from "react-icons/fa";
+import "./Footer.css";
 
 const Footer = () => {
-  const [email, setEmail] = useState('');
-  const [subscriptionStatus, setSubscriptionStatus] = useState('');
+  const [email, setEmail] = useState("");
+  const [subscriptionStatus, setSubscriptionStatus] = useState("");
 
   const handleSubscription = (e) => {
     e.preventDefault();
     // Placeholder for subscription logic (e.g., API call)
     if (email) {
-      setSubscriptionStatus('Thank you for subscribing!');
-      setEmail('');
+      setSubscriptionStatus("Thank you for subscribing!");
+      setEmail("");
     } else {
-      setSubscriptionStatus('Please enter a valid email.');
+      setSubscriptionStatus("Please enter a valid email.");
     }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
   };
 
   return (
@@ -38,14 +31,15 @@ const Footer = () => {
         <div className="footer-section about">
           <h3>About Us</h3>
           <p>
-            UG Healing Center is a leading ISO Certified Hijama Alternative Clinic across Pakistan,
-            providing quality healthcare services and Certified Training for Hijama Cupping Therapy.
+            UG Healing Center is a leading ISO Certified Hijama Alternative
+            Clinic across Pakistan, providing quality healthcare services and
+            Certified Training for Hijama Cupping Therapy.
           </p>
         </div>
-            {/* Admin Footer: Services Section */}
-            <div className="footer-section">
-              <h3>Services</h3>
-              <ul>
+        {/* Admin Footer: Services Section */}
+        <div className="footer-section">
+          <h3>Services</h3>
+          <ul>
             <li>
               <Link to="/products#hijama-cups" className="footer-link">
                 Hijama Cups
@@ -67,19 +61,34 @@ const Footer = () => {
               </Link>
             </li>
           </ul>
-            </div>
+        </div>
 
-            {/* Admin Footer: Contact Section */}
-            <div className="footer-section">
-              <h3>Contact Us</h3>
-              <p>Dubai Healthcare City, Ibn Sina Building 27, Block B, Clinic 302 & 404</p>
-              <p><a href="tel:+97142480574" className="footer-link">+971 4 248 0574</a></p>
-              <p><a href="tel:+971555" className="footer-link">+971 555 (HEALTH)</a></p>
-              <p><a href="mailto:info@gmcdhcc.com" className="footer-link">info@gmcdhcc.com</a></p>
-              <p>9:00 AM - 6:00 PM (SAT, MON, TUES, WED)</p>
-              <p>10:00 AM - 2:00 PM (SUN & THURS)</p>
-              <p>FRIDAY - Closed</p>
-            </div>
+        {/* Admin Footer: Contact Section */}
+        <div className="footer-section">
+          <h3>Contact Us</h3>
+          <p>
+            Dubai Healthcare City, Ibn Sina Building 27, Block B, Clinic 302 &
+            404
+          </p>
+          <p>
+            <a href="tel:+97142480574" className="footer-link">
+              +971 4 248 0574
+            </a>
+          </p>
+          <p>
+            <a href="tel:+971555" className="footer-link">
+              +971 555 (HEALTH)
+            </a>
+          </p>
+          <p>
+            <a href="mailto:info@gmcdhcc.com" className="footer-link">
+              info@gmcdhcc.com
+            </a>
+          </p>
+          <p>9:00 AM - 6:00 PM (SAT, MON, TUES, WED)</p>
+          <p>10:00 AM - 2:00 PM (SUN & THURS)</p>
+          <p>FRIDAY - Closed</p>
+        </div>
         {/* Quick Links Section */}
         <div className="footer-section links">
           <h3>Quick Links</h3>
@@ -209,15 +218,10 @@ const Footer = () => {
 
       {/* Footer Bottom Section */}
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} UG Healing Center. All rights reserved.</p>
-        <button
-          className="back-to-top"
-          onClick={scrollToTop}
-          aria-label="Back to Top"
-        >
-          <FaArrowUp className="arrow-icon" />
-          Back to Top
-        </button>
+        <p>
+          &copy; {new Date().getFullYear()} UG Healing Center. All rights
+          reserved.
+        </p>
       </div>
     </footer>
   );

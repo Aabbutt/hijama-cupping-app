@@ -1,0 +1,127 @@
+.hc-practitioner-management {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hc-practitioner-title {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.hc-add-practitioner-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.3s;
+}
+
+.hc-add-practitioner-btn:hover {
+  background-color: #45a049;
+}
+
+.hc-table-container {
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.hc-practitioners-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  font-size: 0.9rem;
+}
+
+.hc-practitioners-table th,
+.hc-practitioners-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.hc-practitioners-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.hc-practitioners-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.hc-verify-button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.hc-verify-button.hc-verified {
+  background-color: #4caf50;
+  color: white;
+}
+
+.hc-verify-button.hc-unverified {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.hc-verify-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.hc-action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.hc-edit-btn,
+.hc-delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.hc-edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.hc-delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.hc-edit-btn:hover,
+.hc-delete-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .hc-practitioner-management {
+    padding: 1rem;
+  }
+
+  .hc-practitioners-table {
+    font-size: 0.8rem;
+  }
+
+  .hc-practitioners-table th,
+  .hc-practitioners-table td {
+    padding: 8px 10px;
+  }
+}

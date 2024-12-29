@@ -1,9 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaBars, FaTimes, FaWhatsapp } from 'react-icons/fa';
-import './Header.css';
-import logo from '../components/images/logo.png';
+import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
+import "./Header.css";
+import logo from "../components/images/logo.png";
+import whatsapp from "../components/images/whatsapp.png";
+import { useCurrentUser } from "../hooks/use-current-user";
+
 const Header = () => {
+  const { data } = useCurrentUser();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -18,9 +22,9 @@ const Header = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [menuRef]);
 
@@ -30,28 +34,51 @@ const Header = () => {
       <div className="top-header">
         <div className="contact-info">
           <span>Phone: 0315 1766375 | 0300 0308910</span>
-          <a href="https://wa.me/03000308910" target="_blank" rel="noopener noreferrer">
-            <FaWhatsapp size={24} color='green' />
+          <a
+            href="https://wa.me/03000308910"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={whatsapp} alt="WhatsApp" className="whatsapp-icon" />
           </a>
         </div>
         <div className="actions">
-          <Link to="/appointment" className="appointment-button">Book An Appointment</Link>
-          <Link to="/join-as-practitioner" className="join-practitioner-button">Join as Practitioner</Link>
+          <Link to="/appointment" className="appointment-button">
+            Book An Appointment
+          </Link>
+          <Link to="/join-as-practitioner" className="join-practitioner-button">
+            Join as Practitioner
+          </Link>
         </div>
       </div>
 
       {/* Main header container */}
-        <div className="header-container">
-          <div className="menu-icon" onClick={toggleMenu}>
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </div>
-          <nav ref={menuRef} className={`nav-bar ${menuOpen ? 'active' : ''}`}>
-            <div className="Nav-Items">
+      <div className="header-container">
+        <div className="menu-icon" onClick={toggleMenu}>
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </div>
+        <div className="logo">
+          <img src={logo} alt="Hijama" />
+        </div>
+        <nav ref={menuRef} className={`nav-bar ${menuOpen ? "active" : ""}`}>
+          <div className="Nav-Items">
             <ul className="nav-links">
-              <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
-              <li><Link to="/about" onClick={toggleMenu}>About</Link></li>
-              <li><Link to="/knowledge-base" onClick={toggleMenu}>Knowledge Base</Link></li>
-              
+              <li>
+                <Link to="/" onClick={toggleMenu}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" onClick={toggleMenu}>
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/knowledge-base" onClick={toggleMenu}>
+                  Knowledge Base
+                </Link>
+              </li>
+
               {/* <li className="dropdown">
                 <span>Knowledge Base</span>
                 <ul className="dropdown-content">
@@ -73,16 +100,31 @@ const Header = () => {
                   <li><Link to="/products/honey" onClick={toggleMenu}>Honey</Link></li>
                 </ul>
               </li> */}
-              <li><Link to="/products" onClick={toggleMenu}>Products</Link></li>
-              <li><Link to="/contact" onClick={toggleMenu}>Contact</Link></li>
-              <li><Link to="/login" onClick={toggleMenu}>Login</Link></li>
+              <li>
+                <Link to="/products" onClick={toggleMenu}>
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" onClick={toggleMenu}>
+                  Contact
+                </Link>
+              </li>
+              {data?.name ? (
+                <li>
+                  <span>{data.name}</span>
+                </li>
+              ) : (
+                <li>
+                  <Link to="/login" onClick={toggleMenu}>
+                    Login
+                  </Link>
+                </li>
+              )}
             </ul>
-            </div>
-            <div className="logo">
-            <img src={logo} alt="Hijama" />
           </div>
-          </nav>
-        </div>
+        </nav>
+      </div>
     </>
   );
 };

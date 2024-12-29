@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import AddRoomSchedule from '../components/AddRoomSchedule';
-import axios from 'axios';
-import './ManageRoomScheduling.css';
-
+import React, { useState, useEffect } from "react";
+import AddRoomSchedule from "../components/AddRoomSchedule";
+import axios from "axios";
+import "./ManageRoomScheduling.css";
 
 const ManageRoomScheduling = () => {
   const [schedules, setSchedules] = useState([]);
@@ -13,10 +12,12 @@ const ManageRoomScheduling = () => {
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/rooms/schedules');
+        const response = await axios.get(
+          "http://localhost:3000/api/rooms/schedules"
+        );
         setSchedules(response.data);
       } catch (error) {
-        console.error('Error fetching schedules:', error);
+        console.error("Error fetching schedules:", error);
       }
     };
     fetchSchedules();
@@ -37,25 +38,33 @@ const ManageRoomScheduling = () => {
     try {
       if (schedule.id) {
         // Editing existing schedule
-        const response = await axios.put(`http://localhost:5000/api/rooms/schedules${schedule.id}`, schedule);
-        setSchedules(schedules.map((s) => (s.id === schedule.id ? response.data : s)));
+        const response = await axios.put(
+          `http://localhost:3000/api/rooms/schedules${schedule.id}`,
+          schedule
+        );
+        setSchedules(
+          schedules.map((s) => (s.id === schedule.id ? response.data : s))
+        );
       } else {
         // Adding new schedule
-        const response = await axios.post('http://localhost:5000/api/rooms/schedules', schedule);
+        const response = await axios.post(
+          "http://localhost:3000/api/rooms/schedules",
+          schedule
+        );
         setSchedules([...schedules, response.data]);
       }
       handleCloseForm();
     } catch (error) {
-      console.error('Error adding or editing schedule:', error);
+      console.error("Error adding or editing schedule:", error);
     }
   };
 
   const handleDeleteSchedule = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/rooms/schedules${id}`);
+      await axios.delete(`http://localhost:3000/api/rooms/schedules${id}`);
       setSchedules(schedules.filter((schedule) => schedule.id !== id));
     } catch (error) {
-      console.error('Error deleting schedule:', error);
+      console.error("Error deleting schedule:", error);
     }
   };
 
@@ -68,9 +77,9 @@ const ManageRoomScheduling = () => {
     <div className="manage-room-scheduling-container">
       <h1>Manage Room Scheduling</h1>
       <button className="add-schedule-button" onClick={handleAddClick}>
-        {showAddSchedule ? 'Close Add Schedule' : 'Add New Schedule'}
+        {showAddSchedule ? "Close Add Schedule" : "Add New Schedule"}
       </button>
-      
+
       {showAddSchedule && (
         <AddRoomSchedule
           schedule={currentSchedule}
@@ -78,7 +87,7 @@ const ManageRoomScheduling = () => {
           onClose={handleCloseForm}
         />
       )}
-      
+
       <div className="schedules-list">
         <table className="schedules-table">
           <thead>
@@ -101,10 +110,16 @@ const ManageRoomScheduling = () => {
                   <td>{new Date(schedule.date).toLocaleDateString()}</td>
                   <td>{schedule.time}</td>
                   <td>
-                    <button className="edit-button" onClick={() => handleEditClick(schedule)}>
+                    <button
+                      className="edit-button"
+                      onClick={() => handleEditClick(schedule)}
+                    >
                       Edit
                     </button>
-                    <button className="delete-button" onClick={() => handleDeleteSchedule(schedule.id)}>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDeleteSchedule(schedule.id)}
+                    >
                       Delete
                     </button>
                   </td>

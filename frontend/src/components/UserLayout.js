@@ -1,8 +1,9 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from './Header';  // Import the header component
-import Footer from './Footer';  // Import the footer component
-import './UserLayout.css';  // You can use this file to style the layout
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Header from "./Header"; // Import the header component
+import Footer from "./Footer"; // Import the footer component
+import "./UserLayout.css"; // You can use this file to style the layout
+import { BackToTop } from "./BackToTop";
 
 const UserLayout = () => {
   return (
@@ -17,6 +18,7 @@ const UserLayout = () => {
 
       {/* Include Footer on all user pages */}
       <Footer />
+      <BackToTop />
     </div>
   );
 };

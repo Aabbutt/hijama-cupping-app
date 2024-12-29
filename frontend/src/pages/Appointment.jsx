@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './Appointment.css';
+import React, { useState } from "react";
+import axios from "axios";
+import "./Appointment.css";
 
 const Appointment = () => {
   const [appointmentData, setAppointmentData] = useState({
-    name: '',
-    email: '',
-    phoneNumber: '',
-    services: 'Service1',  // Default service option
-    preferredDate: '',
-    preferredTime: 'Morning',  // Default time option
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    services: "Consultation", // Default service option
+    preferredDate: "",
+    preferredTime: "8:30", // Default time option
+    message: "",
   });
 
   // Handle input changes and update state accordingly
@@ -23,24 +23,29 @@ const Appointment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const newDate = new Date(appointmentData.preferredDate);
       // Send the appointment data to the backend
-      const response = await axios.post('http://localhost:5000/appointments', appointmentData);
-      
+      const response = await axios.post("http://localhost:3000/appointments", {
+        ...appointmentData,
+        preferredDate: newDate,
+      });
+
       // After successful submission, alert the user or take another action
-      alert('Appointment booked successfully!');
-      setAppointmentData({  // Reset form
-        name: '',
-        email: '',
-        phoneNumber: '',
-        services: 'Consultation',
-        preferredDate: '',
-        preferredTime: '8:30',
-        message: ''
+      alert("Appointment booked successfully!");
+      setAppointmentData({
+        // Reset form
+        name: "",
+        email: "",
+        phone: "",
+        services: "Consultation",
+        preferredDate: "",
+        preferredTime: "8:30",
+        message: "",
       });
     } catch (error) {
       // Handle errors
-      console.error('Error booking appointment:', error);
-      alert('Failed to book appointment. Please try again.');
+      console.error("Error booking appointment:", error);
+      alert("Failed to book appointment. Please try again.");
     }
   };
 
@@ -76,12 +81,12 @@ const Appointment = () => {
 
         {/* Phone Number Field */}
         <div className="form-field">
-          <label htmlFor="phoneNumber">Phone Number:</label>
+          <label htmlFor="phone">Phone Number:</label>
           <input
             type="text"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={appointmentData.phoneNumber}
+            id="phone"
+            name="phone"
+            value={appointmentData.phone}
             onChange={handleInputChange}
             required
           />
@@ -97,9 +102,9 @@ const Appointment = () => {
             onChange={handleInputChange}
             required
           >
-            <option value="Service1">Consultation</option>
-            <option value="Service2">Treatement</option>
-            <option value="Service3">Checkup</option>
+            <option value="Consultation">Consultation</option>
+            <option value="Treatment">Treatment</option>
+            <option value="Checkup">Checkup</option>
           </select>
         </div>
 
@@ -124,17 +129,16 @@ const Appointment = () => {
             name="preferredTime"
             value={appointmentData.preferredTime}
             onChange={handleInputChange}
-            min={new Date().toISOString().split('T')[0]} 
-
+            min={new Date().toISOString().split("T")[0]}
             required
           >
-          <option value="8:30">8:30</option>
-          <option value="10:00">10:00</option>
-          <option value="11:30">11:30</option>
-          <option value="11:00">11:00</option>
-          <option value="2:30">2:30</option>
-          <option value="4:00">4:00</option>
-          <option value="5:30">5:30</option>
+            <option value="8:30">8:30</option>
+            <option value="10:00">10:00</option>
+            <option value="11:30">11:30</option>
+            <option value="11:00">11:00</option>
+            <option value="2:30">2:30</option>
+            <option value="4:00">4:00</option>
+            <option value="5:30">5:30</option>
           </select>
         </div>
 

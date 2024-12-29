@@ -5,7 +5,7 @@ const { comparePassword } = require("../middleware/auth");
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, JWT_SECRET, {
-    expiresIn: "300d",
+    expiresIn: "3d",
   });
 };
 
@@ -14,7 +14,7 @@ const createToken = (_id) => {
 const createuser = async (req, res) => {
   const { name, email, password, role } = req.body;
 
-  if (!name || !email || !password || !role) {
+  if (!name || !email || !password) {
     return res.status(400).json({ error: " All fields are required " });
   }
 

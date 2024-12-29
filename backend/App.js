@@ -1,37 +1,33 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require('mongoose');
-const multer = require('multer');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const practitionerRoutes = require('./routes/practitioner');
-const roomroutes = require ('./routes/roomroutes');
- 
-
-
+const mongoose = require("mongoose");
+const multer = require("multer");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const practitionerRoutes = require("./routes/practitioner");
+const roomroutes = require("./routes/roomroutes");
 
 // Import models (make sure the file names are correct based on your folder structure)
-const Product = require('./models/product');
-const Appointments = require('./models/appointment');
-const Practitioner = require('./models/Practitioner');
+const Product = require("./models/product");
+const Appointments = require("./models/appointment");
+const Practitioner = require("./models/Practitioner");
 const { MONGO_URI } = require("./config/env");
 const inventory = require("./models/inventorymodel");
-const inventoryroutes = require('./controllers/inventorycontroller');
-const patients = require('./models/patientmodel')
+const inventoryroutes = require("./controllers/inventorycontroller");
+const patients = require("./models/patientmodel");
 
+require("dotenv").config();
 
-
-
-require('dotenv').config();
+const userroutes = require("./routes/userroutes");
 
 // Initialize Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 // MongoDB Connection
-mongoose.connect(MONGO_URI)
+mongoose
+  .connect(MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("Error Connecting to MongoDB: " + err));
 
@@ -50,48 +46,52 @@ app.use("/user", require("./routes/user"));
 // Set up multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Specify the upload folder
+    cb(null, "uploads/"); // Specify the upload folder
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname); // Set unique file names
+    cb(null, Date.now() + "-" + file.originalname); // Set unique file names
   },
 });
 
 // File filter to allow only images
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+  const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
   if (!allowedTypes.includes(file.mimetype)) {
-    return cb(new Error('Only image files are allowed (jpg, jpeg, png)'), false);
+    return cb(
+      new Error("Only image files are allowed (jpg, jpeg, png)"),
+      false
+    );
   }
   cb(null, true);
 };
 
 // Initialize multer with storage and file filter
 const upload = multer({ storage: storage, fileFilter: fileFilter });
-app.use('/uploads', express.static('uploads')); // Serve uploaded files
+app.use("/uploads", express.static("uploads")); // Serve uploaded files
+app.use("/user", userroutes);
 
 async function connectDB() {
   if (mongoose.connection.readyState === 0) {
-      // Replace 'your_connection_string' with your MongoDB URI
-      await mongoose.connect('your_connection_string', {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-      });
-      console.log('MongoDB connected');
+    // Replace 'your_connection_string' with your MongoDB URI
+    await mongoose.connect("your_connection_string", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDB connected");
   } else {
-      console.log('MongoDB connection is already established');
+    console.log("MongoDB connection is already established");
   }
 }
 // Routes
-app.use('/practitioners', practitionerRoutes);
-app.use('/rooms' , roomroutes);
+app.use("/practitioners", practitionerRoutes);
+app.use("/rooms", roomroutes);
 
 // Test route for verifying app is running
 app.use("/HijamaCuping", (req, res) => {
   res.send("Hijama Cupping App");
 });
 
-app.post('/patients', async (req, res) => {
+app.post("/patients", async (req, res) => {
   try {
     const { name, age, gender, contactInfo } = req.body;
 
@@ -99,44 +99,43 @@ app.post('/patients', async (req, res) => {
       name,
       age,
       gender,
-      contactInfo
-      
+      contactInfo,
     });
 
     const savedpatient = await newpatient.save();
     res.status(201).json(savedpatient);
   } catch (error) {
-    console.error('Error creating patients:', error);
-    res.status(500).json({ error: 'Failed to create patients' });
+    console.error("Error creating patients:", error);
+    res.status(500).json({ error: "Failed to create patients" });
   }
 });
 
 // GET: Get all patients
-app.get('/patients', async (req, res) => {
+app.get("/patients", async (req, res) => {
   try {
     const patients = await patients.find();
-    console.log(patients)
+    console.log(patients);
     res.status(200).json(patients);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to get patients' });
+    res.status(500).json({ error: "Failed to get patients" });
   }
 });
 
 // GET: Get a single patients by ID
-app.get('/patients/:id', async (req, res) => {
+app.get("/patients/:id", async (req, res) => {
   try {
     const patients = await patients.findById(req.params.id);
     if (!patients) {
-      return res.status(404).json({ error: 'patient not found' });
+      return res.status(404).json({ error: "patient not found" });
     }
     res.status(200).json(patients);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to get patients' });
+    res.status(500).json({ error: "Failed to get patients" });
   }
 });
 
 // PUT: Update an patients by ID
-app.put('/patients/:id', async (req, res) => {
+app.put("/patients/:id", async (req, res) => {
   try {
     const { name, age, gender, contactInfo } = req.body;
 
@@ -147,158 +146,204 @@ app.put('/patients/:id', async (req, res) => {
     );
 
     if (!updatedpatient) {
-      return res.status(404).json({ error: 'patient not found' });
+      return res.status(404).json({ error: "patient not found" });
     }
 
     res.status(200).json(updatedpatient);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update patients' });
+    res.status(500).json({ error: "Failed to update patients" });
   }
 });
 
 // DELETE: Delete an patients by ID
-app.delete('/patients/:id', async (req, res) => {
+app.delete("/patients/:id", async (req, res) => {
   try {
     const deletedpatient = await patients.findByIdAndDelete(req.params.id);
     if (!deletedpatient) {
-      return res.status(404).json({ error: 'patient not found' });
+      return res.status(404).json({ error: "patient not found" });
     }
 
-    res.status(200).json({ message: 'patient deleted successfully' });
+    res.status(200).json({ message: "patient deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete patients' });
+    res.status(500).json({ error: "Failed to delete patients" });
   }
 });
 
 // POST: Add a new appointment
-app.post('/appointments', async (req, res) => {
+app.post("/appointments", async (req, res) => {
   try {
-    const { name, email, phoneNumber, services, preferredDate, preferredTime, message } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      services,
+      preferredDate,
+      preferredTime,
+      message,
+      practitioner,
+    } = req.body;
 
     const newAppointment = new Appointments({
+      name,
+      email,
+      phone,
+      services,
+      preferredDate,
+      preferredTime,
+      message,
+      practitioner,
+      status: practitioner ? "assigned" : "pending",
+    });
+
+    const savedAppointment = await newAppointment.save();
+    res.status(201).json(savedAppointment);
+  } catch (error) {
+    console.error("Error creating appointment:", error);
+    res.status(500).json({ error: "Failed to create appointment" });
+  }
+});
+
+// GET: Get all appointments
+app.get("/appointments", async (req, res) => {
+  try {
+    const appointments = await Appointments.find().populate(
+      "practitioner",
+      "fullName"
+    );
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get appointments" });
+  }
+});
+
+// PUT: Assign practitioner to appointment
+app.put("/appointments/:id/assign", async (req, res) => {
+  try {
+    const { practitionerId } = req.body;
+
+    const appointment = await Appointments.findByIdAndUpdate(
+      req.params.id,
+      {
+        practitioner: practitionerId,
+        status: "assigned",
+      },
+      { new: true }
+    ).populate("practitioner", "fullName");
+
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    res.status(200).json(appointment);
+  } catch (error) {
+    console.error("Error assigning practitioner:", error);
+    res.status(500).json({ error: "Failed to assign practitioner" });
+  }
+});
+
+// PUT: Update an appointment by ID
+app.put("/appointments/:id", async (req, res) => {
+  try {
+    const {
       name,
       email,
       phoneNumber,
       services,
       preferredDate,
       preferredTime,
-      message
-    });
-
-    const savedAppointment = await newAppointment.save();
-    res.status(201).json(savedAppointment);
-  } catch (error) {
-    console.error('Error creating appointment:', error);
-    res.status(500).json({ error: 'Failed to create appointment' });
-  }
-});
-
-// GET: Get all appointments
-app.get('/appointments', async (req, res) => {
-  try {
-    const appointments = await Appointments.find();
-    console.log(appointments)
-    res.status(200).json(appointments);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to get appointments' });
-  }
-});
-
-// GET: Get a single appointment by ID
-app.get('/appointments/:id', async (req, res) => {
-  try {
-    const appointment = await Appointments.findById(req.params.id);
-    if (!appointment) {
-      return res.status(404).json({ error: 'Appointment not found' });
-    }
-    res.status(200).json(appointment);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to get appointment' });
-  }
-});
-
-// PUT: Update an appointment by ID
-app.put('/appointments/:id', async (req, res) => {
-  try {
-    const { name, email, phoneNumber, services, preferredDate, preferredTime, message } = req.body;
+      message,
+      practitioner,
+      status,
+    } = req.body;
 
     const updatedAppointment = await Appointments.findByIdAndUpdate(
       req.params.id,
-      { name, email, phoneNumber, services, preferredDate, preferredTime, message },
+      {
+        name,
+        email,
+        phoneNumber,
+        services,
+        preferredDate,
+        preferredTime,
+        message,
+        practitioner,
+        status,
+      },
       { new: true }
-    );
+    ).populate("practitioner", "fullName");
 
     if (!updatedAppointment) {
-      return res.status(404).json({ error: 'Appointment not found' });
+      return res.status(404).json({ error: "Appointment not found" });
     }
 
     res.status(200).json(updatedAppointment);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update appointment' });
+    res.status(500).json({ error: "Failed to update appointment" });
   }
 });
 
 // DELETE: Delete an appointment by ID
-app.delete('/appointments/:id', async (req, res) => {
+app.delete("/appointments/:id", async (req, res) => {
   try {
-    const deletedAppointment = await Appointments.findByIdAndDelete(req.params.id);
+    const deletedAppointment = await Appointments.findByIdAndDelete(
+      req.params.id
+    );
     if (!deletedAppointment) {
-      return res.status(404).json({ error: 'Appointment not found' });
+      return res.status(404).json({ error: "Appointment not found" });
     }
 
-    res.status(200).json({ message: 'Appointment deleted successfully' });
+    res.status(200).json({ message: "Appointment deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete appointment' });
+    res.status(500).json({ error: "Failed to delete appointment" });
   }
 });
 
 // POST: Add a new product with image upload
-app.post('/products', upload.single('image'), async (req, res) => {
+app.post("/products", upload.single("image"), async (req, res) => {
   try {
-      const { name, price, quantity } = req.body;
-      const image = req.file ? req.file.path : null; // Get the uploaded image path
+    const { name, price, quantity } = req.body;
+    const image = req.file ? req.file.path : null; // Get the uploaded image path
 
-      const newProduct = new Product({
-          name,
-          image,
-          price,
-          quantity
-      });
+    const newProduct = new Product({
+      name,
+      image,
+      price,
+      quantity,
+    });
 
-      const savedProduct = await newProduct.save();
-      res.status(201).json(savedProduct);
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
   } catch (error) {
-      console.error('Error creating product:', error);
-      res.status(500).json({ error: 'Failed to create product' });
+    console.error("Error creating product:", error);
+    res.status(500).json({ error: "Failed to create product" });
   }
 });
 
-
 // GET: Get all products
-app.get('/products', async (req, res) => {
+app.get("/products", async (req, res) => {
   try {
-      const products = await Product.find();
-      res.status(200).json(products);
+    const products = await Product.find();
+    res.status(200).json(products);
   } catch (error) {
-      res.status(500).json({ error: 'Failed to get products' });
+    res.status(500).json({ error: "Failed to get products" });
   }
 });
 
 // GET: Get a single product by ID
-app.get('/products/:id', async (req, res) => {
+app.get("/products/:id", async (req, res) => {
   try {
-      const product = await Product.findById(req.params.id);
-      if (!product) {
-          return res.status(404).json({ error: 'Product not found' });
-      }
-      res.status(200).json(product);
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+    res.status(200).json(product);
   } catch (error) {
-      res.status(500).json({ error: 'Failed to get product' });
+    res.status(500).json({ error: "Failed to get product" });
   }
 });
 
 // PUT: Update a product by ID with optional image upload
-app.put('/products/:id', upload.single('image'), async (req, res) => {
+app.put("/products/:id", upload.single("image"), async (req, res) => {
   try {
     const { name, price, quantity } = req.body;
     const image = req.file ? req.file.path : null; // Get the uploaded image path (if available)
@@ -306,148 +351,208 @@ app.put('/products/:id', upload.single('image'), async (req, res) => {
     // Find and update the product by ID
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
-      { 
-        name, 
-        price, 
+      {
+        name,
+        price,
         quantity,
-        image: image || undefined,  // Update image only if it's provided
+        image: image || undefined, // Update image only if it's provided
       },
       { new: true } // Return the updated product
     );
 
     // If product is not found, send an error response
     if (!updatedProduct) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     // Return the updated product
     res.status(200).json(updatedProduct);
   } catch (error) {
-    console.error('Error updating product:', error);
-    res.status(500).json({ error: 'Failed to update product' });
+    console.error("Error updating product:", error);
+    res.status(500).json({ error: "Failed to update product" });
   }
 });
-
 
 // DELETE: Delete a product by ID
-app.delete('/products/:id', async (req, res) => {
+app.delete("/products/:id", async (req, res) => {
   try {
-      const deletedProduct = await Product.findByIdAndDelete(req.params.id);
-      if (!deletedProduct) {
-          return res.status(404).json({ error: 'Product not found' });
-      }
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Product not found" });
+    }
 
-      res.status(200).json({ message: 'Product deleted successfully' });
+    res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
-      res.status(500).json({ error: 'Failed to delete product' });
+    res.status(500).json({ error: "Failed to delete product" });
   }
 });
-
 
 // POST: Add a new practitioner with document upload
-app.post('/practitioners', upload.single('uploadDocuments'), async (req, res) => {
-  try {
-    const { fullName, mobileNumber, emailAddress, dateOfBirth, education, agreeTerms } = req.body;
-    const uploadDocuments = req.file ? req.file.path : null; // Get the uploaded document path
-
-    const newPractitioner = new Practitioner({
-      fullName,
-      mobileNumber,
-      emailAddress,
-      dateOfBirth,
-      education,
-      agreeTerms: agreeTerms === 'true', // Convert to boolean
-      uploadDocuments
-    });
-
-    const savedPractitioner = await newPractitioner.save();
-    res.status(201).json(savedPractitioner);
-  } catch (error) {
-    console.error('Error creating practitioner:', error);
-    res.status(500).json({ error: 'Failed to create practitioner' });
-  }
-});
-
-// GET: Get all practitioners
-app.get('/practitioners', async (req, res) => {
-  try {
-    const practitioners = await Practitioner.find();
-    res.status(200).json(practitioners);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to get practitioners' });
-  }
-});
-
-// GET: Get a single practitioner by ID
-app.get('/practitioners/:id', async (req, res) => {
-  try {
-    const practitioner = await Practitioner.findById(req.params.id);
-    if (!practitioner) {
-      return res.status(404).json({ error: 'Practitioner not found' });
-    }
-    res.status(200).json(practitioner);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to get practitioner' });
-  }
-});
-
-// PUT: Update a practitioner by ID with optional document upload
-app.put('/practitioners/:id', upload.single('uploadDocuments'), async (req, res) => {
-  try {
-    const { fullName, mobileNumber, emailAddress, dateOfBirth, education, agreeTerms } = req.body;
-    const uploadDocuments = req.file ? req.file.path : null; // Get the uploaded document path (if available)
-
-    // Find and update the practitioner by ID
-    const updatedPractitioner = await Practitioner.findByIdAndUpdate(
-      req.params.id,
-      {
+app.post(
+  "/practitioners",
+  upload.single("uploadDocuments"),
+  async (req, res) => {
+    try {
+      const {
         fullName,
         mobileNumber,
         emailAddress,
         dateOfBirth,
         education,
-        agreeTerms: agreeTerms === 'true', // Convert to boolean
-        uploadDocuments: uploadDocuments || undefined // Update document only if it's provided
-      },
-      { new: true } // Return the updated practitioner
-    );
+        agreeTerms,
+      } = req.body;
+      const uploadDocuments = req.file ? req.file.path : null; // Get the uploaded document path
 
-    // If practitioner is not found, send an error response
-    if (!updatedPractitioner) {
-      return res.status(404).json({ error: 'Practitioner not found' });
+      const newPractitioner = new Practitioner({
+        fullName,
+        mobileNumber,
+        emailAddress,
+        dateOfBirth,
+        education,
+        agreeTerms: agreeTerms === "true", // Convert to boolean
+        uploadDocuments,
+      });
+
+      const savedPractitioner = await newPractitioner.save();
+      res.status(201).json(savedPractitioner);
+    } catch (error) {
+      console.error("Error creating practitioner:", error);
+      res.status(500).json({ error: "Failed to create practitioner" });
     }
+  }
+);
 
-    // Return the updated practitioner
-    res.status(200).json(updatedPractitioner);
+// GET: Get all practitioners
+app.get("/practitioners", async (req, res) => {
+  try {
+    const practitioners = await Practitioner.find();
+    res.status(200).json(practitioners);
   } catch (error) {
-    console.error('Error updating practitioner:', error);
-    res.status(500).json({ error: 'Failed to update practitioner' });
+    res.status(500).json({ error: "Failed to get practitioners" });
   }
 });
+
+// GET: Get a single practitioner by ID
+app.get("/practitioners/:id", async (req, res) => {
+  try {
+    const practitioner = await Practitioner.findById(req.params.id);
+    if (!practitioner) {
+      return res.status(404).json({ error: "Practitioner not found" });
+    }
+    res.status(200).json(practitioner);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get practitioner" });
+  }
+});
+
+// PUT: Update a practitioner by ID with optional document upload
+app.put(
+  "/practitioners/:id",
+  upload.single("uploadDocuments"),
+  async (req, res) => {
+    try {
+      const {
+        fullName,
+        mobileNumber,
+        emailAddress,
+        dateOfBirth,
+        education,
+        agreeTerms,
+      } = req.body;
+      const uploadDocuments = req.file ? req.file.path : null; // Get the uploaded document path (if available)
+
+      // Find and update the practitioner by ID
+      const updatedPractitioner = await Practitioner.findByIdAndUpdate(
+        req.params.id,
+        {
+          fullName,
+          mobileNumber,
+          emailAddress,
+          dateOfBirth,
+          education,
+          agreeTerms: agreeTerms === "true", // Convert to boolean
+          uploadDocuments: uploadDocuments || undefined, // Update document only if it's provided
+        },
+        { new: true } // Return the updated practitioner
+      );
+
+      // If practitioner is not found, send an error response
+      if (!updatedPractitioner) {
+        return res.status(404).json({ error: "Practitioner not found" });
+      }
+
+      // Return the updated practitioner
+      res.status(200).json(updatedPractitioner);
+    } catch (error) {
+      console.error("Error updating practitioner:", error);
+      res.status(500).json({ error: "Failed to update practitioner" });
+    }
+  }
+);
 
 // DELETE: Delete a practitioner by ID
-app.delete('/practitioners/:id', async (req, res) => {
+app.delete("/practitioners/:id", async (req, res) => {
   try {
-    const deletedPractitioner = await Practitioner.findByIdAndDelete(req.params.id);
+    const deletedPractitioner = await Practitioner.findByIdAndDelete(
+      req.params.id
+    );
     if (!deletedPractitioner) {
-      return res.status(404).json({ error: 'Practitioner not found' });
+      return res.status(404).json({ error: "Practitioner not found" });
     }
 
-    res.status(200).json({ message: 'Practitioner deleted successfully' });
+    res.status(200).json({ message: "Practitioner deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete practitioner' });
+    res.status(500).json({ error: "Failed to delete practitioner" });
   }
 });
 
+// Add this near other practitioner routes
+app.put("/practitioners/:id/verify", async (req, res) => {
+  try {
+    const practitioner = await Practitioner.findByIdAndUpdate(
+      req.params.id,
+      { isVerified: true },
+      { new: true }
+    );
 
+    if (!practitioner) {
+      return res.status(404).json({ error: "Practitioner not found" });
+    }
 
+    res.status(200).json({
+      message: "Practitioner verified successfully",
+      practitioner,
+    });
+  } catch (error) {
+    console.error("Error verifying practitioner:", error);
+    res.status(500).json({ error: "Failed to verify practitioner" });
+  }
+});
 
+// Add an unverify route as well
+app.put("/practitioners/:id/unverify", async (req, res) => {
+  try {
+    const practitioner = await Practitioner.findByIdAndUpdate(
+      req.params.id,
+      { isVerified: false },
+      { new: true }
+    );
 
+    if (!practitioner) {
+      return res.status(404).json({ error: "Practitioner not found" });
+    }
 
+    res.status(200).json({
+      message: "Practitioner unverified successfully",
+      practitioner,
+    });
+  } catch (error) {
+    console.error("Error unverifying practitioner:", error);
+    res.status(500).json({ error: "Failed to unverify practitioner" });
+  }
+});
 
-app.use('/uploads', express.static('uploads'));
-
-
+app.use("/uploads", express.static("uploads"));
 
 // Base route
 app.get("/", (req, res) => {
@@ -461,4 +566,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
-

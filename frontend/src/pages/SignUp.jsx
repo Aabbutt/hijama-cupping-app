@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation after sign-up
-import axios from 'axios'; // Assuming you're using axios for API requests
-import { Link } from 'react-router-dom'; // To create navigation links
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // For navigation after sign-up
+import axios from "axios"; // Assuming you're using axios for API requests
+import { Link } from "react-router-dom"; // To create navigation links
 
 const SignUp = () => {
   // State variables to store form input values
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // State for error message
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
 
   // Initialize useNavigate for redirection
@@ -18,10 +18,10 @@ const SignUp = () => {
   // Handle form input changes
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    if (id === 'name') setName(value);
-    if (id === 'email') setEmail(value);
-    if (id === 'password') setPassword(value);
-    if (id === 'phoneNumber') setPhoneNumber(value);
+    if (id === "name") setName(value);
+    if (id === "email") setEmail(value);
+    if (id === "password") setPassword(value);
+    if (id === "phoneNumber") setPhoneNumber(value);
   };
 
   // Handle form submission
@@ -31,20 +31,22 @@ const SignUp = () => {
 
     try {
       // Send POST request to your signup endpoint
-      const response = await axios.post('http://localhost:5000/signup', {
+      const response = await axios.post("http://localhost:3000/user/signup", {
         name,
         email,
         password,
-        phoneNumber
+        phoneNumber,
       });
 
       if (response.status === 201) {
         // If user created successfully, navigate to login page or another route
-        navigate('/login'); // Redirect to login page after successful signup
+        navigate("/login"); // Redirect to login page after successful signup
       }
     } catch (err) {
       // Handle errors (e.g., if email already exists)
-      setErrorMessage(err.response ? err.response.data.message : 'Something went wrong!');
+      setErrorMessage(
+        err.response ? err.response.data.message : "Something went wrong!"
+      );
     } finally {
       setIsLoading(false); // Stop the loading spinner when done
     }
@@ -127,7 +129,7 @@ const SignUp = () => {
 
             {/* Submit Button */}
             <button type="submit" disabled={isLoading}>
-              {isLoading ? 'Signing Up...' : 'Sign Up'}
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
 

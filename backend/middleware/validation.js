@@ -41,4 +41,22 @@ const validateUserLogin = [
   handleValidationErrors,
 ];
 
-module.exports = { validateUserSignup, validateUserLogin };
+const validateCreateTreatment = [
+  body("price")
+    .notEmpty()
+    .withMessage("Price is required")
+    .isNumeric()
+    .withMessage("Price must be a number"),
+  body("treatmentName")
+    .notEmpty()
+    .withMessage("Treatment name is required")
+    .isIn(["wet cupping", "dry cupping"])
+    .withMessage("Invalid treatment name"),
+  handleValidationErrors,
+];
+
+module.exports = {
+  validateUserSignup,
+  validateUserLogin,
+  validateCreateTreatment,
+};

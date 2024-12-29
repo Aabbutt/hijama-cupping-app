@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import './Login.css';
+import React, { useState } from "react";
+import "./Login.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
-  const [inputValue, setInputValue] = useState(''); // This will store the input value (email or phone)
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState(""); // This will store the input value (email or phone)
+  const [password, setPassword] = useState("");
 
   const handleInputChange = (e) => setInputValue(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Validation for email or phone number input
     const isPhone = /^[0-9]+$/.test(inputValue); // Check if input is a phone number (only numbers)
@@ -19,7 +23,21 @@ const Login = () => {
     } else if (isEmail) {
       console.log({ email: inputValue, password });
     } else {
-      console.log('Please enter a valid email or phone number');
+      console.log("Please enter a valid email or phone number");
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3000/user/login", {
+        email: inputValue,
+        password,
+      });
+      if (response.status === 200) {
+        // store user token to local storage
+        Cookies.set("session", response.data.token);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
     }
   };
 
