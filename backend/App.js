@@ -5,7 +5,7 @@ const multer = require("multer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const practitionerRoutes = require("./routes/practitioner");
-const roomroutes = require("./routes/roomroutes");
+const roomRoutes = require("./routes/roomroutes");
 const userRoutes = require("./routes/userroutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const settingsRoutes = require("./routes/settingsRoutes");
@@ -84,7 +84,7 @@ async function connectDB() {
 // Routes
 app.use("/user", userRoutes);
 app.use("/practitioners", practitionerRoutes);
-app.use("/rooms", roomroutes);
+app.use("/api/rooms", roomRoutes);
 app.use("/appointments", appointmentRoutes);
 app.use("/settings", settingsRoutes);
 

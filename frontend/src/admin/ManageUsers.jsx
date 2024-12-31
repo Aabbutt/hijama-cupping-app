@@ -1,132 +1,183 @@
 // src/admin/ManageUsers.js
 
-import React, { useState } from 'react';
-import AddUser from '../components/AddUser';
-import EditUser from '../components/EditUser'; // Import the EditUser component
-import './ManageUsers.css'; // Ensure this CSS file exists
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './ManageUsers.css';
 
-const ManageUsers = ({ users, onAddUser, onEdit, onDelete }) => {
-  const [showAddUser, setShowAddUser] = useState(false);
-  const [showEditUser, setShowEditUser] = useState(false); // State to control EditUser modal
-  const [currentUser, setCurrentUser] = useState(null); // State to hold the user being edited
-  const [successMessage, setSuccessMessage] = useState('');
-  const [deleteConfirm, setDeleteConfirm] = useState({ show: false, userId: null });
+const ManageUsers = () => {
+  const [users, setUsers] = useState([]);
+  const [practitioners, setPractitioners] = useState([]);
+  const [showUsersList, setShowUsersList] = useState(false);
+  const [showPractitionersList, setShowPractitionersList] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const toggleAddUser = () => {
-    setShowAddUser(!showAddUser);
-    setShowEditUser(false); // Close edit modal if open
+  useEffect(() => {
+    fetchUsers();
+    fetchPractitioners();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('http://localhost:3000/api/users');
+      setUsers(response.data);
+    } catch (error) {
+      setError('Error fetching users');
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleAddUserInternal = (newUser) => {
-    onAddUser(newUser);
-    setSuccessMessage('User added successfully!');
-    setShowAddUser(false);
-    setTimeout(() => setSuccessMessage(''), 3000); // Clear message after 3 seconds
+  const fetchPractitioners = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get('http://localhost:3000/api/practitioners');
+      setPractitioners(response.data);
+    } catch (error) {
+      setError('Error fetching practitioners');
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleEditClick = (user) => {
-    setCurrentUser(user);
-    setShowEditUser(true);
+  const handleDeleteUser = async (userId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/users/${userId}`);
+      setUsers(users.filter(user => user._id !== userId));
+    } catch (error) {
+      setError('Error deleting user');
+      console.error('Error:', error);
+    }
   };
 
-  const handleUpdateUser = (updatedUser) => {
-    onEdit(updatedUser);
-    setSuccessMessage('User updated successfully!');
-    setShowEditUser(false);
-    setCurrentUser(null);
-    setTimeout(() => setSuccessMessage(''), 3000);
-  };
-
-  const handleDelete = (userId) => {
-    setDeleteConfirm({ show: true, userId });
-  };
-
-  const confirmDelete = () => {
-    onDelete(deleteConfirm.userId);
-    setDeleteConfirm({ show: false, userId: null });
-    setSuccessMessage('User deleted successfully!');
-    setTimeout(() => setSuccessMessage(''), 3000);
-  };
-
-  const cancelDelete = () => {
-    setDeleteConfirm({ show: false, userId: null });
+  const handleDeletePractitioner = async (practitionerId) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/practitioners/${practitionerId}`);
+      setPractitioners(practitioners.filter(practitioner => practitioner._id !== practitionerId));
+    } catch (error) {
+      setError('Error deleting practitioner');
+      console.error('Error:', error);
+    }
   };
 
   return (
     <div className="manage-users-container">
-      <h1>Manage Users</h1>
-      <button className="add-user-button" onClick={toggleAddUser}>
-        {showAddUser ? 'Close Add User' : 'Add New User'}
-      </button>
-      {successMessage && <div className="success-message">{successMessage}</div>}
-      {showAddUser && <AddUser onAddUser={handleAddUserInternal} />}
-      {showEditUser && currentUser && (
-        <EditUser 
-          user={currentUser} 
-          onUpdate={handleUpdateUser} 
-          onClose={() => setShowEditUser(false)} 
-        />
-      )}
-      <div className="users-list">
-        <table className="users-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Role</th>
-              <th>Experience (Years)</th>
-              <th>Certification</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length > 0 ? (
-              users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone}</td>
-                  <td>{user.role}</td>
-                  <td>{user.experience || 'N/A'}</td>
-                  <td>{user.certification || 'N/A'}</td>
-                  <td>
-                    <button className="edit-button" onClick={() => handleEditClick(user)}>
-                      Edit
-                    </button>
-                    <button className="delete-button" onClick={() => handleDelete(user.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="8">No users available.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <h2>Manage Users</h2>
+      {error && <div className="error-message">{error}</div>}
+
+      <div className="dashboard-cards">
+        <div className="dashboard-card" onClick={() => setShowUsersList(true)}>
+          <h3>Users</h3>
+          <p>Total Users: {users.length}</p>
+          <button className="view-btn">View Users</button>
+        </div>
+
+        <div className="dashboard-card" onClick={() => setShowPractitionersList(true)}>
+          <h3>Practitioners</h3>
+          <p>Total Practitioners: {practitioners.length}</p>
+          <button className="view-btn">View Practitioners</button>
+        </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
-      {deleteConfirm.show && (
-        <div className="modal" onClick={cancelDelete}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close-button" onClick={cancelDelete}>
-              &times;
-            </span>
-            <p>Are you sure you want to delete this user?</p>
-            <div className="modal-actions">
-              <button className="confirm-button" onClick={confirmDelete}>
-                Yes, Delete
-              </button>
-              <button className="cancel-button" onClick={cancelDelete}>
-                Cancel
-              </button>
-            </div>
+      {showUsersList && (
+        <div className="modal-overlay">
+          <div className="list-container">
+            <h2>Users List</h2>
+            {loading ? (
+              <p>Loading users...</p>
+            ) : (
+              <div className="users-list">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map(user => (
+                      <tr key={user._id}>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.phone || 'N/A'}</td>
+                        <td>
+                          <button 
+                            className="delete-btn"
+                            onClick={() => handleDeleteUser(user._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            <button 
+              className="close-btn"
+              onClick={() => setShowUsersList(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showPractitionersList && (
+        <div className="modal-overlay">
+          <div className="list-container">
+            <h2>Practitioners List</h2>
+            {loading ? (
+              <p>Loading practitioners...</p>
+            ) : (
+              <div className="practitioners-list">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Specialization</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {practitioners.map(practitioner => (
+                      <tr key={practitioner._id}>
+                        <td>{practitioner.name}</td>
+                        <td>{practitioner.email}</td>
+                        <td>{practitioner.specialization}</td>
+                        <td>
+                          <span className={`status ${practitioner.status}`}>
+                            {practitioner.status}
+                          </span>
+                        </td>
+                        <td>
+                          <button 
+                            className="delete-btn"
+                            onClick={() => handleDeletePractitioner(practitioner._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            <button 
+              className="close-btn"
+              onClick={() => setShowPractitionersList(false)}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

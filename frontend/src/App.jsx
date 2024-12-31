@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -12,38 +11,13 @@ import Appointment from "./pages/Appointment";
 import JoinAsPractitioner from "./pages/JoinAsPractitioner";
 import Settings from "./pages/Settings";
 import PrivateRoute from "./components/PrivateRoute";
-import "./App.css";
-
-function MainContent({ children }) {
-  const location = useLocation();
-  
-  // Define which routes need full width or specific padding
-  const fullWidthRoutes = ['/', '/products'];
-  const withPaddingRoutes = ['/profile/settings', '/about', '/contact'];
-  
-  const getMainContentClass = () => {
-    if (fullWidthRoutes.includes(location.pathname)) {
-      return 'main-content full-width';
-    }
-    if (withPaddingRoutes.includes(location.pathname)) {
-      return 'main-content with-padding';
-    }
-    return 'main-content';
-  };
-
-  return (
-    <main className={getMainContentClass()}>
-      {children}
-    </main>
-  );
-}
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
-        <MainContent>
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -62,7 +36,7 @@ function App() {
               }
             />
           </Routes>
-        </MainContent>
+        </main>
         <Footer />
       </div>
     </Router>

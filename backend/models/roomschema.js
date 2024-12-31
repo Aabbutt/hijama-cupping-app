@@ -1,19 +1,42 @@
 // Room.js
 const mongoose = require('mongoose');
-const Practitioner = require('./Practitioner');
 
 const roomSchema = new mongoose.Schema({
-  roomNumber: { type: Number, required: true, unique: true },
-  status: { type: String, enum: ['occupied', 'available'], default: 'available' },
-  appointmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' },
-  practitionerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Practitioner' },
-  patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'patient' },
-  startTime: { type: Date, required: true },
-  endTime: { type: Date, required: true },
+  roomNumber: { 
+    type: Number, 
+    required: true, 
+    unique: true,
+    min: 1,
+    max: 10
+  },
+  isAvailable: {
+    type: Boolean,
+    default: true
+  },
+  status: { 
+    type: String, 
+    enum: ['available', 'occupied', 'maintenance'], 
+    default: 'available' 
+  },
+  equipment: [{
+    name: String,
+    quantity: Number,
+    status: {
+      type: String,
+      enum: ['available', 'in-use', 'maintenance'],
+      default: 'available'
+    }
+  }],
+  capacity: {
+    type: Number,
+    default: 1
+  },
+  description: {
+    type: String,
+    default: ''
+  }
 });
 
-// Create the Rooms model
-const Rooms = mongoose.model('Rooms', roomSchema);
+const Room = mongoose.model('Room', roomSchema);
 
-// Export the model
-module.exports = Rooms;
+module.exports = Room;

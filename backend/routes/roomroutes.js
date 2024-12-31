@@ -1,21 +1,42 @@
 const express = require('express');
 const router = express.Router();
-const roomcontroller = require('../controllers/roomcontroller');
+const {
+  initializeRooms,
+  getAllRooms,
+  getAvailableRooms,
+  getRoomSchedule,
+  createSchedule,
+  setRoomMaintenance,
+  getRoomHistory
+} = require('../controllers/roomcontroller');
 
-// Get all room schedules
-router.get('/', roomcontroller.getRoomSchedules);
+// Initialize rooms
+router.post('/initialize', async (req, res) => {
+  try {
+    await initializeRooms();
+    res.status(200).json({ message: 'Rooms initialized successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
-// Create a new room schedule
-router.post('/create', roomcontroller.createRoomSchedule);
+// Get all rooms
+router.get('/', getAllRooms);
 
-// Get room schedules by date
-router.get('/date/:date', roomcontroller.getRoomSchedulesByDate);
+// Get available rooms for a time slot
+router.get('/available', getAvailableRooms);
 
-// Update room schedule status
-router.put('/:id/status', roomcontroller.updateRoomScheduleStatus);
+// Get room schedule
+router.get('/schedule', getRoomSchedule);
 
-// Delete a room schedule
-router.delete('/:id', roomcontroller.deleteRoomSchedule);
+// Get room history with statistics
+router.get('/:roomNumber/history', getRoomHistory);
+
+// Create new schedule for a room
+router.post('/:roomNumber/schedule', createSchedule);
+
+// Set room maintenance status
+router.put('/:roomNumber/maintenance', setRoomMaintenance);
 
 module.exports = router;
 

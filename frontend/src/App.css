@@ -473,20 +473,8 @@ nav ul li a:hover {
 
 .main-content {
   flex: 1;
+  padding: 20px;
   background-color: #f5f5f5;
-  min-height: calc(100vh - 160px); /* Adjust based on header and footer height */
-  padding: 1rem;
-}
-
-/* For pages that need full width */
-.main-content.full-width {
-  padding: 0;
-  background-color: transparent;
-}
-
-/* For pages that need specific padding */
-.main-content.with-padding {
-  padding: 2rem;
 }
 
 

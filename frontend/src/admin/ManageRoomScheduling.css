@@ -1,0 +1,256 @@
+.manage-room-scheduling {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.manage-room-scheduling h2 {
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.room-actions {
+  margin-bottom: 2rem;
+}
+
+.add-room-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.add-room-btn:hover {
+  background-color: #43a047;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.room-registration-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.room-registration-title {
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.room-registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.room-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.room-label {
+  color: #555;
+  font-weight: 500;
+}
+
+.room-input,
+.room-select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.room-input:focus,
+.room-select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.room-form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.room-submit-btn,
+.room-close-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex: 1;
+}
+
+.room-submit-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.room-submit-btn:hover {
+  background-color: #43a047;
+}
+
+.room-submit-btn:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.room-close-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.room-close-btn:hover {
+  background-color: #e53935;
+}
+
+/* Existing styles */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.room-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.room-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.room-card.selected {
+  border: 2px solid #4CAF50;
+}
+
+.room-card h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status.available {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status.occupied {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status.maintenance {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.room-history {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.room-history h3 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.room-history table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.room-history th,
+.room-history td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.room-history th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+  color: #555;
+}
+
+.room-history tr:hover {
+  background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+  .manage-room-scheduling {
+    padding: 1rem;
+  }
+
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .room-history {
+    padding: 1rem;
+  }
+
+  .room-history table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .room-registration-container {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+}
