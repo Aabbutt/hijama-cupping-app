@@ -55,7 +55,7 @@ const ManageBilling = ({ invoices, onAddInvoice, onEditInvoice, onDeleteInvoice 
                 <tr key={invoice.id}>
                   <td>{invoice.id}</td>
                   <td>{invoice.clientName}</td>
-                  <td>${invoice.amount}</td>
+                  <td>Rs {invoice.amount}</td>
                   <td>{new Date(invoice.dateIssued).toLocaleDateString()}</td>
                   <td>{invoice.status}</td>
                   <td>

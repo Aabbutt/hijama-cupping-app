@@ -28,7 +28,7 @@ const ProductPage = () => {
             <div className="product-details">
                 <h2>{product.name}</h2>
                 <p>{product.description}</p>
-                <p className="price">${product.price.toFixed(2)}</p>
+                <p className="price">Rs{product.price.toFixed(2)}</p>
                 <button className="add-to-cart-btn" onClick={handleAddToCart}>Add to Cart</button>
             </div>
             <CartButton cart={cart} />

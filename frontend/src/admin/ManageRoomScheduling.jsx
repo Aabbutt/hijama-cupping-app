@@ -134,7 +134,7 @@ const ManageRoomScheduling = () => {
   }, []);
 
   return (
-    <div className="manage-room-scheduling">
+    <div className="manage-room-scheduling" style={{ marginTop: '0px' }}>
       <h2>Manage Room Scheduling</h2>
       {error && <div className="error-message">{error}</div>}
 

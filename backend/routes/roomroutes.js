@@ -7,7 +7,8 @@ const {
   getRoomSchedule,
   createSchedule,
   setRoomMaintenance,
-  getRoomHistory
+  getRoomHistory,
+  createRoom
 } = require('../controllers/roomcontroller');
 
 // Initialize rooms
@@ -22,6 +23,9 @@ router.post('/initialize', async (req, res) => {
 
 // Get all rooms
 router.get('/', getAllRooms);
+
+// Create a new room
+router.post('/', createRoom);
 
 // Get available rooms for a time slot
 router.get('/available', getAvailableRooms);

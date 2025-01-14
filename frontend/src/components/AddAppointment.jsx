@@ -22,14 +22,26 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem('token');
+      
       const response = await axios.post(
         "http://localhost:3000/appointments",
-        appointmentData
+        appointmentData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
       );
       onAddAppointment(response.data);
       onClose();
     } catch (error) {
       console.error("Error adding appointment:", error);
+      if (error.response?.status === 401) {
+        alert('Please login to add an appointment');
+      } else {
+        alert(error.response?.data?.message || 'Error adding appointment');
+      }
     }
   };
 

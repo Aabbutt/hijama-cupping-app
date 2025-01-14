@@ -4,22 +4,33 @@ const appointmentSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
-    required: true,
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
   },
   practitioner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "practitioner",
   },
-  service: {
+  services: {
     type: String,
     required: true,
     enum: ["wet cupping", "dry cupping"],
   },
-  appointmentDate: {
+  preferredDate: {
     type: Date,
     required: true,
   },
-  timeSlot: {
+  preferredTime: {
     type: String,
     required: true,
   },
@@ -28,7 +39,7 @@ const appointmentSchema = new mongoose.Schema({
     enum: ["pending", "confirmed", "cancelled", "completed"],
     default: "pending",
   },
-  notes: {
+  message: {
     type: String,
   },
   createdAt: {

@@ -14,7 +14,9 @@ const ManageSettings = () => {
     if (section === 'appointments') {
       navigate('/manage-appointments'); // Navigate to appointments management page
     } else if (section === 'users') {
-      navigate('/manage-users'); // Navigate to user management page
+      navigate('/manage-users');
+    } else if (section === 'patients') {   // Navigate to user management page
+       navigate('/manage-patients');   
     } else if (section === 'products') {
       navigate('/manage-products'); // Navigate to product management page
     } else if (section === 'practitioners') {
@@ -41,6 +43,7 @@ const ManageSettings = () => {
   const sections = [
     { id: 'appointments', title: 'Manage Appointments', icon: '📅', description: 'Manage all appointments for Hijama Therapy.' },
     { id: 'practitioners', title: 'Manage Practitioners', icon: '👨‍⚕️', description: 'Manage practitioner availability and performance.' },
+    { id: 'patients', title: 'Manage Patients', icon: '👥', description: 'Manage patient profiles, appointments, and health records.' },
     { id: 'products', title: 'Product Management', icon: '🛒', description: 'Manage Hijama therapy products and inventory.' },
     { id: 'users', title: 'User Management', icon: '👥', description: 'Manage user roles, permissions, and profiles.' },
     { id: 'discounts', title: 'Discounts & Offers', icon: '💸', description: 'Create and manage discounts and special offers.' },

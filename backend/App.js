@@ -185,6 +185,7 @@ app.post("/appointments", async (req, res) => {
       practitioner,
     } = req.body;
 
+    // Create new appointment without requiring authentication
     const newAppointment = new Appointment({
       name,
       email,

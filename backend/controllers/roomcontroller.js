@@ -305,6 +305,66 @@ const getEquipmentUsageStats = (history) => {
   return equipmentUsage;
 };
 
+// Create a new room
+const createRoom = async (req, res) => {
+  try {
+    console.log('Received request to create room:', req.body);
+    const { roomNumber, equipment, capacity, description } = req.body;
+
+    // Validate required fields
+    if (!roomNumber || isNaN(roomNumber)) {
+      return res.status(400).json({ error: 'Valid room number is required' });
+    }
+
+    if (!capacity || isNaN(capacity) || capacity <= 0) {
+      return res.status(400).json({ error: 'Valid capacity is required' });
+    }
+
+    // Check if room number already exists
+    const existingRoom = await Room.findOne({ roomNumber });
+    if (existingRoom) {
+      console.log('Room number already exists:', roomNumber);
+      return res.status(400).json({ error: 'Room number already exists' });
+    }
+
+    // Validate equipment format
+    const validatedEquipment = equipment && equipment.length > 0 
+      ? equipment.map(eq => ({
+          name: eq.name,
+          quantity: eq.quantity || 1,
+          status: 'available'
+        }))
+      : [
+          { name: 'Cupping Set', quantity: 2, status: 'available' },
+          { name: 'Massage Table', quantity: 1, status: 'available' },
+          { name: 'Sterilization Kit', quantity: 1, status: 'available' }
+        ];
+
+    // Create room with validated data
+    const roomData = {
+      roomNumber: parseInt(roomNumber),
+      status: 'available',
+      isAvailable: true,
+      equipment: validatedEquipment,
+      capacity: parseInt(capacity),
+      description: description || `Treatment Room ${roomNumber}`
+    };
+
+    console.log('Creating room with data:', roomData);
+    const room = new Room(roomData);
+    await room.save();
+    
+    console.log('Room created successfully:', room);
+    res.status(201).json({ 
+      message: 'Room created successfully', 
+      room: room.toObject() 
+    });
+  } catch (error) {
+    console.error('Error creating room:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   initializeRooms,
   getAllRooms,
@@ -312,5 +372,6 @@ module.exports = {
   getRoomSchedule,
   createSchedule,
   setRoomMaintenance,
-  getRoomHistory
+  getRoomHistory,
+  createRoom
 };

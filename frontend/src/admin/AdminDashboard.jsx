@@ -42,7 +42,7 @@ const AdminDashboard = () => {
       <section className="admin-features">
         {/* Client Health Insights - Update to New Path */}
         <Link to="/client-health-insights" className="feature feature-square">
-          <img src="/images/client-health-insights.png" alt="Client Health Insights" />
+          <img src="/images/health-insights.png" alt="Client Health Insights" />
           <h3>Client Health Insights</h3>
           <p>Monitor and manage client health profiles, treatment history, and post-therapy feedback.</p>
         </Link>
