@@ -1,38 +1,21 @@
 // src/components/ProtectedRoute.js
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Use the custom hook from AuthContext
-import ShortLoginModal from './ShortLoginModal'; // Import the short login modal
+import { useAuth } from './AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth(); // Access authentication status
-  const [showModal, setShowModal] = useState(false);
-  const [isVerified, setIsVerified] = useState(false); // To track if the admin reconfirmed
+  const { isAuthenticated } = useAuth();
 
-  const handleModalClose = () => {
-    setShowModal(false);
-  };
+  // Check if user is logged in as admin
+  const isAdmin = localStorage.getItem('isAdmin');
+  const adminToken = localStorage.getItem('adminToken');
 
-  const handleSuccess = () => {
-    setIsVerified(true);
-    setShowModal(false);
-  };
-
-  // Show modal for settings page only
-  if (!isVerified && !showModal) {
-    setShowModal(true);
-    return null; // Prevent rendering until verification
+  if (!isAuthenticated && !isAdmin) {
+    return <Navigate to="/admin/login" />;
   }
 
-  return isAuthenticated ? (
-    <>
-      {children}
-      {showModal && <ShortLoginModal onClose={handleModalClose} onSuccess={handleSuccess} />}
-    </>
-  ) : (
-    <Navigate to="/admin/login" />
-  );
+  return children;
 };
 
 export default ProtectedRoute;

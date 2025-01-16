@@ -10,32 +10,32 @@ const ManageSettings = () => {
   const handleSectionClick = (section) => {
     setActiveSection(section);
     
-    // Navigate to respective routes
+    // Navigate to respective routes with correct admin paths
     if (section === 'appointments') {
-      navigate('/manage-appointments'); // Navigate to appointments management page
+      navigate('/admin/manage-appointments'); // Navigate to appointments management page
     } else if (section === 'users') {
-      navigate('/manage-users');
+      navigate('/admin/manage-users');
     } else if (section === 'patients') {   // Navigate to user management page
-       navigate('/manage-patients');   
+       navigate('/admin/manage-patients');   
     } else if (section === 'products') {
-      navigate('/manage-products'); // Navigate to product management page
+      navigate('/admin/manage-products'); // Navigate to product management page
     } else if (section === 'practitioners') {
-      navigate('/manage-practitioners'); // Navigate to practitioner management page
+      navigate('/admin/manage-practitioners'); // Navigate to practitioner management page
     }
       else if (section === 'discounts') {
-      navigate('/manage-discounts'); // Navigate to practitioner management page
+      navigate('/admin/manage-discounts'); // Navigate to practitioner management page
     }
       else if (section === 'notifications') {
-      navigate('/manage-notifications'); 
+      navigate('/admin/manage-notifications'); 
     }
       else if (section === 'billing') {
-      navigate('/manage-billing'); 
+      navigate('/admin/manage-billing'); 
     }
       else if (section === 'subscriptions') {
-      navigate('/manage-subscriptions'); 
+      navigate('/admin/manage-subscriptions'); 
     } 
       else if (section === 'rooms') {
-      navigate('/manage-room-scheduling'); 
+      navigate('/admin/manage-room-scheduling'); 
     }
   };
 
@@ -82,10 +82,10 @@ const ManageSettings = () => {
             <p className="panel-description">
               Control practitioner availability, certifications, and performance analytics.
             </p>
-            <button className="btn-action" onClick={() => navigate('/manage-practitioners')}>
+            <button className="btn-action" onClick={() => navigate('/admin/manage-practitioners')}>
               Manage Practitioners
             </button>
-            <button className="btn-action" onClick={() => navigate('/manage-discounts')}>
+            <button className="btn-action" onClick={() => navigate('/admin/manage-discounts')}>
             Discounts & Offers
             </button>
           </div>

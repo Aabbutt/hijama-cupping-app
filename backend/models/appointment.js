@@ -21,6 +21,11 @@ const appointmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "practitioner",
   },
+  room: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "room",
+    required: true
+  },
   services: {
     type: String,
     required: true,
@@ -30,7 +35,11 @@ const appointmentSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  preferredTime: {
+  startTime: {
+    type: String,
+    required: true,
+  },
+  endTime: {
     type: String,
     required: true,
   },

@@ -28,27 +28,30 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage('');
 
     try {
-      // Send POST request to your signup endpoint
-      const response = await axios.post("http://localhost:3000/user/signup", {
+      const response = await axios.post('http://localhost:3000/user/signup', {
         name,
         email,
         password,
         phoneNumber,
+        role: 'patient' // Set role as patient by default
       });
 
       if (response.status === 201) {
-        // If user created successfully, navigate to login page or another route
-        navigate("/login"); // Redirect to login page after successful signup
+        // Store token and user data
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Navigate to home page
+        navigate('/');
       }
-    } catch (err) {
-      // Handle errors (e.g., if email already exists)
-      setErrorMessage(
-        err.response ? err.response.data.message : "Something went wrong!"
-      );
+    } catch (error) {
+      console.error('Signup error:', error);
+      setErrorMessage(error.response?.data?.error || 'Failed to create account');
     } finally {
-      setIsLoading(false); // Stop the loading spinner when done
+      setIsLoading(false);
     }
   };
 

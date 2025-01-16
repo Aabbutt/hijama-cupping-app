@@ -1,16 +1,11 @@
 // src/components/PrivateRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useCurrentUser } from '../hooks/use-current-user';
-
+import { useAuth } from './AuthContext';
 const PrivateRoute = ({ children }) => {
-  const { data: user, isLoading } = useCurrentUser();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!user) {
+  const { isAuthenticated } = useAuth();
+  const isAdmin = localStorage.getItem('isAdmin');
+  if (!isAuthenticated && !isAdmin) {
     return <Navigate to="/login" />;
   }
 

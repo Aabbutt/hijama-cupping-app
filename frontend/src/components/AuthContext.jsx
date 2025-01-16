@@ -1,6 +1,6 @@
 // src/components/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
-
+import Cookies from 'js-cookie';
 // Create the Auth Context
 const AuthContext = createContext();
 
@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
   const login = (token) => {
     // Here you would typically handle authentication logic (e.g., API calls)
     localStorage.setItem('authToken', token); // Save token to localStorage
+    Cookies.set('session', token);
     setIsAuthenticated(true);
   };
 
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     // Handle logout logic (e.g., clearing tokens)
     localStorage.removeItem('authToken'); // Remove token from localStorage
+    Cookies.remove('session');
     setIsAuthenticated(false);
   };
 

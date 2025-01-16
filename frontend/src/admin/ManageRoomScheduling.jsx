@@ -132,7 +132,6 @@ const ManageRoomScheduling = () => {
       minute: '2-digit'
     });
   }, []);
-
   return (
     <div className="manage-room-scheduling" style={{ marginTop: '0px' }}>
       <h2>Manage Room Scheduling</h2>
@@ -184,7 +183,7 @@ const ManageRoomScheduling = () => {
                 <label className="room-label">Equipment (comma-separated):</label>
                 <input
                   type="text"
-                  value={newRoom.equipment.join(', ')}
+                  value={newRoom?.equipment?.join(', ')}
                   onChange={handleEquipmentChange}
                   className="room-input"
                   placeholder="e.g., Cupping Set, Massage Table"
@@ -236,7 +235,7 @@ const ManageRoomScheduling = () => {
             <h3>Room {room.roomNumber}</h3>
             <p>Status: <span className={`status ${room.status}`}>{room.status}</span></p>
             <p>Capacity: {room.capacity}</p>
-            <p>Equipment: {room.equipment.join(', ')}</p>
+            <p>Equipment: {room?.equipment?.join(', ')}</p>
           </div>
         ))}
       </div>
@@ -263,8 +262,8 @@ const ManageRoomScheduling = () => {
                     <td>{formatDate(booking.date)}</td>
                     <td>{booking.patient?.name || 'N/A'}</td>
                     <td>{booking.practitioner?.name || 'N/A'}</td>
-                    <td>{booking.services?.join(', ') || 'N/A'}</td>
-                    <td>{booking.equipmentUsed?.map(e => `${e.name} (${e.quantity})`).join(', ') || 'N/A'}</td>
+                    <td>{booking?.services?.join(', ') || 'N/A'}</td>
+                    <td>{booking?.equipmentUsed?.map(e => `${e.name} (${e.quantity})`).join(', ') || 'N/A'}</td>
                   </tr>
                 ))}
               </tbody>

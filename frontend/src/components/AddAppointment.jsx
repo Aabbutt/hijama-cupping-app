@@ -1,18 +1,47 @@
 // src/components/AddAppointment.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AddAppointment.css";
 
-const AddAppointment = ({ onAddAppointment, onClose }) => {
+const AddAppointment = ({ onSuccess, onClose, isAdminContext = false }) => {
   const [appointmentData, setAppointmentData] = useState({
     name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     services: "",
     preferredDate: "",
     preferredTime: "",
     message: "",
+    status: "pending"
   });
+
+  const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
+
+  // Get user data on component mount - only if not in admin context
+  useEffect(() => {
+    if (!isAdminContext) {
+      const token = localStorage.getItem('token');
+      const userData = localStorage.getItem('user');
+      
+      if (token && userData) {
+        try {
+          const parsedUser = JSON.parse(userData);
+          setUser(parsedUser);
+          // Pre-fill the form with user data
+          setAppointmentData(prev => ({
+            ...prev,
+            name: parsedUser.name || "",
+            email: parsedUser.email || "",
+            phone: parsedUser.phone || ""
+          }));
+        } catch (error) {
+          console.error('Error parsing user data:', error);
+          setError('Error loading user data');
+        }
+      }
+    }
+  }, [isAdminContext]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,32 +52,33 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
       const response = await axios.post(
         "http://localhost:3000/appointments",
         appointmentData,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
+        config
       );
-      onAddAppointment(response.data);
+
+      console.log("Appointment created:", response.data);
+      onSuccess(response.data);
       onClose();
     } catch (error) {
-      console.error("Error adding appointment:", error);
-      if (error.response?.status === 401) {
-        alert('Please login to add an appointment');
-      } else {
-        alert(error.response?.data?.message || 'Error adding appointment');
-      }
+      console.error("Error creating appointment:", error);
+      setError(error.response?.data?.message || "Failed to create appointment");
     }
   };
 
   return (
     <div className="modal-overlay">
       <div className="appointment-registration-container">
-        <h2 className="appointment-registration-title">Add New Appointment</h2>
+        <button className="close-button" onClick={onClose} aria-label="Close modal">&times;</button>
+        <h2 className="appointment-registration-title">
+          {isAdminContext ? "Add New Appointment" : "Book Appointment"}
+        </h2>
+        {error && <div className="appointment-error-message">{error}</div>}
         <form onSubmit={handleSubmit} className="appointment-registration-form">
           <div className="appointment-form-group">
             <label className="appointment-label">Full Name</label>
@@ -78,8 +108,8 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
             <label className="appointment-label">Mobile Number</label>
             <input
               type="tel"
-              name="phoneNumber"
-              value={appointmentData.phoneNumber}
+              name="phone"
+              value={appointmentData.phone}
               onChange={handleInputChange}
               className="appointment-input"
               required
@@ -96,9 +126,8 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
               required
             >
               <option value="">Select Service</option>
-              <option value="Consultation">Consultation</option>
-              <option value="Treatment">Treatment</option>
-              <option value="Checkup">Checkup</option>
+              <option value="wet cupping">Wet Cupping</option>
+              <option value="dry cupping">Dry Cupping</option>
             </select>
           </div>
 
@@ -146,12 +175,14 @@ const AddAppointment = ({ onAddAppointment, onClose }) => {
             />
           </div>
 
-          <button type="submit" className="appointment-submit-btn">
-            Add Appointment
-          </button>
-          <button type="button" onClick={onClose} className="appointment-close-btn">
-            Close
-          </button>
+          <div className="appointment-form-buttons">
+            <button type="button" onClick={onClose} className="appointment-cancel-btn">
+              Cancel
+            </button>
+            <button type="submit" className="appointment-submit-btn">
+              Book Appointment
+            </button>
+          </div>
         </form>
       </div>
     </div>

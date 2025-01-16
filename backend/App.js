@@ -32,7 +32,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("Error Connecting to MongoDB: " + err));
 
-app.use("/user", userRoutes);
+app.use("/user", require("./routes/userroutes"));
 // app.use("/treatment", require("./routes/treatmentroutes"));
 // app.use("/session", require("./routes/sessionroutes"));
 // app.use("/schedule", require("./routes/scheduleroutes"));
@@ -82,7 +82,7 @@ async function connectDB() {
   }
 }
 // Routes
-app.use("/user", userRoutes);
+app.use("/user", require("./routes/userroutes"));
 app.use("/practitioners", practitionerRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/appointments", appointmentRoutes);

@@ -6,11 +6,13 @@ import logo from "../components/images/logo.png";
 import whatsapp from "../components/images/whatsapp.png";
 import { useCurrentUser } from "../hooks/use-current-user";
 import ProfileDropdown from "./ProfileDropdown";
+import { useAuth } from './AuthContext';
 
 const Header = () => {
   const { data } = useCurrentUser();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const { isAuthenticated } = useAuth();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);

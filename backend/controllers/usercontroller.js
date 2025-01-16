@@ -191,12 +191,18 @@ const updateProfile = async (req, res) => {
     const userId = req.user._id;
     const { name, email, phone, address, dateofbirth, gender } = req.body;
 
+    console.log('Update profile request:', {
+      userId,
+      body: req.body
+    });
+
     const user = await User.findById(userId);
     if (!user) {
+      console.log('User not found:', userId);
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Update fields if provided
+    // Update fields if provided, but don't change the role
     if (name) user.name = name;
     if (email) user.email = email;
     if (phone) user.phone = phone;
@@ -204,13 +210,35 @@ const updateProfile = async (req, res) => {
     if (dateofbirth) user.dateofbirth = dateofbirth;
     if (gender) user.gender = gender;
 
+    // Keep the existing role
+    user.role = 'patient'; // Default to 'patient' if no role exists
+
+    console.log('Updating user with:', {
+      name,
+      email,
+      phone,
+      address,
+      dateofbirth,
+      gender,
+      role: user.role
+    });
+
     await user.save();
 
     // Return updated user without password
     const updatedUser = await User.findById(userId).select("-password");
-    res.status(200).json({ user: updatedUser });
+    console.log('User updated successfully:', updatedUser);
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: updatedUser
+    });
   } catch (error) {
-    res.status(500).json({ error: "Failed to update profile" });
+    console.error('Error updating profile:', error);
+    res.status(500).json({ 
+      error: "Failed to update profile",
+      details: error.message 
+    });
   }
 };
 

@@ -10,11 +10,13 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === 'admin' && password === 'admin123') {
-      // Redirect to the admin panel
-      navigate('/admin-dashboard');
+    if (username === 'admin' && password === 'password') {
+      // Store admin session info
+      localStorage.setItem('adminToken', 'admin-session');
+      localStorage.setItem('isAdmin', true);
+      // Redirect to the correct admin dashboard path
+      navigate('/admin/dashboard');
     } else {
-      // Display an error message
       setError('Invalid username or password');
     }
   };
@@ -44,6 +46,7 @@ const AdminLogin = () => {
                 placeholder="Enter your username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </div>
             <div className="form-group">
@@ -54,6 +57,7 @@ const AdminLogin = () => {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
             <button type="submit">Login</button>

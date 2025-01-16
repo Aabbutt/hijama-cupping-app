@@ -5,182 +5,121 @@ import axios from 'axios';
 import './ManageUsers.css';
 
 const ManageUsers = () => {
-  const [users, setUsers] = useState([]);
+  const [patients, setPatients] = useState([]);
   const [practitioners, setPractitioners] = useState([]);
-  const [showUsersList, setShowUsersList] = useState(false);
-  const [showPractitionersList, setShowPractitionersList] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchUsers();
+    fetchPatients();
     fetchPractitioners();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchPatients = async () => {
     try {
-      setLoading(true);
-      const response = await axios.get('http://localhost:3000/api/users');
-      setUsers(response.data);
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:3000/api/patients', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setPatients(response.data);
     } catch (error) {
-      setError('Error fetching users');
-      console.error('Error:', error);
-    } finally {
-      setLoading(false);
+      console.error('Error fetching patients:', error);
+      setError('Failed to fetch patients');
     }
   };
 
   const fetchPractitioners = async () => {
     try {
-      setLoading(true);
-      const response = await axios.get('http://localhost:3000/api/practitioners');
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:3000/api/practitioners/verified', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setPractitioners(response.data);
     } catch (error) {
-      setError('Error fetching practitioners');
-      console.error('Error:', error);
+      console.error('Error fetching practitioners:', error);
+      setError('Failed to fetch practitioners');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDeleteUser = async (userId) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/users/${userId}`);
-      setUsers(users.filter(user => user._id !== userId));
-    } catch (error) {
-      setError('Error deleting user');
-      console.error('Error:', error);
-    }
-  };
-
-  const handleDeletePractitioner = async (practitionerId) => {
-    try {
-      await axios.delete(`http://localhost:3000/api/practitioners/${practitionerId}`);
-      setPractitioners(practitioners.filter(practitioner => practitioner._id !== practitionerId));
-    } catch (error) {
-      setError('Error deleting practitioner');
-      console.error('Error:', error);
-    }
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="manage-users-container">
-      <h2>Manage Users</h2>
-      {error && <div className="error-message">{error}</div>}
-
-      <div className="dashboard-cards">
-        <div className="dashboard-card" onClick={() => setShowUsersList(true)}>
-          <h3>Users</h3>
-          <p>Total Users: {users.length}</p>
-          <button className="view-btn">View Users</button>
+      <div className="stats-container">
+        <div className="stat-card">
+          <h3>Total Patients</h3>
+          <div className="stat-number">{patients.length}</div>
         </div>
-
-        <div className="dashboard-card" onClick={() => setShowPractitionersList(true)}>
-          <h3>Practitioners</h3>
-          <p>Total Practitioners: {practitioners.length}</p>
-          <button className="view-btn">View Practitioners</button>
+        <div className="stat-card">
+          <h3>Verified Practitioners</h3>
+          <div className="stat-number">{practitioners.length}</div>
         </div>
       </div>
 
-      {showUsersList && (
-        <div className="modal-overlay">
-          <div className="list-container">
-            <h2>Users List</h2>
-            {loading ? (
-              <p>Loading users...</p>
-            ) : (
-              <div className="users-list">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {users.map(user => (
-                      <tr key={user._id}>
-                        <td>{user.name}</td>
-                        <td>{user.email}</td>
-                        <td>{user.phone || 'N/A'}</td>
-                        <td>
-                          <button 
-                            className="delete-btn"
-                            onClick={() => handleDeleteUser(user._id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-            <button 
-              className="close-btn"
-              onClick={() => setShowUsersList(false)}
-            >
-              Close
-            </button>
-          </div>
+      <div className="users-section">
+        <h2>Patients List</h2>
+        <div className="users-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {patients.map((patient) => (
+                <tr key={patient._id}>
+                  <td>{patient.name}</td>
+                  <td>{patient.email}</td>
+                  <td>{patient.phone}</td>
+                  <td>{patient.status}</td>
+                  <td>
+                    <button className="edit-btn">Edit</button>
+                    <button className="delete-btn">Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      )}
+      </div>
 
-      {showPractitionersList && (
-        <div className="modal-overlay">
-          <div className="list-container">
-            <h2>Practitioners List</h2>
-            {loading ? (
-              <p>Loading practitioners...</p>
-            ) : (
-              <div className="practitioners-list">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Specialization</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {practitioners.map(practitioner => (
-                      <tr key={practitioner._id}>
-                        <td>{practitioner.name}</td>
-                        <td>{practitioner.email}</td>
-                        <td>{practitioner.specialization}</td>
-                        <td>
-                          <span className={`status ${practitioner.status}`}>
-                            {practitioner.status}
-                          </span>
-                        </td>
-                        <td>
-                          <button 
-                            className="delete-btn"
-                            onClick={() => handleDeletePractitioner(practitioner._id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-            <button 
-              className="close-btn"
-              onClick={() => setShowPractitionersList(false)}
-            >
-              Close
-            </button>
-          </div>
+      <div className="practitioners-section">
+        <h2>Practitioners List</h2>
+        <div className="practitioners-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Specialty</th>
+                <th>Experience</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {practitioners.map((practitioner) => (
+                <tr key={practitioner._id}>
+                  <td>{practitioner.name}</td>
+                  <td>{practitioner.specialty}</td>
+                  <td>{practitioner.experience} years</td>
+                  <td>{practitioner.status}</td>
+                  <td>
+                    <button className="edit-btn">Edit</button>
+                    <button className="delete-btn">Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      )}
+      </div>
     </div>
   );
 };

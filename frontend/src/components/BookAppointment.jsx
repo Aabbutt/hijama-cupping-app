@@ -60,7 +60,7 @@ const BookAppointment = ({ onSuccess, onCancel }) => {
 
   const checkRoomAvailability = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/rooms/available', {
+      const response = await axios.get('http://localhost:3000/rooms/available', {
         params: { date, startTime, endTime }
       });
       setAvailableRooms(response.data);
@@ -113,42 +113,49 @@ const BookAppointment = ({ onSuccess, onCancel }) => {
     setError('');
 
     try {
-      // First create the appointment
-      const appointmentResponse = await axios.post('http://localhost:3000/appointments', {
-        date,
-        startTime,
-        endTime,
-        services: selectedServices,
-        practitionerId: selectedPractitioner,
-        roomId: selectedRoom
-      });
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
 
-      // Then schedule the room
-      await axios.post(`http://localhost:3000/api/rooms/${selectedRoom}/schedule`, {
-        appointmentId: appointmentResponse.data._id,
-        practitionerId: selectedPractitioner,
+      // Create the appointment with room and practitioner info
+      const appointmentData = {
         date,
         startTime,
         endTime,
         services: selectedServices,
-        equipmentUsed: selectedServices.map(service => {
-          switch(service) {
-            case 'Hijama':
-              return { name: 'Cupping Set', quantity: 1 };
-            case 'Cupping Therapy':
-              return { name: 'Cupping Set', quantity: 1 };
-            case 'Massage':
-              return { name: 'Massage Table', quantity: 1 };
-            default:
-              return null;
-          }
-        }).filter(Boolean)
-      });
+        practitionerId: selectedPractitioner,
+        roomId: selectedRoom,
+        name: user?.name || '',
+        email: user?.email || '',
+        phone: user?.phone || '',
+        status: 'pending'
+      };
+
+      const appointmentResponse = await axios.post(
+        'http://localhost:3000/appointments',
+        appointmentData,
+        config
+      );
+
+      // Schedule the room
+      await axios.post(
+        `http://localhost:3000/rooms/${selectedRoom}/schedule`,
+        {
+          appointmentId: appointmentResponse.data._id,
+          practitionerId: selectedPractitioner,
+          date,
+          startTime,
+          endTime,
+          services: selectedServices
+        },
+        config
+      );
 
       onSuccess(appointmentResponse.data);
     } catch (error) {
-      setError(error.response?.data?.error || 'Error creating appointment');
-      console.error('Error:', error);
+      console.error('Error creating appointment:', error);
+      setError(error.response?.data?.message || 'Failed to create appointment');
     } finally {
       setLoading(false);
     }

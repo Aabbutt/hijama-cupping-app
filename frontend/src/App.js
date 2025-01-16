@@ -20,6 +20,7 @@ import { AdminProvider } from './components/AdminContext';
 import ManageUsers from './admin/ManageUsers'; // Admin Users Management
 import ManageProducts from './admin/ManageProducts/ManageProducts'; // Admin Products Management
 import ManageAppointments from './admin/ManageAppointments'; // Admin Appointments Management
+import ManagePatients from './admin/ManagePatients'; // Admin Patients Management
 import PrivateRoute from './components/PrivateRoute'; // Admin Route Protection
 import AdminLogin from './admin/AdminLogin'; // Separate admin login page
 import CartPage from './pages/Cart/CartPage';
@@ -40,6 +41,9 @@ import BranchManagement from './admin/BranchManagement';
 import { CartProvider } from './pages/context/CartContext';
 import ShortLoginModal from './components/ShortLoginModal'; // Import the short login modal for re-confirmation
 import './App.css'; // Global CSS Styles
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import PractitionerDashboard from './pages/PractitionerDashboard';
 
 function App() {
   const [showShortLogin, setShowShortLogin] = useState(false); // Toggle short login modal
@@ -275,141 +279,77 @@ function App() {
     };  
   return (
     <CartProvider>
-    <Router>
-      <div className="App">
-        <Routes>
-          {/* User Side Routes */}
-          <Route path="/" element={<UserLayout />}>
-            {/* UserLayout includes Header and Footer */}
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="knowledge-base" element={<KnowledgeBase />} />
-            <Route path="products/hijama-cups" element={<Products.HijamaCups />} />
-            <Route path="products/hijama-pumps" element={<Products.HijamaPumps />} />
-            <Route path="products/hijama-kits" element={<Products.HijamaKits />} />
-            <Route path="products/honey" element={<Products.Honey />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="login" element={<Login />} />
-            <Route path="HijamaInIslam" element={<HijamaInIslam />} />
-            <Route path="products" element={<Products />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="therapist-near-you" element={<TherapistNearYou />} />
-            <Route path="appointment" element={<Appointment />} />
-            <Route path="join-as-practitioner" element={<Practitioner />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage cart={cart} setCart={setCart} />} />
-            <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-          </Route>
-        </Routes>
-
-        {/* Short Login Modal for Manage Settings */}
-        {/* {showShortLogin && (
-          <ShortLoginModal
-            onClose={() => setShowShortLogin(false)}
-            onSuccess={handleShortLoginSuccess}
-           />
-        )} */}
-      </div>
-
       <AuthProvider>
-        <AdminProvider>
+        <Router>
           <Routes>
-            {/* Admin Login Route */}
-            <Route path="/admin/login" element={<AdminLogin />} />
+            {/* User Side Routes */}
+            <Route path="/" element={<UserLayout />}>
+              <Route index element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="knowledge-base" element={<KnowledgeBase />} />
+              <Route path="products/hijama-cups" element={<Products.HijamaCups />} />
+              <Route path="products/hijama-pumps" element={<Products.HijamaPumps />} />
+              <Route path="products/hijama-kits" element={<Products.HijamaKits />} />
+              <Route path="products/honey" element={<Products.Honey />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="login" element={<Login />} />
+              <Route path="HijamaInIslam" element={<HijamaInIslam />} />
+              <Route path="products" element={<Products />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="therapist-near-you" element={<TherapistNearYou />} />
+              <Route path="appointment" element={<Appointment />} />
+              <Route path="join-as-practitioner" element={<Practitioner />} />
+              <Route path="cart" element={<CartPage />} />
+              <Route path="checkout" element={<CheckoutPage cart={cart} setCart={setCart} />} />
+              <Route path="order-confirmation" element={<OrderConfirmationPage />} />
+              
+              {/* Protected Profile Routes */}
+              <Route path="profile" element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              } />
+              <Route path="profile/settings" element={
+                <PrivateRoute>
+                  <Settings />
+                </PrivateRoute>
+              } />
+            </Route>
 
-            {/* Protected Admin Routes */}
-            <Route
-              path="/admin"
-              element={<PrivateRoute><AdminLayout /></PrivateRoute>}
-            >
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="support" element={<Support />} />
+              <Route path="manage-settings" element={<ManageSettings />} />
+              <Route path="manage-users" element={
+                <ManageUsers 
+                  users={users} 
+                  onAddUser={handleAddUser} 
+                  onEdit={handleEdit} 
+                  onDelete={handleDelete} 
+                />
+              } />
+              <Route path="manage-appointments" element={<ManageAppointments />} />
+              <Route path="manage-patients" element={<ManagePatients />} />
+              <Route path="manage-products" element={<ManageProducts />} />
+              <Route path="manage-practitioners" element={<ManagePractitioners />} />
+              <Route path="manage-discounts" element={<ManageDiscounts />} />
+              <Route path="manage-notifications" element={<ManageNotifications />} />
+              <Route path="manage-billing" element={<ManageBilling />} />
+              <Route path="manage-subscriptions" element={<ManageSubscriptions />} />
+              <Route path="manage-room-scheduling" element={<ManageRoomScheduling />} />
+              <Route path="settings" element={<ManageSettings />} />
+            </Route>
+
+            {/* Practitioner Routes */}
+            <Route path="/practitioner" element={<PrivateRoute><UserLayout /></PrivateRoute>}>
+              <Route path="dashboard" element={<PractitionerDashboard />} />
             </Route>
           </Routes>
-                <Routes>
-      <Route path="/admin/manage-settings" element={<ManageSettings />} />
-        {/* Manage Users Route */}
-        <Route
-          path="manage-users"
-          element={<ManageUsers users={users} onAddUser={handleAddUser} onEdit={handleEdit} onDelete={handleDelete} />}
-        />
-        {/* Manage Products Routes */}
-        <Route
-          path="manage-products"
-          element={
-            <ManageProducts
-              products={products}
-              onAddProduct={handleAddProduct}
-              onEditProduct={handleEditProduct}
-              onDeleteProduct={handleDeleteProduct}
-            />
-          }
-        />
-        <Route
-          path="manage-products/add"
-          element={<AddProduct onAddProduct={handleAddProduct} products={products} />}
-        />
-        <Route
-          path="manage-products/edit/:id"
-          element={<EditProduct onUpdate={handleEditProduct} products={products} />}
-        />
-        {/* Manage Appointments Route */}
-        <Route
-          path="manage-appointments"
-          element={
-            <ManageAppointments
-              appointments={appointments}
-              onAddAppointment={handleAddAppointment}
-              onEditAppointment={handleEditAppointment}
-              onDeleteAppointment={handleDeleteAppointment}
-            />
-          }
-        />
-        <Route path="manage-practitioners" element={<ManagePractitioners practitioners={practitioners} onAddPractitioner={handleAddPractitioner} onEditPractitioner={handleEditPractitioner} onDeletePractitioner={handleDeletePractitioner} />} />
-        <Route path="/manage-discounts" element={<ManageDiscounts discounts={discounts} onAddDiscount={handleAddDiscount} onEditDiscount={handleEditDiscount} onDeleteDiscount={handleDeleteDiscount}/>}/>
-        <Route path="/manage-notifications" element={
-          <ManageNotifications
-            notifications={notifications}
-            onAddNotification={handleAddNotification}
-            onEditNotification={handleEditNotification}
-            onDeleteNotification={handleDeleteNotification}
-          />}/>
-          <Route path="/manage-billing" element={
-          <ManageBilling
-            invoices={invoices}
-            onAddInvoice={handleAddInvoice}
-            onEditInvoice={handleEditInvoice}
-            onDeleteInvoice={handleDeleteInvoice}
-          />}/>
-          <Route path="/manage-subscriptions" element={
-          <ManageSubscriptions
-            subscriptions={subscriptions}
-            onAddSubscription={handleAddSubscription}
-            onEditSubscription={handleEditSubscription}
-            onDeleteSubscription={handleDeleteSubscription}
-          />}/>
-          <Route path="/manage-room-scheduling" element={
-          <ManageRoomScheduling
-            schedules={schedules}
-            onAddSchedule={handleAddSchedule}
-            onEditSchedule={handleEditSchedule}
-            onDeleteSchedule={handleDeleteSchedule}
-          />}/>
-          <Route path="/admin/manage-branches" element={
-          <BranchManagement
-            branch={branches[0]} // Pass the first branch or modify as needed
-            onAddBranch={handleAddBranch}
-            onEditBranch={handleEditBranch}
-            onDeleteBranch={handleDeleteBranch}
-          />}/>
-      </Routes>
-        </AdminProvider>
+        </Router>
       </AuthProvider>
-      <Routes>
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-      </Routes>
-    </Router>
     </CartProvider>
   );
 }

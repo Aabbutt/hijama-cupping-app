@@ -1,7 +1,7 @@
 .admin-layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .admin-header {
@@ -9,6 +9,8 @@
   color: white;
   padding: 1rem;
   text-align: center;
+  text-decoration: solid;
+  box-shadow: 0 0 10px 0 rgba(42, 12, 114, 0.1);
 }
 
 .admin-header nav a {
@@ -17,15 +19,16 @@
   text-decoration: none;
 }
 
-.admin-sidebar {
-  background: #f7f9fc;
-  padding: 1rem;
-  width: 200px;
+.admin-header nav a:hover {
+  text-decoration: none;
+  color: #0d2529;
+  font-weight: bold;
 }
 
 .admin-content {
   flex: 1;
   padding: 2rem;
+  overflow-y: auto;
 }
 
 .admin-footer {
@@ -33,4 +36,26 @@
   color: white;
   text-align: center;
   padding: 1rem;
+  margin-top: auto;
+}
+
+.admin-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .admin-header nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .admin-header nav a {
+    margin: 0;
+  }
+  
+  .admin-content {
+    padding: 1rem;
+  }
 }

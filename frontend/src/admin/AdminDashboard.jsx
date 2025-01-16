@@ -10,13 +10,13 @@ const AdminDashboard = () => {
 
   // Handle click event for "Settings"
   const handleSettingsClick = () => {
-    if (!isVerified) {
-      // If not verified, show the modal
-      setShowShortLogin(true);
-    } else {
-      // If already verified, navigate directly to settings
+    // if (!isVerified) {
+    //   // If not verified, show the modal
+    //   setShowShortLogin(true);
+    // } else {
+    //   // If already verified, navigate directly to settings
       navigate('/admin/manage-settings');
-    }
+    //}
   };
 
   // Handle successful re-verification (ShortLoginModal success)

@@ -1,9 +1,26 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ProfileDropdown.css';
+import Cookies from "js-cookie";
 
 const ProfileDropdown = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Close dropdown
+    setIsOpen(false);
+    
+    // Navigate to home page
+    navigate('/');
+    
+    // Optional: Reload the page to reset all states
+    window.location.reload();
+  };
 
   return (
     <div className="profile-dropdown">
@@ -22,20 +39,17 @@ const ProfileDropdown = ({ user }) => {
 
       {isOpen && (
         <div className="dropdown-menu">
-          <Link to="/profile" className="dropdown-item">
+          <Link to="/profile" className="dropdown-item" onClick={() => setIsOpen(false)}>
             <i className="fas fa-user"></i>
             My Profile
           </Link>
-          <Link to="/profile/settings" className="dropdown-item">
-            <i className="fas fa-cog"></i>
-            Settings
-          </Link>
-          <Link to="/profile/appointments" className="dropdown-item">
+          
+          <Link to="/profile/appointments" className="dropdown-item" onClick={() => setIsOpen(false)}>
             <i className="fas fa-calendar"></i>
             My Appointments
           </Link>
           <div className="dropdown-divider"></div>
-          <button className="dropdown-item logout">
+          <button onClick={logout} className="dropdown-item logout">
             <i className="fas fa-sign-out-alt"></i>
             Logout
           </button>

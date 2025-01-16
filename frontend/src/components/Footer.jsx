@@ -41,22 +41,22 @@ const Footer = () => {
           <h3>Services</h3>
           <ul>
             <li>
-              <Link to="/products#hijama-cups" className="footer-link">
+              <Link to="/#hijama-cups" className="footer-link">
                 Hijama Cups
               </Link>
             </li>
             <li>
-              <Link to="/products#hijama-pumps" className="footer-link">
+              <Link to="/#hijama-pumps" className="footer-link">
                 Hijama Pumps
               </Link>
             </li>
             <li>
-              <Link to="/products#hijama-kits" className="footer-link">
+              <Link to="/#hijama-kits" className="footer-link">
                 Hijama Kits
               </Link>
             </li>
             <li>
-              <Link to="/products#honey" className="footer-link">
+              <Link to="/#honey" className="footer-link">
                 Honey
               </Link>
             </li>
@@ -109,8 +109,8 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/products" className="footer-link">
-                Products
+              <Link to="/" className="footer-link">
+                
               </Link>
             </li>
             <li>
@@ -127,27 +127,27 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Products Section */}
-        <div className="footer-section products">
-          <h3>Our Products</h3>
+        {/*  Section */}
+        <div className="footer-section ">
+          <h3>Our </h3>
           <ul>
             <li>
-              <Link to="/products#hijama-cups" className="footer-link">
+              <Link to="/#hijama-cups" className="footer-link">
                 Hijama Cups
               </Link>
             </li>
             <li>
-              <Link to="/products#hijama-pumps" className="footer-link">
+              <Link to="/#hijama-pumps" className="footer-link">
                 Hijama Pumps
               </Link>
             </li>
             <li>
-              <Link to="/products#hijama-kits" className="footer-link">
+              <Link to="/#hijama-kits" className="footer-link">
                 Hijama Kits
               </Link>
             </li>
             <li>
-              <Link to="/products#honey" className="footer-link">
+              <Link to="/#honey" className="footer-link">
                 Honey
               </Link>
             </li>
