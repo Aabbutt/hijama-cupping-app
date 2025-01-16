@@ -112,10 +112,8 @@ const CheckoutPage = ({ cart, setCart }) => { // Destructure cart and setCart fr
                         required
                     >
                         <option value="">Select Payment Method</option>
-                        <option value="card">Credit/Debit Card</option>
-                        <option value="paypal">PayPal</option>
-                        <option value="google-pay">Google Pay</option>
-                        <option value="apple-pay">Apple Pay</option>
+                        <option value="card">Cash on Delivery</option>
+                        
                     </select>
                 </div>
                 <div className="order-summary">
@@ -123,11 +121,11 @@ const CheckoutPage = ({ cart, setCart }) => { // Destructure cart and setCart fr
                     <ul>
                         {localCart.map((item, index) => (
                             <li key={index}>
-                                {item.name} x {item.quantity} - ${item.price.toFixed(2)}
+                                {item.name} x {item.quantity} - Rs {item.price.toFixed(2)}
                             </li>
                         ))}
                     </ul>
-                    <p>Total: ${total}</p>
+                    <p>Total: Rs {total}</p>
                 </div>
                 <button type="submit" className="place-order-btn">Place Order</button>
             </form>

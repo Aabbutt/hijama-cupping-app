@@ -11,9 +11,9 @@ const ProductCard = ({ product, addToCart, addToWishlist, openProductDetails }) 
             loading="lazy" // Image optimization
         />
         <div className="product-info">
-            <h3 id={`product-title-${product.id}`}>{product.name}</h3>
+            <h3 id={`product-title-Rs{product.id}`}>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">${product.price.toFixed(2)}</p>
+            <p className="product-price">Rs{product.price.toFixed(2)}</p>
             <div className="product-actions">
                 <button onClick={() => addToCart(product)} className="btn add-to-cart-btn">
                     Add to Cart

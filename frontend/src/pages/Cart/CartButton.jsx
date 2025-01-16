@@ -11,7 +11,7 @@ const CartButton = () => {
     return (
         <Link to="/cart">
             <button className="cart-btn">
-                My Cart ({totalItems}) - ${totalPrice}
+                My Cart ({totalItems}) - Rs {totalPrice}
             </button>
         </Link>
     );

@@ -110,7 +110,7 @@ const Products = () => {
 
       {/* Product Categories */}
       <section className="product-categories">
-        <h1 className="section-title">Baby Care Products</h1>
+        <h1 className="section-title">Hijama Products</h1>
         <div className="product-grid">
           {filteredProducts.slice(0, visibleProducts).map((product) => (
             <ProductCard
